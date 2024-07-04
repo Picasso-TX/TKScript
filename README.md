@@ -5,7 +5,7 @@
 
 ## Tips
 
-使用油猴脚本需要首先安装`GreaseMonkey/TamperMonkey`扩展。
+使用油猴脚本需要首先安装`GreaseMonkey/TamperMonkey`扩展
 
 ## Release
 
