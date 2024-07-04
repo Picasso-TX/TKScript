@@ -1,11 +1,11 @@
 {
-  "name": "copy",
-  "version": "1.0.0",
-  "author": "Czy",
+  "name": "picassoTX_copy",
+  "version": "1.0.1",
+  "author": "WindrunnerMax,picassoTX",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/WindrunnerMax/TKScript"
+    "url": "git://github.com/Picasso-TX/TKScript"
   },
   "sideEffects": false,
   "files": [
