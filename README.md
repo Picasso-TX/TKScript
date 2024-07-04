@@ -1,6 +1,6 @@
 # TKScript
 
-`GreaseMonkey`油猴脚本与`BrowserAddon`浏览器扩展，如果觉得不错，点个`star`吧 😁
+`GreaseMonkey`油猴脚本与`BrowserAddon`浏览器扩展，如果觉得不错，点个`star`吧! 😁
 本项目fork自[https://github.com/WindrunnerMax/TKScript](https://github.com/WindrunnerMax/TKScript)，大家有问题可以在本项目issues。也可以前往原项目处issues。本项目后期可能会和原项目走向不同的发展方向，但唯一可以保证的是，会持续不断地更新~
 
 ## Tips
