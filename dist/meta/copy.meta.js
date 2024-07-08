@@ -8,7 +8,7 @@
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @description:en    Remove the restriction on copying from the website. If there are any supplements, please leave a message for feedback~
 // @namespace  picassoTX_lifting_restrictions
-// @version    1.0.4
+// @version    1.0.5
 // @author     WindrunnerMax,picassoTX
 // @icon       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match      *://wenku.baidu.com/view/*
@@ -104,10 +104,34 @@
 // @match      *://*.51cto.com/*
 // @match      *://*.educoder.net/*
 // @match      *://vcsmemo.com/article/*
-// @supportURL https://github.com/WindrunnerMax/TKScript/issues
+// @match      *://*.cloud.tencent.com/*
+// @match      *://cloud.tencent.com/*
+// @match      *://www.huaweicloud.com/*
+// @match      *://*.huaweicloud.com/*
+// @match      *://*.aliyun.com/*
+// @exclude    *://cloud.tencent.com/login*
+// @exclude    *://console.cloud.tencent.com/*
+// @exclude    *://www.aliyun.com/smarter-engine
+// @exclude    *://account.aliyun.com/*
+// @exclude    *://developer.aliyun.com/*
+// @exclude    *://promotion.aliyun.com/*
+// @exclude    *://g.alicdn.com/*
+// @exclude    *://passport.aliyun.com/*
+// @exclude    *://*.console.aliyun.com/*
+// @exclude    *://auth.huaweicloud.com/*
+// @exclude    *://support.huaweicloud.com/*
+// @exclude    *://console.huaweicloud.com/*
+// @connect    server.staticj.top
+// @connect    res3.doc88.com
+// @supportURL https://github.com/Picasso-TX/TKScript/issues
 // @license    MIT
 // @run-at     document-start
-// @connect    res3.doc88.com
 // @grant      unsafeWindow
+// @grant      GM_xmlhttpRequest
+// @grant      GM_openInTab
+// @grant      GM.openInTab
+// @grant      GM_addStyle
+// @grant      GM_getValue
+// @grant      GM_setValue
 // @grant      GM_xmlhttpRequest
 // ==/UserScript==

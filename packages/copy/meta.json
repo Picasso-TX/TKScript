@@ -6,7 +6,7 @@
       "en":"Remove the restriction on websites not allowing copying 🔥🔥🔥"
     },
     "namespace": "picassoTX_lifting_restrictions",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description":{
       "default":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
       "zh":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
@@ -108,15 +108,46 @@
         "*://*.php.cn/*",
         "*://*.51cto.com/*",
         "*://*.educoder.net/*",
-        "*://vcsmemo.com/article/*"
+        "*://vcsmemo.com/article/*",
+        "*://*.cloud.tencent.com/*",
+        "*://cloud.tencent.com/*",
+        "*://www.huaweicloud.com/*",
+        "*://*.huaweicloud.com/*",
+        "*://*.aliyun.com/*"
     ],
-    "supportURL": "https://github.com/WindrunnerMax/TKScript/issues",
+    "exclude":[
+      "*://cloud.tencent.com/login*",
+      "*://console.cloud.tencent.com/*",
+
+      "*://www.aliyun.com/smarter-engine",
+      "*://account.aliyun.com/*",
+      "*://developer.aliyun.com/*",
+      "*://promotion.aliyun.com/*",
+      "*://g.alicdn.com/*",
+      "*://passport.aliyun.com/*",
+      "*://*.console.aliyun.com/*",
+
+      "*://auth.huaweicloud.com/*",
+      "*://support.huaweicloud.com/*",
+      "*://console.huaweicloud.com/*"
+    ],
+    "connect":[
+      "server.staticj.top",
+      "res3.doc88.com"
+    ],
+    "supportURL": "https://github.com/Picasso-TX/TKScript/issues",
     "license": "MIT",
     "orign-license":"MIT",
     "run-at": "document-start",
     "grant": [
         "unsafeWindow",
+        "GM_xmlhttpRequest",
+        "GM_openInTab",
+        "GM.openInTab",
+        "GM_addStyle",
+        "GM_getValue",
+        "GM_setValue",
         "GM_xmlhttpRequest"
     ],
-    "connect": "res3.doc88.com"
+    "antifeature":"referral-link 【此提示为GreasyFork代码规范需要添加，实际使用无任何强制跳转，代码可查，请知悉】"
 }
