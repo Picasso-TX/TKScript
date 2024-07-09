@@ -1,0 +1,63 @@
+@keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+@-webkit-keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+@-moz-keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+@-o-keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+@-ms-keyframes fadeIn {
+    0%    {opacity: 0}
+    100%  {opacity: 1}
+}
+@keyframes fadeOut {
+    0%    {opacity: 1}
+    100%  {opacity: 0}
+}
+@-webkit-keyframes fadeOut {
+    0%    {opacity: 1}
+    100%  {opacity: 0}
+}
+@-moz-keyframes fadeOut {
+    0%    {opacity: 1}
+    100%  {opacity: 0}
+}
+@-o-keyframes fadeOut {
+    0%    {opacity: 1}
+    100%  {opacity: 0}
+}
+@-ms-keyframes fadeOut {
+    0%    {opacity: 1}
+    100%  {opacity: 0}
+}
+.web-toast-kkli9{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    padding:10px;
+    border-radius: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    z-index: 999999999999999999999999999;
+    white-space: nowrap;
+}
+.fadeOut{
+    animation: fadeOut .5s;
+}
+.fadeIn{
+    animation:fadeIn .5s;
+}

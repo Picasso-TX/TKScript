@@ -1,5 +1,7 @@
 import dom from "../utils/dom";
+import { STORAGE_KEYS } from "../constant/constant";
 import type { Website } from "../websites";
+import command from "../utils/command";
 
 const website: Website = {
   config: {
@@ -50,14 +52,15 @@ const website: Website = {
     		return false;
     	};
     	this.temporary=function(track){
-    			if(window.location.pathname==="/"){
+          const pathname = window.location.pathname;
+    			if(pathname==="/"||pathname==="/product"||pathname==="/product/list"){
     				setInterval(function(){
     					var num = 0;
     					document.querySelectorAll("a").forEach(function(element,index){
     						element.setAttribute("rel", "noreferrer nofollow");
     						if(!element.getAttribute("anchor")){
     							element.setAttribute("anchor", "true");
-    							if(num<=4 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668")!=-1){
+    							if(num<=10 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668")!=-1){
     								var href = element.getAttribute("href");
     								if(!!href){
     									href = href + (href.indexOf("?")!=-1 ? "&" : "?") + track;
@@ -74,7 +77,12 @@ const website: Website = {
     		if(!this.isRun()){
     			return;
     		}
-    		this.generateHtml();
+
+        command.register();
+        const isOpenServer = GM_getValue(STORAGE_KEYS.serverKey, true);
+        if(isOpenServer){
+          this.generateHtml();
+        }
     	};
     	this.generateHtml=function(){
     		const number = this.number;
@@ -144,7 +152,7 @@ const website: Website = {
     				border-radius: 5px 5px 0px 0px;
     			}
     			#server-container-expand`+number+`:hover{
-    	
+
     			}
     			#server-container-expand`+number+`>svg{
     				width:50px;
@@ -180,11 +188,11 @@ const website: Website = {
     					</div>
     				</div>
     				<div id="server-container-body`+number+`">
-    	
+
     				</div>
     			</div>
     		`;
-    	
+
     		this.addStyle(css);
     		document.body.insertAdjacentHTML("beforeend", html);
     		this.addEventListener();
@@ -195,7 +203,7 @@ const website: Website = {
     		function expandOrShow(forceClose=false){
     			const serverContainerx = document.querySelector("#server-containerx"+number);
     			var {bottom, height} = window.getComputedStyle(serverContainerx);
-    	
+
     			if(bottom=="0px" || forceClose){
     				bottom = "-"+height;
     			}else{
@@ -203,11 +211,11 @@ const website: Website = {
     			}
     			serverContainerx.style.bottom = bottom;
     		}
-    	
+
     		document.querySelector("#server-container-expand"+number).addEventListener("click",function(){
     			expandOrShow();
     		});
-    	
+
     		var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     		function startContainer(){
     			setTimeout(function(){
@@ -216,13 +224,13 @@ const website: Website = {
     				    if (scrollTop - lastScrollTop > 30) { //向下滚动
     				        expandOrShow(true);
     				    } else { //向上滚动
-    	
+
     				    }
     				    lastScrollTop = scrollTop;
     				});
     			}, 1500);
     		}
-    	
+
     		var url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=1";
     		self.request("get", url, null).then((data)=>{
     			if(data.result=="success" && !!data.responseText){

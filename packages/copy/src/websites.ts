@@ -19,6 +19,7 @@ import ciweimao from "./modules/ciweimao";
 import qqbook from "./modules/qqbook";
 import utaten from "./modules/utaten";
 import baiduwk from "./modules/baiduwk";
+import server from "./modules/server";
 import xiaohongshu from "./modules/xiaohongshu";
 import leetcode from "./modules/leetcode";
 import csdn from "./modules/csdn";
@@ -31,7 +32,6 @@ import commonEnhance from "./modules/common-e";
 import commonPreLoad from "./modules/common-p";
 import { kdoc } from "./modules/kdocs";
 import vcsmemo from "./modules/vcsmemo";
-import server from "./modules/server";
 
 export interface WebsiteConfig {
   initCopyEvent?: boolean;
@@ -67,6 +67,7 @@ const websites: Website[] = [
   utaten,
   baiduwk,
   xiaohongshu,
+  server,
   doc88,
   leetcode,
   csdn,
@@ -78,8 +79,7 @@ const websites: Website[] = [
   common,
   commonEnhance,
   commonPreLoad,
-  vcsmemo,
-  server
+  vcsmemo
 ];
 
 export default websites;

@@ -1,53 +1,78 @@
-# 文本选中复制
+##✅ 脚本必须在Tampermonkey(篡改猴)中执行，安装Tampermonkey(篡改猴)
+<details>
+	<summary>Windows安装(展开)</summary>
+	<a rel="nofollow noreferrer noopener" href="https://chromewebstore.google.com/detail/%E7%AF%A1%E6%94%B9%E7%8C%B4/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN" target="_blank">Google Chrome</a> (需要科学上网)
+	<br><a rel="nofollow noreferrer noopener" href="https://addons.mozilla.org/zh-CN/firefox/addon/tampermonkey/" target="_blank">火狐 FireFox</a>
+	<br><a rel="nofollow noreferrer noopener" href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd?hl=zh-CN" target="_blank">Edge</a>
+</details>
+<details>
+	<summary>MacOS安装(展开)</summary>
+	<a rel="nofollow noreferrer noopener" href="https://apps.apple.com/cn/app/tampermonkey/id1482490089" target="_blank">MAC Safari</a> (需要科学上网)
+</details>
+<details>
+	<summary>Android(展开)</summary>
+	X浏览器和VIA浏览器自带插件，无需安装。
+	<br>Kiwi浏览器 (需要科学上网)
+</details>
+<details>
+	<summary>IOS(展开)</summary>
+	在 IOS 应用商店中搜索并安装 “拦截100” 或者 “stay”，不要用“UserScripts”。
+</details>
+<details>
+	<summary>其他浏览器(展开)</summary>
+	其他浏览器可在官方扩展市场搜索: “Tampermonkey”、“篡改猴”、“油猴”、“暴力猴”等脚本插件进行安装。
+</details>
 
-解除网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于 百度文库 道客巴巴 无忧考网 学习啦 蓬勃范文 思否社区 力扣 知乎 语雀 等等。
+某些网站例如某度文库、道客某某等都不允许用户选中文本进行复制。作为一个网站只让用户浏览，不让复制文字，这就很流氓了！所以才有了这个脚本~目的就是让大家可以自由的去复制而不受哦阻拦。🍻</br>
 
-某些网站例如某度文库、道客某某等都不允许用户选中文本进行复制，作为一个搞前端的，就感觉离谱，文本都下载到本地了，还不让我复制，于是为了更好的学(复)习(制)，实现了一个脚本去解决这些限制。
+模块化构建(未压缩)，全部源码请参阅此处 [https://github.com/Picasso-TX/TKScript](http://https://github.com/Picasso-TX/TKScript "https://github.com/Picasso-TX/TKScript") ，如果觉得不错，点个star吧 😁不经常上GreasyFork，如果有问题还请移步issue: [https://github.com/Picasso-TX/TKScript/issue](http:/https://github.com/Picasso-TX/TKScript/issue/ "https://github.com/Picasso-TX/TKScript/issue")
 
-## 描述
-首先来看一下效果图，依旧是以某度文库、道客某某为例展示效果，点击复制按钮即可成功复制。
+本脚本是完整匹配相关链接，适用于 各类文库、文档站、小说站 等等</br>
+可以提issue适配新的地址：Issue提交地址: [https://github.com/Picasso-TX/TKScript/issues](https://github.com/Picasso-TX/TKScript/issues "https://github.com/Picasso-TX/TKScript/issues")</br>
+Github源码地址：[https://github.com/Picasso-TX/TKScript/tree/main/packages/copy](https://github.com/Picasso-TX/TKScript/tree/main/packages/copy "https://github.com/Picasso-TX/TKScript/tree/main/packages/copy")
+> **<span style="color:red;">
+	此脚本是二次开发脚本，大家有任何意见或者想法可以反馈，此脚本会同步更新。</br>
+	如果本脚本冒犯了您，请您完整阅读本详情页和脚本源代码，了解清楚greasyfork社区规则后，再进行其他操作，感谢！
+</span>**
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020062620515392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
+## ✅ 关于服务器导航的必要说明
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200626205401136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
+非软件开发行业的伙伴或许对以下内容就不感兴趣了，此功能包含的网站有”腾讯云“、”阿里云“和”华为云“。本人需要经常访问这些提供云服务的网站查看产品，来回跳转会比较麻烦。因此写了一个简单的**“云服务厂商”导航**（该popup默认是关闭状态，需要手动激活才会显示）。导航包括国内常用云厂商列表，同类型产品链接等，截图如下：
+![](https://img13.360buyimg.com/ddimg/jfs/t1/235376/28/22425/32739/668cacf4Fb53e4bfa/4e6392d13ca7bc6e.jpg)
 
-脚本下载地址：[https://greasyfork.org/zh-CN/scripts/497009-%E8%A7%A3%E9%99%A4%E7%BD%91%E7%AB%99%E4%B8%8D%E5%85%81%E8%AE%B8%E5%A4%8D%E5%88%B6%E7%9A%84%E9%99%90%E5%88%B6-%E4%BC%98%E5%8C%96%E7%89%88](https://greasyfork.org/zh-CN/scripts/497009-%E8%A7%A3%E9%99%A4%E7%BD%91%E7%AB%99%E4%B8%8D%E5%85%81%E8%AE%B8%E5%A4%8D%E5%88%B6%E7%9A%84%E9%99%90%E5%88%B6-%E4%BC%98%E5%8C%96%E7%89%88)
-Github：[https://github.com/Picasso-TX/TKScript/dist](https://github.com/Picasso-TX/TKScript/dist)
-脚本主要支持 百度文库 道客巴巴 无忧考网 学习啦 蓬勃范文 中文本的复制
+**当打开“腾讯云”、“阿里云”和“华为云”时，可手动设置关闭此功能。如需关闭：填写“no”点击确认即可关闭**
 
-## 实现
-在研究实现之前，可能需要知道下面的一些知识，后面的链接是我之前写过的一些博客：
-* 事件冒泡：[事件冒泡及阻止](https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1%E5%8F%8A%E9%98%BB%E6%AD%A2.md)
-* 事件流模型：[JS事件流模型](https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/JS%E4%BA%8B%E4%BB%B6%E6%B5%81%E6%A8%A1%E5%9E%8B.md)
-* 浏览器事件：[浏览器事件](https://github.com/WindrunnerMax/EveryDay/blob/master/Browser/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6.md)
-* `ES6`相关语法：[ES6新特性](https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/ES6%E6%96%B0%E7%89%B9%E6%80%A7.md)
-* `jQuery`相关使用、`CSS`的基本语法、正则表达式、浏览器调试等
+![](https://img11.360buyimg.com/ddimg/jfs/t1/3989/18/21954/22022/668cd8e3F30288910/d3e74a0f435b6b09.jpg)
 
-### 某度文库
-在某度文库中直接右击检查元素的话，是能够直接看到文字的，可以直接在调试面板的`Elements`审查元素中复制，但是总是有些麻烦。如果在选中某度文库的东西会弹出他自行插入的复制按钮，无论是按`Ctrl+C`或者点击他的复制按钮都无效，除非开通一个`VIP`，本着白嫖的原则，且文本都下载到浏览器了还不让复制有点说不过去，于是首先研究一下他的`Event Listeners`。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020062621305280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
+##⚠️ 特别提醒
 
-虽然通过移除一些`Event Listeners`确实能够达到使用`Ctrl+C`来实现复制的效果，但是浏览器并不提供获取所有事件监听的方法，无法移除对于匿名的事件处理函数，对于具名的事件处理函数也不容易获取，谷歌浏览器提供的`getEventListeners`方法也只能在`Console`中使用，在脚本中会出现找不到该方法的异常，于是替换了一种方案，通过自行实现一个复制按钮来规避某度文库对于按键以及复制事件的屏蔽，具体是通过动态地插入`Dom`实现一个按钮，然后使用`ClipboardJS`这个插件去实现复制，其他的操作都是一些细节的处理，例如阻止这个插入的按钮继续冒泡触发`onmouseup`事件等。
+> 我知道此功能会是一个有争议的功能，**好在greasyfork是允许这种功能存在的，只是需要再代码中加入“@antifeature”标识，并给用户详细说明**。
+程序开发维护本就费时费力，在不给大家造成任何损失的前提下，还能为作者提供一定支持，我想这才是健康有序发展之路吧！以上可能是我一厢情愿的“自以为是”，做任何事情可能都会有反对的声音。**<span style="color:red;">如果你不愿意使用此功能，可以在Tampermonkey脚本设置处关闭此功能，或者直接删除不在使用此脚本</span>**。
+PS：如果您愿意支持，那将是我长期维护更新脚本程序的最大动力。以上~（附：greasyfork社区脚本编写规则：[https://greasyfork.org/zh-CN/help/code-rules](https://greasyfork.org/zh-CN/help/code-rules "https://greasyfork.org/zh-CN/help/code-rules")）
+[![](https://img10.360buyimg.com/ddimg/jfs/t1/15734/9/21218/67602/668ce4baFdfb24f9a/5f4bc3a24bfe8dc2.jpg)](https://img10.360buyimg.com/ddimg/jfs/t1/15734/9/21218/67602/668ce4baFdfb24f9a/5f4bc3a24bfe8dc2.jpg)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020062621400978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
+**下面我要说的很重要！很重要！很重要！很重要**</br>
+“云服务厂商”导航，此功能参加了“腾讯云”、“阿里云”和“华为云”的伙伴计划。说人话就是：</br>
+1、弹窗链接是一个CPS链接，从这些链接进入，如果购买了云产品，那么会给作者返一定比例的佣金（佣金是云厂商给的）。**注意所购买的产品价格不会有丝毫的变化，对您本身也没有丝毫的影响**。2、代码会给页面中的“云服务器”相关链接加上伙伴计划后缀标识。具体代码可查源码。</br>
 
-### 道客某某
-不得不说，这个真的是惊到我了，他的实现是将文本加密，然后解密文本，最后通过使用`Canvas`将文本绘制，拖动鼠标选中时其实只是通过事件监听动态的插入了一个淡蓝色的透明的`div`，看似是选中了，实际文本是并未选中的。
+ **此外我还为大家准备了一些经典资源，大家可以自取：[经典资源，有些真的很棒👍🏻](https://pan.quark.cn/s/9a9369bb2c76#/list/share "经典资源，有些真的很棒👍🏻")，另外还有一些程序学习资料，我正在整理，晚些时候会贴出来~**
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200626214729628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
+**Thanks, 感谢使用！**
 
-见招拆招，既然文本都已经下载到了我本地，那么他的解密方式也必定在本地，于是我首先寻找的就是他对于加密的数据进行解密的代码，在浏览器中`debug`了很长时间，因为他对于代码有加密混淆压缩的行为，解密的相关代码比较混乱，并不太容易去复现，于是我换了一个思路，既然`VIP`是能够复制的，那么对于这个点击复制的按钮一定会有相应的事件处理函数，那么就寻找这个按钮绑定的事件处理函数，通过不断地`debug`我定位了一个加密的`Js`文件，虽然做了加密以及混淆但是将其解析并格式化之后在事件处理函数的部分不是特别影响阅读，此外他的混淆的变量名是动态生成的，所以要做的就是再次请求一遍这个`Js`首先将其解析生成一段字符串然后通过正则表达式匹配正确的变量名，从而实现文本的复制。
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200626220032743.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
-
-### 其他
-对于这一部分基本上都是通过监听一个`oncopy`事件去拦截复制操作，对于`DOM0`级模型直接将`oncopy`事件的处理函数指向一个空函数即可，对于`DOM2`级模型，前文提到无法在脚本中直接获取一个元素绑定的所有事件，通过观察这些网站的`Event Listeners`可以发现其绑定的`oncopy`事件都是绑定在`document`上的，而且都是冒泡模型，那么只需要阻止事件向上冒泡就能规避这些网站的`oncopy`事件的触发，实现方案就是在`body`上定义`oncopy`事件为一个空函数并阻止其向上冒泡。
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200626220824245.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDEzNjcw,size_16,color_FFFFFF,t_70)
-
-## Github
-
-```
-https://github.com/Picasso-TX/TKScript
-```
+## ➡️ 作为实现脚本的基础知识供参考学习
+如果需要比较通用的能力，可以参考如下方式:
+Js事件冒泡：<a href="https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/事件冒泡及阻止.md">https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/事件冒泡及阻止.md</a>
+Js事件流模型：<a href="https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/JS事件流模型.md">https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/JS事件流模型.md</a>
+浏览器内置事件：<a href="https://github.com/WindrunnerMax/EveryDay/blob/master/Browser/浏览器事件.md">https://github.com/WindrunnerMax/EveryDay/blob/master/Browser/浏览器事件.md</a>
+ES6相关语法：<a href="https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/ES6新特性.md">https://github.com/WindrunnerMax/EveryDay/blob/master/JavaScript/ES6新特性.md</a>
+Rollup的基本使用: <a href="https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/Rollup的基本使用.md">https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/Rollup的基本使用.md</a>
+从零实现的Chrome扩展: <a href="https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的Chrome扩展.md">https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的Chrome扩展.md</a>
+从零实现的浏览器Web脚本: <a href="https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的浏览器Web脚本.md">https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的浏览器Web脚本.md</a>

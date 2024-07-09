@@ -111,16 +111,25 @@
 // @match      *://*.aliyun.com/*
 // @exclude    *://cloud.tencent.com/login*
 // @exclude    *://console.cloud.tencent.com/*
-// @exclude    *://www.aliyun.com/smarter-engine
+// @exclude    *://market.cloud.tencent.com/*
+// @exclude    *://www.aliyun.com/smarter-engine/*
 // @exclude    *://account.aliyun.com/*
 // @exclude    *://developer.aliyun.com/*
 // @exclude    *://promotion.aliyun.com/*
+// @exclude    *://summit.aliyun.com/*
+// @exclude    *://startup.aliyun.com/*
+// @exclude    *://university.aliyun.com/*
+// @exclude    *://careers.aliyun.com/*
+// @exclude    *://market.aliyun.com/*
+// @exclude    *://yunqi.aliyun.com/*
+// @exclude    *://help.aliyun.com/*
 // @exclude    *://g.alicdn.com/*
 // @exclude    *://passport.aliyun.com/*
 // @exclude    *://*.console.aliyun.com/*
 // @exclude    *://auth.huaweicloud.com/*
 // @exclude    *://support.huaweicloud.com/*
 // @exclude    *://console.huaweicloud.com/*
+// @exclude    *://stat.doc88.com/*
 // @connect    server.staticj.top
 // @connect    res3.doc88.com
 // @supportURL https://github.com/Picasso-TX/TKScript/issues
@@ -134,4 +143,5 @@
 // @grant      GM_getValue
 // @grant      GM_setValue
 // @grant      GM_xmlhttpRequest
+// @grant      GM_registerMenuCommand
 // ==/UserScript==

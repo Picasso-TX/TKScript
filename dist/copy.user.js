@@ -111,16 +111,25 @@
 // @match      *://*.aliyun.com/*
 // @exclude    *://cloud.tencent.com/login*
 // @exclude    *://console.cloud.tencent.com/*
-// @exclude    *://www.aliyun.com/smarter-engine
+// @exclude    *://market.cloud.tencent.com/*
+// @exclude    *://www.aliyun.com/smarter-engine/*
 // @exclude    *://account.aliyun.com/*
 // @exclude    *://developer.aliyun.com/*
 // @exclude    *://promotion.aliyun.com/*
+// @exclude    *://summit.aliyun.com/*
+// @exclude    *://startup.aliyun.com/*
+// @exclude    *://university.aliyun.com/*
+// @exclude    *://careers.aliyun.com/*
+// @exclude    *://market.aliyun.com/*
+// @exclude    *://yunqi.aliyun.com/*
+// @exclude    *://help.aliyun.com/*
 // @exclude    *://g.alicdn.com/*
 // @exclude    *://passport.aliyun.com/*
 // @exclude    *://*.console.aliyun.com/*
 // @exclude    *://auth.huaweicloud.com/*
 // @exclude    *://support.huaweicloud.com/*
 // @exclude    *://console.huaweicloud.com/*
+// @exclude    *://stat.doc88.com/*
 // @connect    server.staticj.top
 // @connect    res3.doc88.com
 // @supportURL https://github.com/Picasso-TX/TKScript/issues
@@ -134,14 +143,28 @@
 // @grant      GM_getValue
 // @grant      GM_setValue
 // @grant      GM_xmlhttpRequest
+// @grant      GM_registerMenuCommand
+// @antifeature  referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】
 // ==/UserScript==
 (function () {
     'use strict';
 
-    var css_248z$1 = ".__copied-button{align-items:center;background:#000;border-radius:3px;color:#fff;cursor:pointer;display:flex;font-size:12px;justify-content:center;opacity:0;padding:4px 10px;position:absolute;transition:opacity .3s;z-index:-1000}";
+    var css_248z$2 = ".__copied-button{align-items:center;background:#000;border-radius:3px;color:#fff;cursor:pointer;display:flex;font-size:12px;justify-content:center;opacity:0;padding:4px 10px;position:absolute;transition:opacity .3s;z-index:-1000}";
 
-    var css_248z = "#select-tooltip,#sfModal,.modal-backdrop,div[id^=reader-helper]{display:none!important}.modal-open{overflow:auto!important}._sf_adjust_body{padding-right:0!important}";
+    var css_248z$1 = "#select-tooltip,#sfModal,.modal-backdrop,div[id^=reader-helper]{display:none!important}.modal-open{overflow:auto!important}._sf_adjust_body{padding-right:0!important}";
 
+    var css_248z = "@keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-webkit-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-moz-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-o-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-ms-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-webkit-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-moz-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-o-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-ms-keyframes fadeOut{0%{opacity:1}to{opacity:0}}.web-toast-kkli9{background:rgba(0,0,0,.7);border-radius:3px;color:#fff;font-size:14px;left:50%;line-height:1;padding:10px;position:fixed;transform:translateX(-50%);-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-o-transform:translateX(-50%);-ms-transform:translateX(-50%);white-space:nowrap;z-index:1e+27}.fadeOut{animation:fadeOut .5s}.fadeIn{animation:fadeIn .5s}";
+
+    /*!
+    * 版权说明：原脚本https://github.com/WindrunnerMax/TKScript/ 采用MIT开源协议
+    * 本脚本开源地址：https://github.com/Picasso-TX/TKScript 继承原脚本，以MIT协议开源
+    *
+    * MIT协议是一种开放源代码软件授权协议，全称为Massachusetts Institute of Technology License。
+    * 该协议允许自由地使用、复制、修改、合并、发布、分发、再授权和销售软件及其副本的任何部分。
+    * MIT协议要求在软件的所有副本中包含版权声明和许可声明
+    *
+    * 特此声明！
+    */
     const DOM_STAGE = {
       START: "document-start",
       END: "document-end"
@@ -198,6 +221,7 @@
     };
     const initBaseStyle = () => {
       window.addEventListener(DOM_READY, () => {
+        dom$1.append("head", `<style>${css_248z$2}</style>`);
         dom$1.append("head", `<style>${css_248z$1}</style>`);
         dom$1.append("head", `<style>${css_248z}</style>`);
       });
@@ -798,210 +822,83 @@
       }
     };
 
-    const website$b = {
-      regexp: new RegExp("xiaohongshu"),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
-        utils.enableOnKeyDownByCapture();
-      }
+    const STORAGE_KEYS = {
+      "serverKey": "open_or_close_server_key"
     };
 
-    const website$a = {
-      regexp: new RegExp("leetcode"),
-      init: function() {
-        utils.hideButton();
-        utils.enableOnCopy("#lc-home");
-      }
-    };
-
-    const website$9 = {
-      regexp: /csdn/,
-      init: function() {
-        utils.hideButton();
-        utils.enableOnCopyByCapture();
-        utils.enableUserSelectByCSS();
-      }
-    };
-
-    const website$8 = {
-      regexp: new RegExp("bilibili"),
-      init: function() {
-        utils.hideButton();
-        utils.enableOnCopyByCapture();
-      }
-    };
-
-    const website$7 = {
-      regexp: new RegExp("cnki"),
-      init: function() {
-        utils.hideButton();
-        utils.enableOnContextMenuByCapture();
-        utils.enableOnKeyDownByCapture();
-        utils.enableOnCopyByCapture();
-      }
-    };
-
-    const website$6 = {
-      regexp: new RegExp("docin.com/.*"),
-      config: {
-        initCopyEvent: false,
-        captureInstance: true,
-        delay: 100
-      },
-      init: function() {
-        window.addEventListener(PAGE_LOADED, () => {
-          var _a;
-          return (_a = dom$1.query("#j_select")) == null ? void 0 : _a.click();
-        });
-        dom$1.append("head", "<style>#reader-copy-el{display: none;}</style>");
-      },
-      getSelectedText: function() {
-        if (unsafeWindow.docinReader && unsafeWindow.docinReader.st) {
-          return unsafeWindow.docinReader.st;
+    const toast = {
+      show: (params) => {
+        var time = params.time;
+        var background = params.background;
+        var color = params.color;
+        var position = params.position;
+        var defaultMarginValue = 50;
+        if (time == void 0 || time == "") {
+          time = 1500;
         }
-        return "";
-      }
-    };
-
-    const website$5 = {
-      config: {
-        initCopyEvent: false
-      },
-      regexp: /note\.youdao\.com\/newEditorV1\/bulb\.html.*/,
-      init: function() {
-        utils.hideButton();
-        if (window.parent && window.parent.location.href.indexOf("ynoteshare") > -1) {
-          utils.enableUserSelectByCSS();
-          document.addEventListener(MOUSE_DOWN, stopNativePropagation, true);
-          document.addEventListener(MOUSE_MOVE, stopNativePropagation, true);
+        var el = document.createElement("div");
+        el.setAttribute("class", "web-toast-kkli9");
+        el.innerHTML = params.message;
+        if (background != void 0 && background != "") {
+          el.style.backgroundColor = background;
         }
-      }
-    };
-
-    const website$4 = {
-      regexp: new RegExp(
-        [
-          "commandlinux",
-          "cnki",
-          "ruiwen",
-          "oh100",
-          "fwsir",
-          "wenxm",
-          "unjs",
-          "ahsrst",
-          "yjbys",
-          "360doc",
-          "850500",
-          "jianbiaoku",
-          "kt250",
-          "kejudati",
-          "baibeike",
-          "yuque",
-          "cnrencai",
-          "kodiplayer",
-          "tongxiehui",
-          "ndPureView",
-          "jianshu",
-          "linovelib",
-          "chazidian",
-          "juejin",
-          "zgbk",
-          "wenmi",
-          "yuedu\\.baidu",
-          "inrrp",
-          "shubaoc",
-          "51cto",
-          "ximalaya",
-          "xiexiebang",
-          "ddwk8",
-          "php\\.cn",
-          "fanqienovel\\.com/reader",
-          "cooco\\.net\\.cn",
-          "mobiletrain",
-          "xiangqiqipu",
-          "m\\.163\\.com",
-          "aipiaxi",
-          "wenku\\.csdn\\.net",
-          "xiaoyuzhoufm\\.com",
-          "mcmod\\.cn",
-          "zsxq\\.com",
-          "volcengine\\.com",
-          "lyrical-nonsense\\.com",
-          "xueqiu\\.com",
-          "php\\.cn",
-          "51cto\\.com",
-          "educoder\\.net"
-        ].join("|")
-      ),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
-        utils.enableOnCopyByCapture();
-      }
-    };
-
-    const website$3 = {
-      regexp: new RegExp(["wjx", "fanyi\\.baidu", "tianqi", "rrdynb", "fuwu7"].join("|")),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
-        utils.enableOnCopyByCapture();
-        utils.enableOnKeyDownByCapture();
-        utils.enableOnSelectStartByCapture();
-        utils.enableOnContextMenuByCapture();
-      }
-    };
-
-    const website$2 = {
-      config: {
-        runAt: DOM_STAGE.START
-      },
-      regexp: new RegExp(["examcoo"].join("|")),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
-        utils.enableOnCopyByCapture();
-        utils.enableOnKeyDownByCapture();
-        utils.enableOnSelectStartByCapture();
-        utils.enableOnContextMenuByCapture();
-      }
-    };
-
-    const kdoc = {
-      config: {
-        runAt: DOM_STAGE.START
-      },
-      regexp: new RegExp("kdocs"),
-      init: function() {
-        const patch = () => {
-          unsafeWindow.APP && (unsafeWindow.APP.canCopy = () => true);
-        };
-        if (unsafeWindow.APP) {
-          patch();
+        if (color != void 0 && color != "") {
+          el.style.color = color;
+        }
+        if (position == void 0 || position == "") {
+          position = "center-bottom";
+        }
+        if (position === "center-bottom") {
+          el.style.bottom = defaultMarginValue + "px";
         } else {
-          let APP = void 0;
-          Object.defineProperty(unsafeWindow, "APP", {
-            configurable: false,
-            set: (value) => {
-              APP = value;
-              value && patch();
-            },
-            get: () => APP
-          });
+          el.style.top = defaultMarginValue + "px";
         }
+        el.style.zIndex = 999999;
+        document.body.appendChild(el);
+        el.classList.add("fadeIn");
+        setTimeout(function() {
+          el.classList.remove("fadeIn");
+          el.classList.add("fadeOut");
+          el.addEventListener("animationend", function() {
+            document.body.removeChild(el);
+          });
+          el.addEventListener("webkitAnimationEnd", function() {
+            document.body.removeChild(el);
+          });
+        }, time);
       }
     };
 
-    const website$1 = {
-      regexp: new RegExp("vcsmemo.com/article/.+"),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
+    const menuCommand = {
+      serverMenu: function() {
+        var isOpenServer = GM_getValue(STORAGE_KEYS.serverKey, true);
+        GM_registerMenuCommand("服务器导航设置", () => {
+          var person = prompt("是否开启服务器导航功能？请填写yes或者no....", isOpenServer ? "yes" : "no");
+          var validate = person === "no" || person === "NO" || person === "yes" || person === "YES";
+          if (validate)
+            GM_setValue(STORAGE_KEYS.serverKey, person === "yes" || person === "YES");
+          var toastMessage = "开启服务器导航功能";
+          if (person === "yes" || person === "YES") {
+            toastMessage = "开启服务器导航功能";
+          } else if (person === "no" || person === "NO") {
+            toastMessage = "关闭服务器导航功能";
+          } else {
+            toastMessage = "参数错误，只能填写yes或者no";
+          }
+          toast.show({ "message": toastMessage, "background": "#474747" });
+          if (validate) {
+            setTimeout(function() {
+              location.reload();
+            }, 1e3);
+          }
+        });
+      },
+      register: function() {
+        this.serverMenu();
       }
     };
 
-    const website = {
+    const website$b = {
       config: {
         runAt: "document-end"
       },
@@ -1049,14 +946,15 @@
             return false;
           };
           this.temporary = function(track) {
-            if (window.location.pathname === "/") {
+            const pathname = window.location.pathname;
+            if (pathname === "/" || pathname === "/product" || pathname === "/product/list") {
               setInterval(function() {
                 var num = 0;
                 document.querySelectorAll("a").forEach(function(element, index) {
                   element.setAttribute("rel", "noreferrer nofollow");
                   if (!element.getAttribute("anchor")) {
                     element.setAttribute("anchor", "true");
-                    if (num <= 4 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668") != -1) {
+                    if (num <= 10 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668") != -1) {
                       var href = element.getAttribute("href");
                       if (!!href) {
                         href = href + (href.indexOf("?") != -1 ? "&" : "?") + track;
@@ -1073,7 +971,11 @@
             if (!this.isRun()) {
               return;
             }
-            this.generateHtml();
+            menuCommand.register();
+            const isOpenServer = GM_getValue(STORAGE_KEYS.serverKey, true);
+            if (isOpenServer) {
+              this.generateHtml();
+            }
           };
           this.generateHtml = function() {
             const number = this.number;
@@ -1143,7 +1045,7 @@
     				border-radius: 5px 5px 0px 0px;
     			}
     			#server-container-expand` + number + `:hover{
-    	
+
     			}
     			#server-container-expand` + number + `>svg{
     				width:50px;
@@ -1179,7 +1081,7 @@
     					</div>
     				</div>
     				<div id="server-container-body` + number + `">
-    	
+
     				</div>
     			</div>
     		`;
@@ -1231,6 +1133,209 @@
       }
     };
 
+    const website$a = {
+      regexp: new RegExp("xiaohongshu"),
+      init: function() {
+        utils.hideButton();
+        utils.enableUserSelectByCSS();
+        utils.enableOnKeyDownByCapture();
+      }
+    };
+
+    const website$9 = {
+      regexp: new RegExp("leetcode"),
+      init: function() {
+        utils.hideButton();
+        utils.enableOnCopy("#lc-home");
+      }
+    };
+
+    const website$8 = {
+      regexp: /csdn/,
+      init: function() {
+        utils.hideButton();
+        utils.enableOnCopyByCapture();
+        utils.enableUserSelectByCSS();
+      }
+    };
+
+    const website$7 = {
+      regexp: new RegExp("bilibili"),
+      init: function() {
+        utils.hideButton();
+        utils.enableOnCopyByCapture();
+      }
+    };
+
+    const website$6 = {
+      regexp: new RegExp("cnki"),
+      init: function() {
+        utils.hideButton();
+        utils.enableOnContextMenuByCapture();
+        utils.enableOnKeyDownByCapture();
+        utils.enableOnCopyByCapture();
+      }
+    };
+
+    const website$5 = {
+      regexp: new RegExp("docin.com/.*"),
+      config: {
+        initCopyEvent: false,
+        captureInstance: true,
+        delay: 100
+      },
+      init: function() {
+        window.addEventListener(PAGE_LOADED, () => {
+          var _a;
+          return (_a = dom$1.query("#j_select")) == null ? void 0 : _a.click();
+        });
+        dom$1.append("head", "<style>#reader-copy-el{display: none;}</style>");
+      },
+      getSelectedText: function() {
+        if (unsafeWindow.docinReader && unsafeWindow.docinReader.st) {
+          return unsafeWindow.docinReader.st;
+        }
+        return "";
+      }
+    };
+
+    const website$4 = {
+      config: {
+        initCopyEvent: false
+      },
+      regexp: /note\.youdao\.com\/newEditorV1\/bulb\.html.*/,
+      init: function() {
+        utils.hideButton();
+        if (window.parent && window.parent.location.href.indexOf("ynoteshare") > -1) {
+          utils.enableUserSelectByCSS();
+          document.addEventListener(MOUSE_DOWN, stopNativePropagation, true);
+          document.addEventListener(MOUSE_MOVE, stopNativePropagation, true);
+        }
+      }
+    };
+
+    const website$3 = {
+      regexp: new RegExp(
+        [
+          "commandlinux",
+          "cnki",
+          "ruiwen",
+          "oh100",
+          "fwsir",
+          "wenxm",
+          "unjs",
+          "ahsrst",
+          "yjbys",
+          "360doc",
+          "850500",
+          "jianbiaoku",
+          "kt250",
+          "kejudati",
+          "baibeike",
+          "yuque",
+          "cnrencai",
+          "kodiplayer",
+          "tongxiehui",
+          "ndPureView",
+          "jianshu",
+          "linovelib",
+          "chazidian",
+          "juejin",
+          "zgbk",
+          "wenmi",
+          "yuedu\\.baidu",
+          "inrrp",
+          "shubaoc",
+          "51cto",
+          "ximalaya",
+          "xiexiebang",
+          "ddwk8",
+          "php\\.cn",
+          "fanqienovel\\.com/reader",
+          "cooco\\.net\\.cn",
+          "mobiletrain",
+          "xiangqiqipu",
+          "m\\.163\\.com",
+          "aipiaxi",
+          "wenku\\.csdn\\.net",
+          "xiaoyuzhoufm\\.com",
+          "mcmod\\.cn",
+          "zsxq\\.com",
+          "volcengine\\.com",
+          "lyrical-nonsense\\.com",
+          "xueqiu\\.com",
+          "php\\.cn",
+          "51cto\\.com",
+          "educoder\\.net"
+        ].join("|")
+      ),
+      init: function() {
+        utils.hideButton();
+        utils.enableUserSelectByCSS();
+        utils.enableOnCopyByCapture();
+      }
+    };
+
+    const website$2 = {
+      regexp: new RegExp(["wjx", "fanyi\\.baidu", "tianqi", "rrdynb", "fuwu7"].join("|")),
+      init: function() {
+        utils.hideButton();
+        utils.enableUserSelectByCSS();
+        utils.enableOnCopyByCapture();
+        utils.enableOnKeyDownByCapture();
+        utils.enableOnSelectStartByCapture();
+        utils.enableOnContextMenuByCapture();
+      }
+    };
+
+    const website$1 = {
+      config: {
+        runAt: DOM_STAGE.START
+      },
+      regexp: new RegExp(["examcoo"].join("|")),
+      init: function() {
+        utils.hideButton();
+        utils.enableUserSelectByCSS();
+        utils.enableOnCopyByCapture();
+        utils.enableOnKeyDownByCapture();
+        utils.enableOnSelectStartByCapture();
+        utils.enableOnContextMenuByCapture();
+      }
+    };
+
+    const kdoc = {
+      config: {
+        runAt: DOM_STAGE.START
+      },
+      regexp: new RegExp("kdocs"),
+      init: function() {
+        const patch = () => {
+          unsafeWindow.APP && (unsafeWindow.APP.canCopy = () => true);
+        };
+        if (unsafeWindow.APP) {
+          patch();
+        } else {
+          let APP = void 0;
+          Object.defineProperty(unsafeWindow, "APP", {
+            configurable: false,
+            set: (value) => {
+              APP = value;
+              value && patch();
+            },
+            get: () => APP
+          });
+        }
+      }
+    };
+
+    const website = {
+      regexp: new RegExp("vcsmemo.com/article/.+"),
+      init: function() {
+        utils.hideButton();
+        utils.enableUserSelectByCSS();
+      }
+    };
+
     const websites = [
       website$u,
       website$t,
@@ -1251,16 +1356,16 @@
       website$e,
       website$d,
       website$c,
+      website$a,
       website$b,
       website$v,
-      website$a,
       website$9,
       website$8,
       website$7,
       website$6,
       website$5,
-      kdoc,
       website$4,
+      kdoc,
       website$3,
       website$2,
       website$1,
