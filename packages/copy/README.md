@@ -37,7 +37,8 @@ Github源码地址：[https://github.com/Picasso-TX/TKScript/tree/main/packages/
 
 ## ✅ 关于服务器导航的必要说明
 
-非软件开发行业的伙伴或许对以下内容就不感兴趣了，此功能包含的网站有”腾讯云“、”阿里云“和”华为云“。本人需要经常访问这些提供云服务的网站查看产品，来回跳转会比较麻烦。因此写了一个简单的**“云服务厂商”导航**（该popup默认是关闭状态，需要手动激活才会显示）。导航包括国内常用云厂商列表，同类型产品链接等，截图如下：
+如果您日常会访问”腾讯云“、”阿里云“和”华为云“等云服务网页，以下内容请认真阅读。如无此需求可忽略下面内容~<br>
+对需要经常访问提供云服务的网站，查看云产品的小伙伴来说，此功能会比较有用。它可以让我们快速切换不同云平台、可以对相似云产品进行快速比价等（该导航Popup默认是关闭状态，需要手动激活才会显示）截图如下：
 ![](https://img13.360buyimg.com/ddimg/jfs/t1/235376/28/22425/32739/668cacf4Fb53e4bfa/4e6392d13ca7bc6e.jpg)
 
 **当打开“腾讯云”、“阿里云”和“华为云”时，可手动设置关闭此功能。如需关闭：填写“no”点击确认即可关闭**
@@ -47,9 +48,8 @@ Github源码地址：[https://github.com/Picasso-TX/TKScript/tree/main/packages/
 
 ##⚠️ 特别提醒
 
-> 我知道此功能会是一个有争议的功能，**好在greasyfork是允许这种功能存在的，只是需要再代码中加入“@antifeature”标识，并给用户详细说明**。
-程序开发维护本就费时费力，在不给大家造成任何损失的前提下，还能为作者提供一定支持，我想这才是健康有序发展之路吧！以上可能是我一厢情愿的“自以为是”，做任何事情可能都会有反对的声音。**<span style="color:red;">如果你不愿意使用此功能，可以在Tampermonkey脚本设置处关闭此功能，或者直接删除不在使用此脚本</span>**。
-PS：如果您愿意支持，那将是我长期维护更新脚本程序的最大动力。以上~（附：greasyfork社区脚本编写规则：[https://greasyfork.org/zh-CN/help/code-rules](https://greasyfork.org/zh-CN/help/code-rules "https://greasyfork.org/zh-CN/help/code-rules")）
+> 我知道此功能会是一个有争议的功能，**好在greasyfork是允许这种功能存在的，只是需要在代码中加入“@antifeature”标识，并给用户详细说明**。
+程序开发维护本就费时费力，在不给大家造成任何损失的前提下，还能为作者提供一定支持，我想这才是健康有序的发展之路吧（以上可能是我的“自以为是”）！做任何事情都会有反对的声音，**<span style="color:red;">如果你不愿意使用此功能，可以在Tampermonkey脚本设置处关闭此功能，或者直接删除，不在使用此脚本</span>**。PS：如果您愿意支持，那将是我长期维护更新脚本程序的最大动力。以上~（附：greasyfork社区脚本编写规则：[https://greasyfork.org/zh-CN/help/code-rules](https://greasyfork.org/zh-CN/help/code-rules "https://greasyfork.org/zh-CN/help/code-rules")）
 [![](https://img10.360buyimg.com/ddimg/jfs/t1/15734/9/21218/67602/668ce4baFdfb24f9a/5f4bc3a24bfe8dc2.jpg)](https://img10.360buyimg.com/ddimg/jfs/t1/15734/9/21218/67602/668ce4baFdfb24f9a/5f4bc3a24bfe8dc2.jpg)
 
 **下面我要说的很重要！很重要！很重要！很重要**</br>
