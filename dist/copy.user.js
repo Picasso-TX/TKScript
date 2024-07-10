@@ -109,6 +109,10 @@
 // @match      *://www.huaweicloud.com/*
 // @match      *://*.huaweicloud.com/*
 // @match      *://*.aliyun.com/*
+// @match      *://www.jinrilvsi.com/*
+// @match      *://www.9136.com/*
+// @match      *://www.jdxzz.com/*
+// @match      *://www.gaosan.com/*/*.html
 // @exclude    *://cloud.tencent.com/login*
 // @exclude    *://console.cloud.tencent.com/*
 // @exclude    *://market.cloud.tencent.com/*
@@ -1278,7 +1282,17 @@
     };
 
     const website$2 = {
-      regexp: new RegExp(["wjx", "fanyi\\.baidu", "tianqi", "rrdynb", "fuwu7"].join("|")),
+      regexp: new RegExp([
+        "wjx",
+        "fanyi\\.baidu",
+        "tianqi",
+        "rrdynb",
+        "fuwu7",
+        "jinrilvsi\\.com",
+        "www\\.9136\\.com",
+        "www\\.jdxzz\\.com",
+        "www\\.gaosan\\.com"
+      ].join("|")),
       init: function() {
         utils.hideButton();
         utils.enableUserSelectByCSS();

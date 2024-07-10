@@ -109,6 +109,10 @@
 // @match      *://www.huaweicloud.com/*
 // @match      *://*.huaweicloud.com/*
 // @match      *://*.aliyun.com/*
+// @match      *://www.jinrilvsi.com/*
+// @match      *://www.9136.com/*
+// @match      *://www.jdxzz.com/*
+// @match      *://www.gaosan.com/*/*.html
 // @exclude    *://cloud.tencent.com/login*
 // @exclude    *://console.cloud.tencent.com/*
 // @exclude    *://market.cloud.tencent.com/*

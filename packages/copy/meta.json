@@ -113,7 +113,11 @@
         "*://cloud.tencent.com/*",
         "*://www.huaweicloud.com/*",
         "*://*.huaweicloud.com/*",
-        "*://*.aliyun.com/*"
+        "*://*.aliyun.com/*",
+        "*://www.jinrilvsi.com/*",
+        "*://www.9136.com/*",
+        "*://www.jdxzz.com/*",
+        "*://www.gaosan.com/*/*.html"
     ],
     "exclude":[
       "*://cloud.tencent.com/login*",
