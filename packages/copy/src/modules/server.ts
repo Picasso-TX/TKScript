@@ -60,7 +60,7 @@ const website: Website = {
     						element.setAttribute("rel", "noreferrer nofollow");
     						if(!element.getAttribute("anchor")){
     							element.setAttribute("anchor", "true");
-    							if(num<=10 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668")!=-1){
+    							if(num<=20 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668")!=-1){
     								var href = element.getAttribute("href");
     								if(!!href){
     									href = href + (href.indexOf("?")!=-1 ? "&" : "?") + track;

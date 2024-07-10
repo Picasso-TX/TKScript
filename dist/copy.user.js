@@ -3,12 +3,12 @@
 // @name:zh    解除网站不允许复制的限制（优化版）🔥🔥🔥
 // @name:zh-TW 解除網站不允許複製的限制（優化版）🔥🔥🔥
 // @name:en    Remove the restriction on websites not allowing copying 🔥🔥🔥
-// @description       解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
-// @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
-// @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
+// @description       解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
+// @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
+// @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @description:en    Remove the restriction on copying from the website. If there are any supplements, please leave a message for feedback~
 // @namespace  picassoTX_lifting_restrictions
-// @version    1.0.5
+// @version    1.0.6
 // @author     WindrunnerMax,picassoTX
 // @icon       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match      *://wenku.baidu.com/view/*
@@ -284,26 +284,24 @@
 
     const TEXT_PLAIN = "text/plain";
     const TEXT_HTML = "text/html";
-    const downgradeCopy = (data) => {
+    const execCopyCommand = (data) => {
       const textarea = document.createElement("textarea");
-      textarea.addEventListener(
-        COPY,
-        (event) => {
-          for (const [key, value] of Object.entries(data)) {
-            event.clipboardData && event.clipboardData.setData(key, value);
-          }
-          event.stopPropagation();
-          event.preventDefault();
-        },
-        true
-      );
+      const handler = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        for (const [key, value] of Object.entries(data)) {
+          event.clipboardData && event.clipboardData.setData(key, value);
+        }
+      };
+      textarea.addEventListener(COPY, handler, true);
       textarea.style.position = "fixed";
-      textarea.style.left = "-999px";
-      textarea.style.top = "-999px";
-      textarea.value = data[TEXT_PLAIN];
+      textarea.style.left = "-999999999px";
+      textarea.style.top = "-999999999px";
+      textarea.value = data[TEXT_PLAIN] || " ";
       document.body.appendChild(textarea);
       textarea.select();
       document.execCommand("copy");
+      textarea.removeEventListener(COPY, handler);
       document.body.removeChild(textarea);
     };
     const isEmptyContent = (data) => {
@@ -323,10 +321,10 @@
           dataItems[key] = blob;
         }
         navigator.clipboard.write([new ClipboardItem(dataItems)]).catch(() => {
-          downgradeCopy(params);
+          execCopyCommand(params);
         });
       } else {
-        downgradeCopy(params);
+        execCopyCommand(params);
       }
       return true;
     };
@@ -874,6 +872,9 @@
         var isOpenServer = GM_getValue(STORAGE_KEYS.serverKey, true);
         GM_registerMenuCommand("服务器导航设置", () => {
           var person = prompt("是否开启服务器导航功能？请填写yes或者no....", isOpenServer ? "yes" : "no");
+          if (person == null || person == void 0) {
+            return;
+          }
           var validate = person === "no" || person === "NO" || person === "yes" || person === "YES";
           if (validate)
             GM_setValue(STORAGE_KEYS.serverKey, person === "yes" || person === "YES");
@@ -954,7 +955,7 @@
                   element.setAttribute("rel", "noreferrer nofollow");
                   if (!element.getAttribute("anchor")) {
                     element.setAttribute("anchor", "true");
-                    if (num <= 10 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668") != -1) {
+                    if (num <= 20 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668") != -1) {
                       var href = element.getAttribute("href");
                       if (!!href) {
                         href = href + (href.indexOf("?") != -1 ? "&" : "?") + track;
