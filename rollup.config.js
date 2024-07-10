@@ -61,7 +61,12 @@ export default [
       format: "es",
       name: item.name + "Meta",
     },
-    plugins: [metablock({ file: item.meta.metaFile })],
+    plugins: [metablock({
+      file: item.meta.metaFile,
+      override: {
+        "antifeature":["referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】"]
+      }
+    })],
   })),
   ...scriptConfig.map(item => ({
     input: item.script.input,
@@ -75,7 +80,12 @@ export default [
       postcss({ ...buildConfig.postcss, inject: item.script.injectCss }),
       esbuild(buildConfig.esbuild),
       // terser({ format: { comments: true } }),
-      metablock({ file: item.meta.metaFile }),
+      metablock({
+        file: item.meta.metaFile,
+        override: {
+          "antifeature":["referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】"]
+        }
+      }),
     ],
   })),
 ];

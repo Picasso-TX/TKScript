@@ -142,6 +142,7 @@
       "*://auth.huaweicloud.com/*",
       "*://support.huaweicloud.com/*",
       "*://console.huaweicloud.com/*",
+      
       "*://stat.doc88.com/*"
     ],
     "connect":[
@@ -150,7 +151,6 @@
     ],
     "supportURL": "https://github.com/Picasso-TX/TKScript/issues",
     "license": "MIT",
-    "orign-license":"MIT",
     "run-at": "document-start",
     "grant": [
         "unsafeWindow",
@@ -162,6 +162,5 @@
         "GM_setValue",
         "GM_xmlhttpRequest",
         "GM_registerMenuCommand"
-    ],
-    "// @antifeature":"referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】"
+    ]
 }

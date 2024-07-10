@@ -7,4 +7,3 @@
  *
  * 特此声明！
  */
-// @antifeature  referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】
