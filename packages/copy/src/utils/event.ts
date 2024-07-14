@@ -18,10 +18,12 @@ export default {
     const dom = isString(selector) ? document.querySelector(selector) : selector;
     dom && attr.forEach(item => dom.removeAttribute(item));
   },
-  enableUserSelectByCSS: (): void => {
-    const css = "*{user-select: auto !important;-webkit-user-select: auto !important;}";
+  enableUserSelectByCSS: (css?: string): void => {
+    const defaultCss = `
+      *{-webkit-touch-callout: auto !important;-webkit-user-select: auto !important;-moz-user-select: auto !important;-khtml-user-select: auto !important;-ms-user-select: auto !important;}
+    `;
     const style = document.createElement("style");
-    style.innerText = css;
+    style.innerText = !!css ? css : defaultCss;
     const head = document.getElementsByTagName("head")[0];
     if (head) {
       head.appendChild(style);

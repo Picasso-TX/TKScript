@@ -31,7 +31,7 @@ import common from "./modules/common";
 import commonEnhance from "./modules/common-e";
 import commonPreLoad from "./modules/common-p";
 import { kdoc } from "./modules/kdocs";
-import vcsmemo from "./modules/vcsmemo";
+import aibot from "./modules/aibot"
 
 export interface WebsiteConfig {
   initCopyEvent?: boolean;
@@ -79,7 +79,7 @@ const websites: Website[] = [
   common,
   commonEnhance,
   commonPreLoad,
-  vcsmemo
+  aibot
 ];
 
 export default websites;

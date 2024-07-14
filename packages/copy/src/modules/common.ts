@@ -53,7 +53,8 @@ const website: Website = {
       "xueqiu\\.com",
       "php\\.cn",
       "51cto\\.com",
-      "educoder\\.net"
+      "educoder\\.net",
+      "vcsmemo\\.com"
     ].join("|")
   ),
   init: function () {
