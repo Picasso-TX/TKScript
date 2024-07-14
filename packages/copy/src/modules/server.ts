@@ -53,24 +53,30 @@ const website: Website = {
     	};
     	this.temporary=function(track){
           const pathname = window.location.pathname;
-    			if(pathname==="/"||pathname==="/product"||pathname==="/product/list"){
+          const pathnameRes = ["/", "/product", "/product/list"].some((item)=> pathname===item);
+    			if(pathnameRes){
     				setInterval(function(){
     					var num = 0;
     					document.querySelectorAll("a").forEach(function(element,index){
-    						element.setAttribute("rel", "noreferrer nofollow");
     						if(!element.getAttribute("anchor")){
     							element.setAttribute("anchor", "true");
-    							if(num<=20 && escape(element.innerText).indexOf("%u4E91%u670D%u52A1%u5668")!=-1){
-    								var href = element.getAttribute("href");
-    								if(!!href){
-    									href = href + (href.indexOf("?")!=-1 ? "&" : "?") + track;
-    									element.setAttribute("href", href);
-    									num++;
-    								}
-    							}
+                  var href = element.getAttribute("href");
+                  if(!href) return;
+                  const eleInnerText = encodeURIComponent(element.innerText);
+                  const controllers = [{ "t": "%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }, { "t": "%E6%9C%80%E6%96%B0%E6%B4%BB%E5%8A%A8", "j": "c" }, { "t": "%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }];
+                  const result = controllers.some((item)=>{
+                    return item.j=="e" ? (eleInnerText==item.t) : (eleInnerText.indexOf(item.t)!=-1)
+                  });
+                  if(result){
+                    if(href.indexOf(track)!=-1) return;
+                    element.setAttribute("rel", "noreferrer nofollow");
+                    href = href + (href.indexOf("?")!=-1 ? "&" : "?") + track;
+                    element.setAttribute("href", href);
+                    num++;
+                  }
     						}
     					});
-    				},1000);
+    				},800);
     			}
     		};
     	this.start=function(){
