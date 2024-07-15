@@ -2,13 +2,11 @@
 // @name       解除网站不允许复制的限制（优化版）🔥🔥🔥
 // @name:zh    解除网站不允许复制的限制（优化版）🔥🔥🔥
 // @name:zh-TW 解除網站不允許複製的限制（優化版）🔥🔥🔥
-// @name:en    Remove the restriction on websites not allowing copying 🔥🔥🔥
 // @description       解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
-// @description:en    Remove the restriction on copying from the website. If there are any supplements, please leave a message for feedback~
 // @namespace   picassoTX_lifting_restrictions
-// @version     1.0.7
+// @version     1.0.8
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -16,9 +14,6 @@
 // @match       *://wenku.baidu.com/link*
 // @match       *://wenku.baidu.com/aggs/*
 // @match       *://wenku.baidu.com/ndPureView/*
-// @match       *://www.51test.net/show/*
-// @match       *://www.xuexi.la/*
-// @match       *://www.xuexila.com/*
 // @match       *://www.cspengbo.com/*
 // @match       *://*.doc88.com/*
 // @match       *://segmentfault.com/*
@@ -81,7 +76,6 @@
 // @match       *://*.xiexiebang.com/*
 // @match       *://*.docin.com/*
 // @match       *://*.ddwk8.cn/*
-// @match       *://*.php.cn/*
 // @match       *://cooco.net.cn/*
 // @match       *://fanqienovel.com/*
 // @match       *://*.mobiletrain.org/*
@@ -96,11 +90,7 @@
 // @match       *://www.kdocs.cn/*
 // @match       *://www.xiaoyuzhoufm.com/*
 // @match       *://*.mcmod.cn/*
-// @match       *://*.zsxq.com/
-// @match       *://*.volcengine.com/*
-// @match       *://*.lyrical-nonsense.com/*
 // @match       *://*.xueqiu.com/*
-// @match       *://*.php.cn/*
 // @match       *://*.51cto.com/*
 // @match       *://*.educoder.net/*
 // @match       *://vcsmemo.com/article/*
@@ -113,7 +103,7 @@
 // @match       *://www.9136.com/*
 // @match       *://www.jdxzz.com/*
 // @match       *://www.gaosan.com/*/*.html
-// @match       https://ai-bot.cn/sites/*.html
+// @match       *://ai-bot.cn/sites/*.html
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
