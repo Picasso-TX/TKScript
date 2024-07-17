@@ -105,3 +105,7 @@ Rollup的基本使用: <a href="https://github.com/WindrunnerMax/EveryDay/blob/m
 从零实现的浏览器Web脚本: <a href="https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的浏览器Web脚本.md">https://github.com/WindrunnerMax/EveryDay/blob/master/Plugin/从零实现的浏览器Web脚本.md</a>
 
 **Thanks, 感谢使用！**
+
+## 附加：复制接触测试用例
+**如果需要提交新的网站，请留言，留言格式，网站名称 + 需要接触的链接地址**</br>
+复制解除测试：[https://github.com/Picasso-TX/TKScript/blob/main/test_lists.md](https://github.com/Picasso-TX/TKScript/blob/main/test_lists.md)
