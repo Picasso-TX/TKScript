@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     1.0.8
+// @version     1.0.9
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -16,7 +16,6 @@
 // @match       *://wenku.baidu.com/ndPureView/*
 // @match       *://www.cspengbo.com/*
 // @match       *://*.doc88.com/*
-// @match       *://segmentfault.com/*
 // @match       *://wk.baidu.com/view/*
 // @match       *://leetcode-cn.com/problems/*
 // @match       *://*.zhihu.com/*
@@ -30,7 +29,6 @@
 // @match       *://*.mbalib.com/*
 // @match       *://*.cnitpm.com/*
 // @match       *://bbs.mihoyo.com/ys/*
-// @match       *://*.ruiwen.com/*
 // @match       *://www.uemeds.cn/*
 // @match       *://www.oh100.com/*
 // @match       *://www.aiyuke.com/news/*
@@ -57,7 +55,6 @@
 // @match       *://*.cnki.net/KXReader/*
 // @match       *://*.cnrencai.com/*
 // @match       *://*.kodiplayer.cn/*
-// @match       *://tongxiehui.net/*
 // @match       *://*.jianshu.com/p/*
 // @match       *://*.linovelib.com/novel/*
 // @match       *://*.wjx.cn/*
@@ -90,13 +87,11 @@
 // @match       *://www.kdocs.cn/*
 // @match       *://www.xiaoyuzhoufm.com/*
 // @match       *://*.mcmod.cn/*
-// @match       *://*.xueqiu.com/*
 // @match       *://*.51cto.com/*
 // @match       *://*.educoder.net/*
 // @match       *://vcsmemo.com/article/*
 // @match       *://*.cloud.tencent.com/*
 // @match       *://cloud.tencent.com/*
-// @match       *://www.huaweicloud.com/*
 // @match       *://*.huaweicloud.com/*
 // @match       *://*.aliyun.com/*
 // @match       *://www.jinrilvsi.com/*
@@ -104,6 +99,10 @@
 // @match       *://www.jdxzz.com/*
 // @match       *://www.gaosan.com/*/*.html
 // @match       *://ai-bot.cn/sites/*.html
+// @match       *://www.lyrical-nonsense.com/lyrics/*
+// @match       *://tongxiehui.net/by/*
+// @match       *://www.xuexila.com/*
+// @match       *://www.ruiwen.com/article/*
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
@@ -227,7 +226,7 @@
      * 此部分是在处理`doc88.com`才会加载的资源文件，此资源文件由该网站加载时提供
      */
     let path = "";
-    const website$v = {
+    const website$r = {
       regexp: /.*doc88\.com\/.+/,
       init: () => {
         dom$1.append(
@@ -261,19 +260,6 @@
           dom$1.remove("#copy-element-hide");
         }
         return select;
-      }
-    };
-
-    const website$u = {
-      regexp: /.*segmentfault\.com\/.+/,
-      init: function() {
-        const body = dom$1.query("body");
-        if (body) {
-          body.classList.add("_sf_adjust_body");
-          body.onclick = () => {
-            body.style.paddingRight = "0";
-          };
-        }
       }
     };
 
@@ -458,7 +444,7 @@
       }
     };
 
-    const website$t = {
+    const website$q = {
       regexp: /.*wk\.baidu\.com\/view\/.+/,
       init: function() {
         utils.hideButton();
@@ -469,7 +455,7 @@
       }
     };
 
-    const website$s = {
+    const website$p = {
       regexp: /.*zhihu\.com\/.*/,
       init: function() {
         utils.hideButton();
@@ -496,7 +482,7 @@
       }
     };
 
-    const website$r = {
+    const website$o = {
       regexp: /.*30edu\.com\.cn\/.+/,
       init: function() {
         window.onload = () => {
@@ -510,7 +496,7 @@
       }
     };
 
-    const website$q = {
+    const website$n = {
       regexp: /.*docs\.qq\.com\/.+/,
       config: {
         initCopyEvent: false,
@@ -571,7 +557,7 @@
       }
     };
 
-    const website$p = {
+    const website$m = {
       regexp: new RegExp(".+://boke112.com/post/.+"),
       init: function() {
         utils.enableOnCopyByCapture();
@@ -592,7 +578,7 @@
       }
     };
 
-    const website$o = {
+    const website$l = {
       regexp: /diyifanwen/,
       init: function() {
         utils.hideButton();
@@ -601,7 +587,7 @@
       }
     };
 
-    const website$n = {
+    const website$k = {
       regexp: /mbalib/,
       init: function() {
         window.onload = () => {
@@ -610,27 +596,7 @@
       }
     };
 
-    const website$m = {
-      regexp: /cnitpm/,
-      init: function() {
-        utils.hideButton();
-        window.onload = () => {
-          utils.removeAttributes("body", ["oncopy", "oncontextmenu", "onselectstart"]);
-        };
-      }
-    };
-
-    const website$l = {
-      regexp: new RegExp(".+bbs.mihoyo.com/.+"),
-      init: function() {
-        utils.hideButton();
-        utils.enableOnCopyByCapture();
-        utils.enableOnSelectStartByCapture();
-        utils.enableUserSelectByCSS();
-      }
-    };
-
-    const website$k = {
+    const website$j = {
       regexp: new RegExp(".+www.uemeds.cn/.+"),
       init: function() {
         utils.hideButton();
@@ -638,7 +604,7 @@
       }
     };
 
-    const website$j = {
+    const website$i = {
       regexp: new RegExp(".+aiyuke.com/news/.+"),
       init: function() {
         utils.hideButton();
@@ -646,7 +612,7 @@
       }
     };
 
-    const website$i = {
+    const website$h = {
       regexp: new RegExp("qidian"),
       init: function() {
         utils.hideButton();
@@ -656,7 +622,7 @@
       }
     };
 
-    const website$h = {
+    const website$g = {
       regexp: new RegExp("zongheng"),
       init: function() {
         utils.removeAttributes(".reader_box", ["style", "unselectable", "onselectstart"]);
@@ -670,7 +636,7 @@
       }
     };
 
-    const website$g = {
+    const website$f = {
       regexp: new RegExp("17k"),
       init: () => {
         utils.hideButton();
@@ -678,7 +644,7 @@
       }
     };
 
-    const website$f = {
+    const website$e = {
       regexp: new RegExp("ciweimao"),
       init: function() {
         utils.hideButton();
@@ -689,7 +655,7 @@
       }
     };
 
-    const website$e = {
+    const website$d = {
       regexp: new RegExp("book\\.qq"),
       init: function() {
         utils.hideButton();
@@ -700,7 +666,7 @@
       }
     };
 
-    const website$d = {
+    const website$c = {
       regexp: new RegExp("utaten"),
       init: function() {
         utils.hideButton();
@@ -709,7 +675,7 @@
       }
     };
 
-    const website$c = {
+    const website$b = {
       config: {
         runAt: "document-start"
       },
@@ -896,7 +862,7 @@
       }
     };
 
-    const website$b = {
+    const website$a = {
       config: {
         runAt: "document-end"
       },
@@ -1137,15 +1103,6 @@
       }
     };
 
-    const website$a = {
-      regexp: new RegExp("xiaohongshu"),
-      init: function() {
-        utils.hideButton();
-        utils.enableUserSelectByCSS();
-        utils.enableOnKeyDownByCapture();
-      }
-    };
-
     const website$9 = {
       regexp: new RegExp("leetcode"),
       init: function() {
@@ -1221,52 +1178,40 @@
     const website$3 = {
       regexp: new RegExp(
         [
-          "commandlinux",
           "cnki",
-          "ruiwen",
           "oh100",
           "fwsir",
           "wenxm",
           "unjs",
-          "ahsrst",
           "yjbys",
           "360doc",
           "850500",
           "jianbiaoku",
-          "kt250",
           "kejudati",
-          "baibeike",
           "yuque",
           "cnrencai",
-          "kodiplayer",
-          "tongxiehui",
           "ndPureView",
           "jianshu",
           "linovelib",
           "chazidian",
           "juejin",
           "zgbk",
-          "wenmi",
           "yuedu\\.baidu",
-          "inrrp",
           "shubaoc",
           "51cto",
-          "ximalaya",
-          "xiexiebang",
           "ddwk8",
           "fanqienovel\\.com/reader",
           "cooco\\.net\\.cn",
-          "mobiletrain",
-          "xiangqiqipu",
-          "m\\.163\\.com",
           "aipiaxi",
           "wenku\\.csdn\\.net",
-          "xiaoyuzhoufm\\.com",
           "mcmod\\.cn",
-          "xueqiu\\.com",
           "51cto\\.com",
           "educoder\\.net",
-          "vcsmemo\\.com"
+          "vcsmemo\\.com",
+          "www\\.lyrical-nonsense\\.com",
+          "tongxiehui\\.net",
+          "www\\.xuexila\\.com",
+          "www\\.ruiwen\\.com"
         ].join("|")
       ),
       init: function() {
@@ -1278,9 +1223,6 @@
 
     const website$2 = {
       regexp: new RegExp([
-        "wjx",
-        "fanyi\\.baidu",
-        "tianqi",
         "rrdynb",
         "fuwu7",
         "jinrilvsi\\.com",
@@ -1351,10 +1293,6 @@
     };
 
     const websites = [
-      website$u,
-      website$t,
-      website$s,
-      website$r,
       website$q,
       website$p,
       website$o,
@@ -1370,9 +1308,9 @@
       website$e,
       website$d,
       website$c,
-      website$a,
       website$b,
-      website$v,
+      website$a,
+      website$r,
       website$9,
       website$8,
       website$7,

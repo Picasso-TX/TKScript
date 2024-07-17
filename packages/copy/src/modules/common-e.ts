@@ -3,7 +3,7 @@ import type { Website } from "../websites";
 
 const website: Website = {
   regexp: new RegExp([
-    "wjx", "fanyi\\.baidu", "tianqi", "rrdynb", "fuwu7", "jinrilvsi\\.com","www\\.9136\\.com",
+    "rrdynb", "fuwu7", "jinrilvsi\\.com","www\\.9136\\.com",
     "www\\.jdxzz\\.com",
     "www\\.gaosan\\.com"
   ].join("|")),

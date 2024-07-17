@@ -5,7 +5,7 @@
       "zh-TW":"解除網站不允許複製的限制（優化版）🔥🔥🔥"
     },
     "namespace": "picassoTX_lifting_restrictions",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description":{
       "default":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
       "zh":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
@@ -21,7 +21,6 @@
         "*://wenku.baidu.com/ndPureView/*",
         "*://www.cspengbo.com/*",
         "*://*.doc88.com/*",
-        "*://segmentfault.com/*",
         "*://wk.baidu.com/view/*",
         "*://leetcode-cn.com/problems/*",
         "*://*.zhihu.com/*",
@@ -35,7 +34,6 @@
         "*://*.mbalib.com/*",
         "*://*.cnitpm.com/*",
         "*://bbs.mihoyo.com/ys/*",
-        "*://*.ruiwen.com/*",
         "*://www.uemeds.cn/*",
         "*://www.oh100.com/*",
         "*://www.aiyuke.com/news/*",
@@ -62,7 +60,6 @@
         "*://*.cnki.net/KXReader/*",
         "*://*.cnrencai.com/*",
         "*://*.kodiplayer.cn/*",
-        "*://tongxiehui.net/*",
         "*://*.jianshu.com/p/*",
         "*://*.linovelib.com/novel/*",
         "*://*.wjx.cn/*",
@@ -95,7 +92,6 @@
         "*://www.kdocs.cn/*",
         "*://www.xiaoyuzhoufm.com/*",
         "*://*.mcmod.cn/*",
-        "*://*.xueqiu.com/*",
         "*://*.51cto.com/*",
         "*://*.educoder.net/*",
         "*://vcsmemo.com/article/*",
@@ -107,7 +103,11 @@
         "*://www.9136.com/*",
         "*://www.jdxzz.com/*",
         "*://www.gaosan.com/*/*.html",
-        "*://ai-bot.cn/sites/*.html"
+        "*://ai-bot.cn/sites/*.html",
+        "*://www.lyrical-nonsense.com/lyrics/*",
+        "*://tongxiehui.net/by/*",
+        "*://www.xuexila.com/*",
+        "*://www.ruiwen.com/article/*"
     ],
     "exclude":[
       "*://cloud.tencent.com/login*",

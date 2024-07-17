@@ -1,6 +1,5 @@
 import type { CopyParams } from "./utils/copy";
 import doc88 from "./modules/doc88";
-import sf from "./modules/sf";
 import wk from "./modules/wk";
 import zhihu from "./modules/zhihu";
 import edu30 from "./modules/edu30";
@@ -8,8 +7,6 @@ import docqq from "./modules/docqq";
 import boke112 from "./modules/boke112";
 import diyifanwen from "./modules/diyifanwen";
 import mbalib from "./modules/mbalib";
-import cnitpm from "./modules/cnitpm";
-import mihoyo from "./modules/mihoyo";
 import uemeds from "./modules/uemeds";
 import aiyuke from "./modules/aiyuke";
 import qidian from "./modules/qidian";
@@ -20,7 +17,6 @@ import qqbook from "./modules/qqbook";
 import utaten from "./modules/utaten";
 import baiduwk from "./modules/baiduwk";
 import server from "./modules/server";
-import xiaohongshu from "./modules/xiaohongshu";
 import leetcode from "./modules/leetcode";
 import csdn from "./modules/csdn";
 import bilibili from "./modules/bilibili";
@@ -47,7 +43,6 @@ export interface Website {
 }
 
 const websites: Website[] = [
-  sf,
   wk,
   zhihu,
   edu30,
@@ -55,8 +50,6 @@ const websites: Website[] = [
   boke112,
   diyifanwen,
   mbalib,
-  cnitpm,
-  mihoyo,
   uemeds,
   aiyuke,
   qidian,
@@ -66,7 +59,6 @@ const websites: Website[] = [
   qqbook,
   utaten,
   baiduwk,
-  xiaohongshu,
   server,
   doc88,
   leetcode,
