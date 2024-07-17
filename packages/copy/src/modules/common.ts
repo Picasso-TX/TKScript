@@ -37,7 +37,8 @@ const website: Website = {
       "tongxiehui\\.net",
       "www\\.xuexila\\.com",
       "www\\.ruiwen\\.com",
-      "cooco\\.net\\.cn"
+      "cooco\\.net\\.cn",
+      "www\\.51test\\.net"
     ].join("|")
   ),
   init: function () {

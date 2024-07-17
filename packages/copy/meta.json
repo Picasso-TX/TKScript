@@ -80,7 +80,8 @@
         "*://*.cloud.tencent.com/*",
         "*://cloud.tencent.com/*",
         "*://*.huaweicloud.com/*",
-        "*://*.aliyun.com/*"
+        "*://*.aliyun.com/*",
+        "*://www.51test.net/show/*.html"
     ],
     "exclude":[
       "*://cloud.tencent.com/login*",

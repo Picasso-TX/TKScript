@@ -76,6 +76,7 @@
 // @match       *://cloud.tencent.com/*
 // @match       *://*.huaweicloud.com/*
 // @match       *://*.aliyun.com/*
+// @match       *://www.51test.net/show/*.html
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
@@ -1145,7 +1146,8 @@
           "tongxiehui\\.net",
           "www\\.xuexila\\.com",
           "www\\.ruiwen\\.com",
-          "cooco\\.net\\.cn"
+          "cooco\\.net\\.cn",
+          "www\\.51test\\.net"
         ].join("|")
       ),
       init: function() {

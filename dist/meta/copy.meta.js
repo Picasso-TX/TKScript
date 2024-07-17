@@ -76,6 +76,7 @@
 // @match       *://cloud.tencent.com/*
 // @match       *://*.huaweicloud.com/*
 // @match       *://*.aliyun.com/*
+// @match       *://www.51test.net/show/*.html
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
