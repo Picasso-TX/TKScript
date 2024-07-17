@@ -32,12 +32,12 @@ const website: Website = {
       "wenku\\.csdn\\.net",
       "mcmod\\.cn",
       "51cto\\.com",
-      "educoder\\.net",
       "vcsmemo\\.com",
       "www\\.lyrical-nonsense\\.com",
       "tongxiehui\\.net",
       "www\\.xuexila\\.com",
-      "www\\.ruiwen\\.com"
+      "www\\.ruiwen\\.com",
+      "cooco\\.net\\.cn"
     ].join("|")
   ),
   init: function () {
