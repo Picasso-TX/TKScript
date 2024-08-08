@@ -19,7 +19,7 @@
 // @match       *://*.zhihu.com/*
 // @match       *://docs.qq.com/doc/*
 // @match       *://docs.qq.com/sheet/*
-// @match       *://boke112.com/post/*
+// @match       *://boke112.com/*/*
 // @match       *://*.diyifanwen.com/*
 // @match       *://www.uemeds.cn/*
 // @match       *://www.oh100.com/*
@@ -368,15 +368,13 @@
         const style = document.createElement("style");
         style.innerHTML = !!css ? css : defaultCss;
         const head = document.getElementsByTagName("head")[0];
-        const addStyle = (head2, style2) => {
-          head2.appendChild(style2);
-        };
         if (head) {
-          addStyle(head, style);
+          head.appendChild(style);
         } else {
-          window.addEventListener(PAGE_LOADED, () => {
-            addStyle(document.getElementsByTagName("head")[0], style);
-          });
+          window.addEventListener(
+            PAGE_LOADED,
+            () => document.getElementsByTagName("head")[0].appendChild(style)
+          );
         }
       },
       enableOnSelectStart: (selector) => {
@@ -519,7 +517,7 @@
     };
 
     const website$k = {
-      regexp: new RegExp(".+://boke112.com/post/.+"),
+      regexp: new RegExp("boke112\\.com"),
       init: function() {
         utils.enableOnCopyByCapture();
         const template = `

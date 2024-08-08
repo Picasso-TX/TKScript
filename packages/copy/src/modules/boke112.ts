@@ -3,7 +3,7 @@ import utils from "../utils/event";
 import type { Website } from "../websites";
 
 const website: Website = {
-  regexp: new RegExp(".+://boke112.com/post/.+"),
+  regexp: new RegExp("boke112\\.com"),
   init: function () {
     utils.enableOnCopyByCapture();
     const template = `

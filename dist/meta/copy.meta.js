@@ -19,7 +19,7 @@
 // @match       *://*.zhihu.com/*
 // @match       *://docs.qq.com/doc/*
 // @match       *://docs.qq.com/sheet/*
-// @match       *://boke112.com/post/*
+// @match       *://boke112.com/*/*
 // @match       *://*.diyifanwen.com/*
 // @match       *://www.uemeds.cn/*
 // @match       *://www.oh100.com/*
