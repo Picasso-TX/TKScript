@@ -23,7 +23,7 @@ export default {
       *{-webkit-touch-callout: auto !important;-webkit-user-select: auto !important;-moz-user-select: auto !important;-khtml-user-select: auto !important;-ms-user-select: auto !important;}
     `;
     const style = document.createElement("style");
-    style.innerText = !!css ? css : defaultCss;
+    style.innerHTML = !!css ? css : defaultCss;
     const head = document.getElementsByTagName("head")[0];
     if (head) {
       head.appendChild(style);

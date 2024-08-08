@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.1
+// @version     2.0.2
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -77,6 +77,7 @@
 // @match       *://*.huaweicloud.com/*
 // @match       *://*.aliyun.com/*
 // @match       *://www.51test.net/show/*.html
+// @match       *://16map.com/sites/*.html
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
@@ -365,15 +366,17 @@
       *{-webkit-touch-callout: auto !important;-webkit-user-select: auto !important;-moz-user-select: auto !important;-khtml-user-select: auto !important;-ms-user-select: auto !important;}
     `;
         const style = document.createElement("style");
-        style.innerText = !!css ? css : defaultCss;
+        style.innerHTML = !!css ? css : defaultCss;
         const head = document.getElementsByTagName("head")[0];
+        const addStyle = (head2, style2) => {
+          head2.appendChild(style2);
+        };
         if (head) {
-          head.appendChild(style);
+          addStyle(head, style);
         } else {
-          window.addEventListener(
-            PAGE_LOADED,
-            () => document.getElementsByTagName("head")[0].appendChild(style)
-          );
+          window.addEventListener(PAGE_LOADED, () => {
+            addStyle(document.getElementsByTagName("head")[0], style);
+          });
         }
       },
       enableOnSelectStart: (selector) => {
@@ -1217,7 +1220,15 @@
     };
 
     const website = {
-      regexp: new RegExp("ai-bot\\.cn"),
+      config: {
+        runAt: DOM_STAGE.END
+      },
+      regexp: new RegExp(
+        [
+          "16map\\.com",
+          "ai-bot\\.cn"
+        ].join("|")
+      ),
       init: function() {
         utils.hideButton();
         utils.enableUserSelectByCSS(
@@ -1306,7 +1317,7 @@
             const content = getSelectedText();
             if (isEmptyContent(content)) {
               instance.hide();
-              return "";
+              return void 0;
             }
             instance.onCopy(content, e);
           };

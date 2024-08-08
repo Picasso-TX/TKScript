@@ -24,7 +24,7 @@ import common from "./modules/common";
 import commonEnhance from "./modules/common-e";
 import commonPreLoad from "./modules/common-p";
 import { kdoc } from "./modules/kdocs";
-import aibot from "./modules/aibot"
+import commonOnlyCss from "./modules/common-only-css";
 
 export interface WebsiteConfig {
   initCopyEvent?: boolean;
@@ -65,7 +65,7 @@ const websites: Website[] = [
   common,
   commonEnhance,
   commonPreLoad,
-  aibot
+  commonOnlyCss
 ];
 
 export default websites;
