@@ -5,7 +5,8 @@ const website: Website = {
   regexp: new RegExp([
     "rrdynb", "fuwu7", "jinrilvsi\\.com","www\\.9136\\.com",
     "www\\.jdxzz\\.com",
-    "www\\.gaosan\\.com"
+    "www\\.gaosan\\.com",
+    "lqsbcl\\.net"
   ].join("|")),
   init: function () {
     utils.hideButton();
