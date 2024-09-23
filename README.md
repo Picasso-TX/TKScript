@@ -1,3 +1,8 @@
+# Install
+<a href="https://api.staticj.top/script/update/copy-scriptcat.user.js" rel="nofollow">
+  <img height="35px" src="https://img.shields.io/badge/点我安装最新版-005200" data-canonical-src="https://img.shields.io/badge/点我安装最新版-005200" style="max-width: 100%;" />
+</a>
+
 # TKScript
 
 `GreaseMonkey`油猴脚本与`BrowserAddon`浏览器扩展，如果觉得不错，点个`star`吧! 😁

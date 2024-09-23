@@ -40,6 +40,19 @@ const scriptConfig = [
     },
   },
   {
+    name: "CopyScriptCat",
+    meta: {
+      input: "./meta/blank.ts",
+      output: "./dist/meta/copy.scriptcat.meta.js",
+      metaFile: "./packages/copy/meta.scriptcat.json",
+    },
+    script: {
+      input: "./packages/copy/src/index-scriptcat.ts",
+      output: "./dist/copy-scriptcat.user.js",
+      injectCss: false,
+    },
+  },
+  {
     name: "CopyCurrency",
     meta: {
       input: "./meta/blank.ts",
