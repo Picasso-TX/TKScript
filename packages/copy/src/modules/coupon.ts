@@ -2,6 +2,7 @@ import dom from "../utils/dom";
 import { STORAGE_KEYS } from "../constant/constant";
 import type { Website } from "../websites";
 import command from "../utils/command";
+import utils from "../utils/event";
 
 const website: Website = {
   config: {
@@ -9,6 +10,7 @@ const website: Website = {
   },
   regexp: new RegExp("taobao.com|tmall.com|jd.com|vip.com|liangxinyao.com|jd.hk|tmall.hk|vipglobal.hk|jkcsjd.com|yiyaojd.com"),
   init: function () {
+    utils.hideButton();
 
     // Gabrielvy代码
     const Tools={
@@ -240,7 +242,7 @@ const website: Website = {
     		}
 
     		this.browsingHistory(platform, goodsId);
-    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=3&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
+    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=2&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
     		try{
     			const data = await Tools.request("GET", goodsCouponUrl, null);
     			if(data.code=="ok" && !!data.result){
@@ -297,7 +299,7 @@ const website: Website = {
     			}
 
     			const couponId = templateElement.getAttribute("data-id");
-    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=3&v=1.0.2&platform="+platform+"&id=";
+    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=2&v=1.0.2&platform="+platform+"&id=";
     			if(!/\d/.test(couponId)){
     				return;
     			}
@@ -566,7 +568,7 @@ const website: Website = {
     				element.insertAdjacentHTML('beforeend', self.browsedHtml);
     			}
 
-    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=3";
+    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=2";
     			Tools.request("GET", searchUrl, null).then((data)=>{
     				if(data.code=="ok" && !!data.result){
     					const {tip, encryptLink} = JSON.parse(data.result);
@@ -667,7 +669,7 @@ const website: Website = {
     		Tools.setLocalStorageValue(browsingHistoryLocalStorageKey,[]); //已浏览标识
     	}
     });
-    
+
   }
 };
 

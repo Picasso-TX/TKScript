@@ -2,6 +2,7 @@ import dom from "../utils/dom";
 import { STORAGE_KEYS } from "../constant/constant";
 import type { Website } from "../websites";
 import command from "../utils/command";
+import utils from "../utils/event";
 
 const website: Website = {
   config: {
@@ -9,6 +10,8 @@ const website: Website = {
   },
   regexp: new RegExp("tencent.com|aliyun.com|huaweicloud.com"),
   init: function () {
+    //utils.hideButton();
+
     function ServerNavigation(){
     	this.allowHosts = ["tencent.com","aliyun.com","huaweicloud.com","bandwagonhost.com","hostwinds.com"];
     	this.number = Math.ceil(Math.random()*100000000);
@@ -53,30 +56,46 @@ const website: Website = {
     	};
     	this.temporary=function(track){
           const pathname = window.location.pathname;
-          const pathnameRes = ["/", "/product", "/product/list"].some((item)=> pathname===item);
+          const pathnameRes = ["/", "/product", "/product/list"].some((item) => pathname === item);
     			if(pathnameRes){
-    				setInterval(function(){
-    					var num = 0;
-    					document.querySelectorAll("a").forEach(function(element,index){
-    						if(!element.getAttribute("anchor")){
-    							element.setAttribute("anchor", "true");
+            const anchorRun=()=>{
+              	var num = 0;
+                const anchor = decodeURIComponent("%E5%AE%89%E5%85%A8%7C%E8%AF%86%E5%88%AB%7C%E6%A8%A1%E5%9E%8B%7C%E5%AE%A1%E6%A0%B8%7C%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%7CAI%7C%E6%9C%8D%E5%8A%A1%E5%99%A8%7C%E4%B8%BB%E6%9C%BA%7C%E6%B4%BB%E5%8A%A8%7C%E6%96%87%E6%9C%AC%7C%E6%96%87%E5%AD%97%7C%E8%AF%AD%E8%A8%80%7C%E5%9B%BE%E5%83%8F%7C%E5%9B%BE%E7%89%87%7C%E8%A7%86%E9%A2%91%7C%E5%9F%9F%E5%90%8D%7C%E7%9F%AD%E4%BF%A1");
+              	const anchorItems = anchor.split("|");
+                document.querySelectorAll("a").forEach(function(element,index){
                   var href = element.getAttribute("href");
-                  if(!href) return;
-                  const eleInnerText = encodeURIComponent(element.innerText);
-                  const controllers = [{ "t": "%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }, { "t": "%E6%9C%80%E6%96%B0%E6%B4%BB%E5%8A%A8", "j": "c" }, { "t": "%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }];
-                  const result = controllers.some((item)=>{
-                    return item.j=="e" ? (eleInnerText==item.t) : (eleInnerText.indexOf(item.t)!=-1)
-                  });
+                  if(!href || (element.getAttribute("anchor-i") && element.getAttribute("anchor-i-url")===href)){
+                    return;
+                  }
+                  element.setAttribute("anchor-i","true");
+                  element.setAttribute("anchor-i-url",href);
+                  let textContent = "";
+                  for(let node of element.childNodes){
+                    if(node.nodeType === Node.TEXT_NODE || (node.nodeType === Node.ELEMENT_NODE && node.tagName!== 'A')) {
+                      textContent += node.textContent;
+                    }
+                  }
+                  textContent = textContent.replace(/\n|\t|\s/g, "");
+                  const result = anchorItems.some((item) => textContent.indexOf(item)!=-1);
                   if(result){
                     if(href.indexOf(track)!=-1) return;
                     element.setAttribute("rel", "noreferrer nofollow");
                     href = href + (href.indexOf("?")!=-1 ? "&" : "?") + track;
+
+                    element.removeAttribute("data-spm");
+                    element.removeAttribute("data-spm-anchor-id");
+                    element.removeAttribute("data-tracker-scm");
+
                     element.setAttribute("href", href);
+                    element.setAttribute("anchor-i-url",href);
                     num++;
                   }
-    						}
-    					});
-    				},800);
+              	});
+            }
+            anchorRun();
+    				setInterval(function(){
+              anchorRun();
+            },1000);
     			}
     		};
     	this.start=function(){
@@ -245,7 +264,9 @@ const website: Website = {
     				startContainer();
     				self.temporary(track);
     			}
-    		}).catch((error)=>{});
+    		}).catch((error)=>{
+          console.log(error);
+        });
     	};
     }
     (new ServerNavigation()).start();

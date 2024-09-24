@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.3
+// @version     2.0.4
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -86,6 +86,7 @@
 // @exclude     *://account.aliyun.com/*
 // @exclude     *://developer.aliyun.com/*
 // @exclude     *://promotion.aliyun.com/*
+// @exclude     *://free.aliyun.com/*
 // @exclude     *://summit.aliyun.com/*
 // @exclude     *://startup.aliyun.com/*
 // @exclude     *://university.aliyun.com/*
@@ -874,28 +875,41 @@
             const pathname = window.location.pathname;
             const pathnameRes = ["/", "/product", "/product/list"].some((item) => pathname === item);
             if (pathnameRes) {
-              setInterval(function() {
+              const anchorRun = () => {
+                const anchor = decodeURIComponent("%E5%AE%89%E5%85%A8%7C%E8%AF%86%E5%88%AB%7C%E6%A8%A1%E5%9E%8B%7C%E5%AE%A1%E6%A0%B8%7C%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%7CAI%7C%E6%9C%8D%E5%8A%A1%E5%99%A8%7C%E4%B8%BB%E6%9C%BA%7C%E6%B4%BB%E5%8A%A8%7C%E6%96%87%E6%9C%AC%7C%E6%96%87%E5%AD%97%7C%E8%AF%AD%E8%A8%80%7C%E5%9B%BE%E5%83%8F%7C%E5%9B%BE%E7%89%87%7C%E8%A7%86%E9%A2%91%7C%E5%9F%9F%E5%90%8D%7C%E7%9F%AD%E4%BF%A1");
+                const anchorItems = anchor.split("|");
                 document.querySelectorAll("a").forEach(function(element, index) {
-                  if (!element.getAttribute("anchor")) {
-                    element.setAttribute("anchor", "true");
-                    var href = element.getAttribute("href");
-                    if (!href)
-                      return;
-                    const eleInnerText = encodeURIComponent(element.innerText);
-                    const controllers = [{ "t": "%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }, { "t": "%E6%9C%80%E6%96%B0%E6%B4%BB%E5%8A%A8", "j": "c" }, { "t": "%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8", "j": "c" }];
-                    const result = controllers.some((item) => {
-                      return item.j == "e" ? eleInnerText == item.t : eleInnerText.indexOf(item.t) != -1;
-                    });
-                    if (result) {
-                      if (href.indexOf(track) != -1)
-                        return;
-                      element.setAttribute("rel", "noreferrer nofollow");
-                      href = href + (href.indexOf("?") != -1 ? "&" : "?") + track;
-                      element.setAttribute("href", href);
+                  var href = element.getAttribute("href");
+                  if (!href || element.getAttribute("anchor-i") && element.getAttribute("anchor-i-url") === href) {
+                    return;
+                  }
+                  element.setAttribute("anchor-i", "true");
+                  element.setAttribute("anchor-i-url", href);
+                  let textContent = "";
+                  for (let node of element.childNodes) {
+                    if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE && node.tagName !== "A") {
+                      textContent += node.textContent;
                     }
                   }
+                  textContent = textContent.replace(/\n|\t|\s/g, "");
+                  const result = anchorItems.some((item) => textContent.indexOf(item) != -1);
+                  if (result) {
+                    if (href.indexOf(track) != -1)
+                      return;
+                    element.setAttribute("rel", "noreferrer nofollow");
+                    href = href + (href.indexOf("?") != -1 ? "&" : "?") + track;
+                    element.removeAttribute("data-spm");
+                    element.removeAttribute("data-spm-anchor-id");
+                    element.removeAttribute("data-tracker-scm");
+                    element.setAttribute("href", href);
+                    element.setAttribute("anchor-i-url", href);
+                  }
                 });
-              }, 800);
+              };
+              anchorRun();
+              setInterval(function() {
+                anchorRun();
+              }, 1e3);
             }
           };
           this.start = function() {
@@ -1057,6 +1071,7 @@
                 self.temporary(track);
               }
             }).catch((error) => {
+              console.log(error);
             });
           };
         }

@@ -16,6 +16,7 @@ import qqbook from "./modules/qqbook";
 import utaten from "./modules/utaten";
 import baiduwk from "./modules/baiduwk";
 import coupon from "./modules/coupon";
+import server from "./modules/server";
 import csdn from "./modules/csdn";
 import bilibili from "./modules/bilibili";
 import cnki from "./modules/cnki";
@@ -56,6 +57,7 @@ const websites: Website[] = [
   utaten,
   baiduwk,
   coupon,
+  server,
   doc88,
   csdn,
   bilibili,
