@@ -8,7 +8,7 @@ const website: Website = {
   config: {
     runAt: "document-end",
   },
-  regexp: new RegExp("taobao.com|tmall.com|jd.com|vip.com|liangxinyao.com|jd.hk|tmall.hk|vipglobal.hk|jkcsjd.com|yiyaojd.com"),
+  regexp: new RegExp("taobao.com|tmall.com|jd.com|vip.com|liangxinyao.com|jd.hk|tmall.hk|vipglobal.hk|jkcsjd.com|yiyaojd.com|suning.com"),
   init: function () {
     utils.hideButton();
 
@@ -33,11 +33,21 @@ const website: Website = {
     		const params = new URLSearchParams(paramsString);
     		return params.get(tag);
     	},
-    	request:function(mothed, url, param){
+    	request:function(method, url, param, isCrossOrigin=false){
+    		if(isCrossOrigin){
+    			return this.crossRequest(method, url, param);
+    		}else{
+    			return this.gmRequest(method, url, param);
+    		}
+    	},
+    	gmRequest:function(method, url, param){
+    		if(!param){
+    			param = {};
+    		}
     		return new Promise(function(resolve, reject){
     			GM_xmlhttpRequest({
     				url: url,
-    				method: mothed,
+    				method: method,
     				data:param,
     				onload: function(response) {
     					var status = response.status;
@@ -49,7 +59,35 @@ const website: Website = {
     					}
     				}
     			});
-    		})
+    		});
+    	},
+    	crossRequest:function(method, url, param) {
+    		if(!method){
+    			method = "get";
+    		}
+    		if(!url){
+    			return new Promise(function(resolve, reject){
+    				reject({"code":"exception", "result":null});
+    			});
+    		}
+    		if(!param){
+    			param = {};
+    		}
+    		method = method.toUpperCase();
+    	    let config = {
+    	        method: method
+    	    };
+    	    if (method === 'POST') {
+    	        config.headers['Content-Type'] = 'application/json';
+    	        config.body = JSON.stringify(param);
+    	    }
+    		return new Promise(function(resolve, reject){
+    			fetch(url, config).then(response => response.text()).then(text => {
+    				resolve({"code":"ok", "result":text});
+    			}).catch(error => {
+    				reject({"code":"exception", "result":null});
+    			});
+    		});
     	},
     	getElementAsync:function(selector, target=document.body, allowEmpty = true, delay=10, maxDelay=10 * 1000){
     		return new Promise((resolve,reject) =>{
@@ -115,25 +153,28 @@ const website: Website = {
     			GM.openInTab(url, options);
     		}
     	},
-    	getPlatform:function(url = window.location.host){
+    	getPlatform:function(host = window.location.host){
     		let platform = "";
-    		const isTmall = [/tmall.com/, /tmall\.hk/].map((reg)=> reg.test(url)).some((re)=>re);
-    		const isTaobao = [/taobao\.com/, /liangxinyao\.com/].map((reg)=> reg.test(url)).some((re)=>re);
-    		const isJd = [/jd\.com/, /jd\.hk/, /yiyaojd\.com/, /jkcsjd\.com/].map((reg)=> reg.test(url)).some((re)=>re);
-    		const isVip = [/vip\.com/, /vipglobal\.hk/].map((reg)=> reg.test(url)).some((re)=>re);
-    		if(isTmall){
-    			platform = "tmall";
-    		}
-    		if(isTaobao){
+    		if(host.indexOf(".taobao.")!=-1 || host.indexOf(".liangxinyao.")!=-1){
     			platform = "taobao";
-    		}
-    		if(isJd){
+    		}else if(host.indexOf(".tmall.")!=-1){
+    			platform = "tmall";
+    		}else if(host.indexOf(".jd.")!=-1 || host.indexOf(".yiyaojd.")!=-1 || host.indexOf(".jkcsjd.")!=-1){
     			platform = "jd";
-    		}
-    		if(isVip){
+    		}else if(host.indexOf(".vip.")!=-1 || host.indexOf(".vipglobal.")!=-1){
     			platform = "vpinhui";
+    		}else if(host.indexOf(".suning.")!=-1){
+    			platform = "suning";
     		}
     		return platform;
+    	},
+    	suningParameter:function(url){
+    		const regex = /product\.suning\.com\/(\d+\/\d+)\.html/;
+    		const match = url.match(regex);
+    		if(match){
+    			return match[1].replace(/\//g, '-');
+    		}
+    		return null;
     	}
     };
 
@@ -142,9 +183,8 @@ const website: Website = {
     	generateIsResult:true,
     	isRun:function(){
     		const currentHost = window.location.host;
-    		return ["detail.tmall.com", "item.taobao.com", "item.jd.com", "item.yiyaojd.com", "npcitem.jd.hk",
-    			"detail.tmall.hk", "detail.vip.com", "item.jkcsjd.com"
-    		].map((host)=>currentHost.indexOf(host)!=-1).some((result)=>result);
+    		return ["detail.tmall.com", "item.taobao.com", "item.jd.com", "item.yiyaojd.com", "npcitem.jd.hk","detail.tmall.hk", "detail.vip.com", "item.jkcsjd.com", "product.suning.com"]
+    			.map((host)=>currentHost.indexOf(host)!=-1).some((result)=>result);
     	},
     	encodeTitle:function(title){
     		if(!title){
@@ -189,6 +229,14 @@ const website: Website = {
     			if(!!titleObj){
     				goodsName = titleObj.textContent;
     			}
+    		}else if(platform=="suning"){
+    			goodsId = Tools.suningParameter(href);
+    			try{
+    				const titleObj = document.querySelector("#itemDisplayName");;
+    				if(!!titleObj){
+    					goodsName = titleObj.textContent;
+    				}
+    			}catch(e){}
     		}
     		return {"goodsId":goodsId, "goodsName":this.encodeTitle(goodsName)};
     	},
@@ -242,9 +290,9 @@ const website: Website = {
     		}
 
     		this.browsingHistory(platform, goodsId);
-    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=2&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
+    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=4&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
     		try{
-    			const data = await Tools.request("GET", goodsCouponUrl, null);
+    			const data = await Tools.request("GET", goodsCouponUrl, null, true);
     			if(data.code=="ok" && !!data.result){
     				const json = JSON.parse(data.result);
     				await this.generateCoupon(platform, json.data);
@@ -291,6 +339,8 @@ const website: Website = {
     				handlerElement.insertAdjacentHTML('afterend', html);
     			}else if(platform=="vpinhui"){
     				handlerElement.insertAdjacentHTML('afterend', html);
+    			}else if(platform=="suning"){
+    				handlerElement.insertAdjacentHTML('afterend', html);
     			}
 
     			const templateElement = document.querySelector("div[id='"+templateId+"']");
@@ -299,7 +349,7 @@ const website: Website = {
     			}
 
     			const couponId = templateElement.getAttribute("data-id");
-    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=2&v=1.0.2&platform="+platform+"&id=";
+    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=4&v=1.0.2&platform="+platform+"&id=";
     			if(!/\d/.test(couponId)){
     				return;
     			}
@@ -324,7 +374,7 @@ const website: Website = {
     						Tools.openInTab(href);
     						couponElementA.removeAttribute(clickedTag);
     					}else{
-    						Tools.request("GET", goodsPrivateUrl+couponId, null).then((privateResultData)=>{
+    						Tools.request("GET", goodsPrivateUrl+couponId, null, true).then((privateResultData)=>{
     							if(privateResultData.code==="ok" && !!privateResultData.result){
     								let url = JSON.parse(privateResultData.result).url;
     								if(url){
@@ -343,7 +393,7 @@ const website: Website = {
     			if(!canvasElement){
     				return;
     			}
-    			const qrcodeResultData = await Tools.request("GET", goodsPrivateUrl+couponId, null);
+    			const qrcodeResultData = await Tools.request("GET", goodsPrivateUrl+couponId, null, true);
     			if(!!qrcodeResultData && qrcodeResultData.code==="ok" && !!qrcodeResultData.result){
     				let img = JSON.parse(qrcodeResultData.result).img;
     				if(!!img){
@@ -442,12 +492,13 @@ const website: Website = {
     			/pro\.jd\.com\/mall/i,
     			/jd\.com\/view_search/i, //商店主页
     			/category\.vip\.com/i,
-    			/list\.vip\.com/i
+    			/list\.vip\.com/i,
+    			/^https:\/\/(?!product|dfp\.)([^\/]+)\.suning\.com\//i
     		].map((reg)=>(new RegExp(reg)).test(visitHref)).some((res)=>res);
     	},
     	requestConf:function(){
     		return new Promise((resolve, reject) => {
-    			Tools.request("GET", "https://tt.shuqiandiqiu.com/api/plugin/load/conf", null).then((data)=>{
+    			Tools.request("GET", "https://tt.shuqiandiqiu.com/api/plugin/load/conf", null, true).then((data)=>{
     				if(data.code=="ok" && !!data.result){
     					resolve(data.result);
     				}else{
@@ -456,7 +507,7 @@ const website: Website = {
     			});
     		});
     	},
-    	pickupElements:function(confString){ //收集列表的元素
+    	pickupElements:function(confString, platform){ //收集列表的元素
     		const visitHref = window.location.href;
     		const selectorElementList = new Array();
     		let confFilter = confString;
@@ -464,12 +515,11 @@ const website: Website = {
     			confFilter = confFilter.replace(/\\\\/g,"\\");
     		}catch(e){}
     		const confJson = JSON.parse(confFilter);
-    		for(let key in confJson){
-    			if(!confJson.hasOwnProperty(key)){
-    				continue;
-    			}
-    			for(let i=0; i<confJson[key].length; i++){
-    				const itemJson = confJson[key][i];
+
+    		if(confJson.hasOwnProperty(platform)){
+    			const platformConfJson = confJson[platform];
+    			for(let i=0; i<platformConfJson.length; i++){
+    				const itemJson = platformConfJson[i];
     				if(!itemJson.hasOwnProperty("elements") || !itemJson.hasOwnProperty("matches")){
     					continue;
     				}
@@ -492,7 +542,7 @@ const website: Website = {
     		const items = [];
     		selectors.forEach((elementObj)=>{
     			if(elementObj.element){
-    				const elements = document.querySelectorAll(elementObj.element);
+    				const elements = document.querySelectorAll(elementObj.element + ":not([querycxll='true'])");
     				elements.forEach((element)=>{
     					if(element){
     						items.push({"element":element, "findA": elementObj.findA, "page":elementObj.page});
@@ -508,14 +558,22 @@ const website: Website = {
     		this.intervalIsRunComplete = false;
     		const promises = [];
     		const histories = this.getHistories();
-    		items.forEach((item)=>{
-    			promises.push(this.queryOne(item,histories));
-    		});
-    		Promise.all(promises).then((result)=>{
+    		this.processLinksInBatches(items, 18, histories).then((result)=>{
     			this.intervalIsRunComplete = true;
     		});
     	},
-    	queryOne:function(item,histories){
+    	processLinksInBatches: async function(items, batchSize, histories) {
+    	    const results = [];
+    	    for (let i = 0; i < items.length; i += batchSize) {
+    	        const batch = items.slice(i, i + batchSize); // 获取当前批次的链接
+    	        const batchResults = await Promise.all(  // 同时处理当前批次中的所有请求
+    	            batch.map(item => this.queryOne(item, histories))
+    	        );
+    	        results.push(...batchResults); // 保存批次结果
+    	    }
+    	    return results; // 返回所有结果
+    	},
+    	queryOne:function(item, histories){
     		const { element, page, findA} = item;
     		const self = this;
     		return new Promise(function(resolve, reject){
@@ -548,9 +606,14 @@ const website: Website = {
     				let jdId = Tools.getParamterBySuffix(goodsDetailUrl);
     				if(!!jdId) analysisData = {"id":jdId, "platform":"jd"};
     			}else if(/^vpinhui_/.test(page)){
-    				let vipId = Tools.getParamterBySuffix(goodsDetailUrl).replace("detail-","");;
+    				let vipId = Tools.getParamterBySuffix(goodsDetailUrl).replace("detail-","");
     				if(!!vipId){
     					analysisData = {"id":vipId.split("-")[1], "platform":"vpinhui"};
+    				}
+    			}else if(/suning_/.test(page)){
+    				let suningId = Tools.suningParameter(goodsDetailUrl);
+    				if(!!suningId){
+    					analysisData = {"id":suningId, "platform":"suning"};
     				}
     			}else{
     				let platform = Tools.getPlatform(goodsDetailUrl);
@@ -568,14 +631,16 @@ const website: Website = {
     				element.insertAdjacentHTML('beforeend', self.browsedHtml);
     			}
 
-    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=2";
-    			Tools.request("GET", searchUrl, null).then((data)=>{
+    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=4";
+    			Tools.request("GET", searchUrl, null, true).then((data)=>{
     				if(data.code=="ok" && !!data.result){
-    					const {tip, encryptLink} = JSON.parse(data.result);
+    					const {id, tip, encryptLink} = JSON.parse(data.result);
     					if(tip){
+    						//console.log("coupon exist", id);
     						element.insertAdjacentHTML('beforeend', tip);
     					}
     					if(encryptLink){
+    						//console.log("jood job!", id);
     						let decryptUrl = null;
     						try{
     							const decryptLink = atob(encryptLink);
@@ -641,14 +706,26 @@ const website: Website = {
     					}
     				});
     			}
+    			else if(page.indexOf("suning_")!=-1){
+    				element.querySelectorAll("a").forEach((element_a)=>{
+    					if(element_a.getAttribute("href").indexOf("product.suning.com")!=-1){
+    						element_a.addEventListener("click", function(e){
+    							e.preventDefault();
+    							e.stopPropagation();
+    							Tools.openInTab(decryptUrl);
+    						});
+    					}
+    				});
+    			}
     		}catch(e){
     			console.log(e);
     		}
     	},
     	start:function(){
     		if(this.isRun()){
+    			const platform = Tools.getPlatform();
     			this.requestConf().then((confString)=>{
-    				const selectors = this.pickupElements(confString);
+    				const selectors = this.pickupElements(confString, (platform=="tmall"? "taobao" : platform));
     				if(this.intervalIsRunComplete){
     					this.transformElements(selectors);
     				}
