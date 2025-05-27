@@ -151,7 +151,7 @@ const website: Website = {
     				border-radius: 5px 5px 0px 0px;
     			}
     			#server-container-expand`+number+`:hover{
-    
+
     			}
     			#server-container-expand`+number+`>svg{
     				width:50px;
@@ -187,11 +187,11 @@ const website: Website = {
     					</div>
     				</div>
     				<div id="server-container-body`+number+`">
-    
+
     				</div>
     			</div>
     		`;
-    
+
     		this.addStyle(css);
     		document.body.insertAdjacentHTML("beforeend", html);
     		this.addEventListener(origin);
@@ -203,7 +203,7 @@ const website: Website = {
     		function expandOrShow(forceClose=false){
     			const serverContainerx = document.querySelector("#server-containerx"+number);
     			var {bottom, height} = window.getComputedStyle(serverContainerx);
-    
+
     			if(bottom=="0px" || forceClose){
     				bottom = "-"+height;
     			}else{
@@ -211,11 +211,11 @@ const website: Website = {
     			}
     			serverContainerx.style.bottom = bottom;
     		}
-    
+
     		document.querySelector("#server-container-expand"+number).addEventListener("click",function(){
     			expandOrShow();
     		});
-    
+
     		var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     		function startContainer(){
     			setTimeout(function(){
@@ -224,39 +224,46 @@ const website: Website = {
     					if (scrollTop - lastScrollTop > 30) { //向下滚动
     						expandOrShow(true);
     					} else { //向上滚动
-    
+
     					}
     					lastScrollTop = scrollTop;
     				});
     			}, 1500);
     		}
-    
+
     		var url = "https://oversea.mimixiaoke.com/api/discover/"+origin;
     		self.request("post", url, null).then((data)=>{
-    			if(data.result=="success" && !!data.responseText){
-    				const { html, platforms } = JSON.parse(data.responseText).data;
-    				document.querySelector("#server-container-body"+number).insertAdjacentHTML("beforeend", html);
-    				startContainer();
-    				let platform = null;
-    				for(let i=0; i<platforms.length; i++){
-    					if((new RegExp(platforms[i].match.replace(/\\\\/g,"\\"), "i")).test(href)){
-    						platform = platforms[i];
-    						break;
-    					}
-    				}
-    				if(platform){
-    					const storageKey = "__anchor__"+window.location.host;
-    					if(platform.support_append || !!sessionStorage.getItem(storageKey)){
-    						self.temporary(platform);
-    					}else{
-    						if(window.location.pathname==platform.target){
-    							sessionStorage.setItem(storageKey, "true");
-    							window.location.href = platform.promo_link;
-    						}
-    					}
-    				}
-    			}
-    		}).catch((error)=>{
+          if(data.result=="success" && !!data.responseText){
+            const { html, platforms } = JSON.parse(data.responseText).data;
+            document.querySelector("#server-container-body"+number).insertAdjacentHTML("beforeend", html);
+            startContainer();
+            let platform = null;
+            for(let i=0; i<platforms.length; i++){
+              if((new RegExp(platforms[i].match.replace(/\\\\/g,"\\"), "i")).test(href)){
+                platform = platforms[i];
+                break;
+              }
+            }
+            if(platform){
+              const storageKey = "__anchor__"+window.location.host;
+              if(platform.support_append || !!sessionStorage.getItem(storageKey)){
+                self.temporary(platform);
+              }else{
+                const pathname = window.location.pathname;
+                const targets = platform.targets;
+                if(targets){
+                  for(let i=0; i<targets.length; i++){
+                    if((new RegExp(targets[i].match.replace(/\\\\/g,"\\"), "i")).test(pathname)){
+                      sessionStorage.setItem(storageKey, "true");
+                      window.location.href = platform.promo_link;
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }).catch((error)=>{
     			console.log(error);
     		});
     	};
