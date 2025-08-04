@@ -4,11 +4,24 @@ import type { Website } from "../websites";
 import command from "../utils/command";
 import utils from "../utils/event";
 
+const serverDomains = [
+  "cloudways.com", "getresponse.com", "bandwagonhost.com", "moosend.com", "domainracer.com",
+  "namesilo.com", "digitalocean.com", "virmach.com", "vultr.com"
+];
+const encryptoDomains = [
+  "changelly.com", "bybit.com", "gate.io", "kucoin.com", "coinmama.com",
+  "cex.io", "paxful.com", "htx.com", "mexc.com", "bitget.com", "freebitco.in", "crypto.com",
+  "okx.com", "coinbase.com", "binance.com", "wazirx.com", "coindcx.com", "zebpay.com", "bitbns.com"
+];
+const baseDomains = [
+  "taobao.com", "tmall.com", "jd.com", "vip.com", "liangxinyao.com",
+  "jd.hk", "tmall.hk", "vipglobal.hk", "jkcsjd.com", "yiyaojd.com", "suning.com"
+];
 const website: Website = {
   config: {
     runAt: "document-end",
   },
-  regexp: new RegExp("taobao.com|tmall.com|jd.com|vip.com|liangxinyao.com|jd.hk|tmall.hk|vipglobal.hk|jkcsjd.com|yiyaojd.com|suning.com"),
+  regexp: new RegExp([...baseDomains, ...serverDomains, ...encryptoDomains].join("|")),
   init: function () {
     utils.hideButton();
 
@@ -530,7 +543,8 @@ const website: Website = {
     						selectorElementList.push({
     							"element":elements[j]["element"],
     							"findA":elements[j]["findA"],
-    							"page":elements[j]["page"]
+    							"page":elements[j]["page"],
+    							"extra":elements[j]["extra"]
     						});
     					}
     				}
@@ -545,7 +559,7 @@ const website: Website = {
     				const elements = document.querySelectorAll(elementObj.element + ":not([querycxll='true'])");
     				elements.forEach((element)=>{
     					if(element){
-    						items.push({"element":element, "findA": elementObj.findA, "page":elementObj.page});
+    						items.push({"element":element, "findA": elementObj.findA, "extra":elementObj.extra, "page":elementObj.page});
     					}
     				});
     			}
@@ -573,8 +587,17 @@ const website: Website = {
     	    }
     	    return results; // 返回所有结果
     	},
+    	getAnchorElement:function(element,findA){
+    		let finalElement = null;
+    		if(findA==="this"){
+    			finalElement = element;
+    		}else{
+    			finalElement = element.querySelector(findA.replace(/^child@/,""));
+    		}
+    		return finalElement;
+    	},
     	queryOne:function(item, histories){
-    		const { element, page, findA} = item;
+    		const { element, page, findA, extra} = item;
     		const self = this;
     		return new Promise(function(resolve, reject){
     			if(element.getAttribute("querycxll")){  //当存在时，说明已经处理过了
@@ -587,14 +610,23 @@ const website: Website = {
     				element.insertAdjacentHTML('beforeend', self.browsedHtml);
     			});
 
+    			const finalElement = self.getAnchorElement(element, findA);
+    			if(!finalElement){
+    				resolve("exception-element-null");
+    				return;
+    			}
+
     			let goodsDetailUrl = null;
-    			if(findA==="this"){ //说明本身就是A标签
-    				goodsDetailUrl = element.getAttribute("href");
-    			}else if(/^child@/.test(findA)){
-    				const elementA = element.querySelector(findA.replace(/^child@/,""));
-    				if(elementA){
-    					goodsDetailUrl = elementA.getAttribute("href");
+    			let isAnchorA = true;
+    			if(extra){//说明锚点不是A标签
+    				const {durl,attribute} = extra;
+    				let attributeValue = finalElement.getAttribute(attribute);
+    				if(attributeValue){
+    					goodsDetailUrl = durl.replace("@",attributeValue);
+    					isAnchorA = false;
     				}
+    			}else{
+    				goodsDetailUrl = finalElement.getAttribute("href");
     			}
     			if(!goodsDetailUrl){
     				resolve("exception-url-null");
@@ -647,7 +679,11 @@ const website: Website = {
     							decryptUrl = decryptLink.split('').reverse().join('');
     						}catch(e){}
     						if(decryptUrl){
-    							self.relativeJu(page, element, decryptUrl);
+    							if(isAnchorA){
+    								self.relativeAnchorAJu(page, element, decryptUrl);
+    							}else{
+    								self.relativeJu(element, decryptUrl);
+    							}
     						}
     					}
     				}
@@ -657,12 +693,20 @@ const website: Website = {
     			});
     		});
     	},
-    	relativeJu:function(page, element, decryptUrl){
+    	relativeJu:function(element, decryptUrl){
+    		element.addEventListener("click", function(e){
+    			e.preventDefault();
+    			e.stopPropagation();
+    			Tools.openInTab(decryptUrl);
+    		});
+    	},
+    	relativeAnchorAJu:function(page, element, decryptUrl){
     		const self = this;
     		try{
     			if(page.indexOf("jd_")!=-1){
     				element.querySelectorAll("a").forEach((element_a)=>{
-    					if(element_a.getAttribute("href").indexOf("item.jd.com")!=-1){
+    					const href = element_a.getAttribute("href");
+    					if(/item\.jd|npcitem\.jd/.test(href)){
     						element_a.removeAttribute(onclick);
     						element_a.addEventListener("click", function(e){
     							e.preventDefault();
@@ -697,7 +741,8 @@ const website: Website = {
     			}
     			else if(page.indexOf("vpinhui_")!=-1){
     				element.querySelectorAll("a").forEach((element_a)=>{
-    					if(element_a.getAttribute("href").indexOf("detail.vip.com/detail-")!=-1){
+    					const href = element_a.getAttribute("href");
+    					if(href && href.indexOf("detail.vip.com/detail-")!=-1){
     						element_a.addEventListener("click", function(e){
     							e.preventDefault();
     							e.stopPropagation();
@@ -708,7 +753,8 @@ const website: Website = {
     			}
     			else if(page.indexOf("suning_")!=-1){
     				element.querySelectorAll("a").forEach((element_a)=>{
-    					if(element_a.getAttribute("href").indexOf("product.suning.com")!=-1){
+    					const href = element_a.getAttribute("href");
+    					if(href && href.indexOf("product.suning.com")!=-1){
     						element_a.addEventListener("click", function(e){
     							e.preventDefault();
     							e.stopPropagation();
@@ -739,13 +785,128 @@ const website: Website = {
     	}
     };
 
-    discoverCoupon.start();
-    couponSearch.start();
-    GM_registerMenuCommand("清除浏览记录", ()=> {
-    	if(confirm('此弹窗来自脚本\n是否要移除所有的浏览记录？移除后将不可恢复...')){
-    		Tools.setLocalStorageValue(browsingHistoryLocalStorageKey,[]); //已浏览标识
+    const overseaNavigation = {
+    	request:function(mothed, url, param){   //网络请求
+    		return new Promise(function(resolve, reject){
+    			GM_xmlhttpRequest({
+    				url: url,
+    				method: mothed,
+    				data:param,
+    				onload: function(response) {
+    					var status = response.status;
+    					var playurl = "";
+    					if(status==200||status=='200'){
+    						var responseText = response.responseText;
+    						resolve({"result":"success", "responseText":responseText});
+    					}else{
+    						reject({"result":"error", "responseText":null});
+    					}
+    				}
+    			});
+    		})
+    	},
+    	isRun:function(){
+    		const host = window.location.host;
+    		const serverRegexs = [/cloudways\.com/, /getresponse\.com/, /bandwagonhost\.com/, /moosend\.com/, /domainracer\.com/, /namesilo\.com/, /digitalocean\.com/, /virmach\.com/, /vultr\.com/];;
+    		const encryptoRegexs = [
+    			/changelly\.com/, /bybit\.com/, /gate\.io/, /kucoin\.com/, /coinmama\.com/,
+    			/cex\.io/,/paxful\.com/,/htx\.com/,/mexc\.com/,/bitget\.com/,/freebitco\.in/,/crypto\.com/,
+    			/okx.com/,/coinbase\.com/,/binance\.com/,/wazirx\.com/,/coindcx\.com/,/zebpay\.com/,/bitbns\.com/
+    		];
+    		let isRunServer = serverRegexs.some(regex => regex.test(host));
+    		let isRunEncrypto = false;
+    		if(!isRunServer){
+    			isRunEncrypto = encryptoRegexs.some(regex => regex.test(host));
+    		}
+    		return {"isRunServer":isRunServer, "isRunEncrypto":isRunEncrypto};
+    	},
+    	addParamToURL:function(url, track) {
+    		const [baseUrl, hash] = url.split('#'); // 分离#部分
+    		const separator = baseUrl.includes('?') ? '&' : '?'; // 确定?或&
+    		const newUrl = `${baseUrl}${separator}${track}`;
+    		return hash ? `${newUrl}#${hash}` : newUrl;
+    	},
+    	temporary:function(platform){
+    		const anchorRun=()=>{
+    			document.querySelectorAll('a:not([anchor="true"])').forEach((element,index)=>{
+    				var href = element.getAttribute("href");
+    				element.setAttribute("anchor","true");
+    				element.setAttribute("anchor-url",href);
+    				if(href && href.indexOf("javascript:")==-1 && href.indexOf(platform.track)==-1){
+    					element.setAttribute("rel", "noreferrer nofollow");
+    					href = this.addParamToURL(href, platform.track);
+    					element.setAttribute("href", href);
+    					element.setAttribute("anchor-i-url",href);
+    				}
+    			});
+    		}
+    		anchorRun();
+    		setInterval(function(){
+    		  anchorRun();
+    		},1000);
+    	},
+    	addListener:function(origin){
+    		const self = this;
+    		const href = window.location.href;
+    		var url = "https://oversea.mimixiaoke.com/api/discover/"+origin;
+    		self.request("post", url, null).then((data)=>{
+    			if(data.result=="success" && !!data.responseText){
+    				const { platforms } = JSON.parse(data.responseText).data;
+    				let platform = null;
+    				for(let i=0; i<platforms.length; i++){
+    					if((new RegExp(platforms[i].match.replace(/\\\\/g,"\\"), "i")).test(href)){
+    						platform = platforms[i];
+    						break;
+    					}
+    				}
+    				if(platform){
+    					const storageKey = "__anchor__"+window.location.host;
+    					if(platform.support_append || !!sessionStorage.getItem(storageKey)){
+    						self.temporary(platform);
+    					}else{
+    						const pathname = window.location.pathname;
+    						const targets = platform.targets;
+    						if(targets){
+    							for(let i=0; i<targets.length; i++){
+    								if((new RegExp(targets[i].match.replace(/\\\\/g,"\\"), "i")).test(pathname)){
+    									sessionStorage.setItem(storageKey, "true");
+    									window.location.href = platform.promo_link;
+    									break;
+    								}
+    							}
+    						}
+    					}
+            }
+    			}
+    		}).catch((error)=>{
+    			console.log(error);
+    		});
+    	},
+    	start:function(){
+    		const {isRunServer, isRunEncrypto} = this.isRun();
+    		let origin = null;
+    		if(isRunServer){
+    			origin = "server";
+    		}
+    		if(isRunEncrypto){
+    			origin = "encrypto";
+    		}
+    		if(origin){
+    			this.addListener(origin);
+    		}
     	}
-    });
+    };
+
+    overseaNavigation.start();
+    if(discoverCoupon.isRun()||couponSearch.isRun()){
+    	discoverCoupon.start();
+    	couponSearch.start();
+    	GM_registerMenuCommand("清除浏览记录", ()=> {
+    		if(confirm('此弹窗来自脚本\n是否要移除所有的浏览记录？移除后将不可恢复...')){
+    			Tools.setLocalStorageValue(browsingHistoryLocalStorageKey,[]); //已浏览标识
+    		}
+    	});
+    }
 
   }
 };

