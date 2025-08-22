@@ -5,7 +5,7 @@
       "zh-TW":"解除網站不允許複製的限制（優化版）🔥🔥🔥"
     },
     "namespace": "picassoTX_lifting_restrictions",
-    "version": "2.0.10",
+    "version": "2.0.11",
     "description":{
       "default":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
       "zh":"解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~",
@@ -173,9 +173,10 @@
       "*://passport.suning.com/*"
     ],
     "connect":[
-      "server.staticj.top",
+      "staticj.top",
       "res3.doc88.com",
-      "mimixiaoke.com"
+      "mimixiaoke.com",
+      "shuqiandiqiu.com"
     ],
     "supportURL": "https://github.com/Picasso-TX/TKScript/issues",
     "updateURL":"https://api.staticj.top/script/update/copy-scriptcat.user.js",
@@ -183,16 +184,17 @@
     "license": "MIT",
     "run-at": "document-start",
     "grant": [
-        "unsafeWindow",
-        "GM_openInTab",
-        "GM.openInTab",
-        "GM_addStyle",
-        "GM.getValue",
-        "GM_getValue",
-        "GM_xmlhttpRequest",
-        "GM.xmlHttpRequest",
-        "GM_registerMenuCommand",
-        "GM_setValue",
-        "GM.setValue"
+      "unsafeWindow",
+      "GM_openInTab",
+      "GM.openInTab",
+      "GM_addStyle",
+      "GM.getValue",
+      "GM_getValue",
+      "GM_xmlhttpRequest",
+      "GM.xmlHttpRequest",
+      "GM_registerMenuCommand",
+      "GM_setValue",
+      "GM.setValue",
+      "GM_addElement"
     ]
 }

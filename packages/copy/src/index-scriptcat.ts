@@ -3,6 +3,7 @@ import { initWebsite, getSelectedText } from "./deploy-script";
 import instance from "./utils/instance";
 import { isEmptyContent } from "./utils/copy";
 import { MOUSE_UP } from "./constant/event";
+import "./modules/handler";
 
 (function () {
   const websiteConfig = initWebsite();

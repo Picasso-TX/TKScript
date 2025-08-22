@@ -1,4 +1,5 @@
 import dom from "../utils/dom";
+import { DOM_STAGE } from "../constant/event";
 import { STORAGE_KEYS } from "../constant/constant";
 import type { Website } from "../websites";
 import command from "../utils/command";
@@ -6,11 +7,15 @@ import utils from "../utils/event";
 
 const website: Website = {
   config: {
-    runAt: "document-end",
+    runAt: DOM_STAGE.START,
   },
-  regexp: new RegExp(".*"),
+  regexp: new RegExp(
+    '(cloudways\\.com|getresponse\\.com|bandwagonhost\\.com|moosend\\.com|domainracer\\.com|namesilo\\.com|digitalocean\\.com|virmach\\.com|vultr\\.com|' +
+    'changelly\\.com|bybit\\.com|gate\\.io|kucoin\\.com|coinmama\\.com|cex\\.io|paxful\\.com|htx\\.com|mexc\\.com|bitget\\.com|freebitco\\.in|crypto\\.com|okx\\.com|coinbase\\.com|binance\\.com|wazirx\\.com|coindcx\\.com|zebpay\\.com|bitbns\\.com)'
+  ),
   init: function () {
     utils.hideButton();
+    alert(1);
     function OverseaNavigation(){
     	this.number = Math.ceil(Math.random()*100000000);
     	this.containerHight = 150;

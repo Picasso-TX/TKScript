@@ -54,8 +54,8 @@ const website: Website = {
     		}
     	},
     	gmRequest:function(method, url, param){
-    		if(!param){
-    			param = {};
+    		if (!method) {
+    		  method = "get";
     		}
     		return new Promise(function(resolve, reject){
     			GM_xmlhttpRequest({
@@ -305,7 +305,7 @@ const website: Website = {
     		this.browsingHistory(platform, goodsId);
     		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=4&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
     		try{
-    			const data = await Tools.request("GET", goodsCouponUrl, null, true);
+    			const data = await Tools.request("GET", goodsCouponUrl, null, false);
     			if(data.code=="ok" && !!data.result){
     				const json = JSON.parse(data.result);
     				await this.generateCoupon(platform, json.data);
@@ -387,7 +387,7 @@ const website: Website = {
     						Tools.openInTab(href);
     						couponElementA.removeAttribute(clickedTag);
     					}else{
-    						Tools.request("GET", goodsPrivateUrl+couponId, null, true).then((privateResultData)=>{
+    						Tools.request("GET", goodsPrivateUrl+couponId, null, false).then((privateResultData)=>{
     							if(privateResultData.code==="ok" && !!privateResultData.result){
     								let url = JSON.parse(privateResultData.result).url;
     								if(url){
