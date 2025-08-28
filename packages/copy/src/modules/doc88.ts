@@ -24,7 +24,7 @@ const website: Website = {
     );
     GM_xmlhttpRequest({
       method: "GET",
-      url: "https://res3.doc88.com/resources/js/modules/main-v2.min.js?v=2.56",
+      url: "https://res3.doc88.com/resources/js/modules/main-v2.min.js?v=3.55",
       onload: function (response) {
         const result = /\("#cp_textarea"\).val\(([\S]*?)\);/.exec(response.responseText);
         if (result) path = result[1];

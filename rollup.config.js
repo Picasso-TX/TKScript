@@ -51,36 +51,10 @@ const scriptConfig = [
       output: "./dist/copy-scriptcat.user.js",
       injectCss: false,
     },
-  },
-  {
-    name: "CopyCurrency",
-    meta: {
-      input: "./meta/blank.ts",
-      output: "./dist/meta/copy-currency.meta.js",
-      metaFile: "./packages/copy-currency/meta.json",
-    },
-    script: {
-      input: "./packages/copy-currency/src/index.ts",
-      output: "./dist/copy-currency.user.js",
-    },
   }
 ];
 
 export default [
-  ...scriptConfig.map(item => ({
-    input: item.meta.input,
-    output: {
-      file: item.meta.output,
-      format: "es",
-      name: item.name + "Meta",
-    },
-    plugins: [metablock({
-      file: item.meta.metaFile,
-      override: {
-        "antifeature":["referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】"]
-      }
-    })],
-  })),
   ...scriptConfig.map(item => ({
     input: item.script.input,
     output: {
@@ -92,11 +66,10 @@ export default [
       replace({ ...buildConfig.replace }),
       postcss({ ...buildConfig.postcss, inject: item.script.injectCss }),
       esbuild(buildConfig.esbuild),
-      // terser({ format: { comments: true } }),
       metablock({
         file: item.meta.metaFile,
         override: {
-          "antifeature":["referral-link 【此提示为满足GreasyFork社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】"]
+
         }
       }),
     ],

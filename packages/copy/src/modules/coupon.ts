@@ -15,7 +15,7 @@ const encryptoDomains = [
 ];
 const baseDomains = [
   "taobao.com", "tmall.com", "jd.com", "vip.com", "liangxinyao.com",
-  "jd.hk", "tmall.hk", "vipglobal.hk", "jkcsjd.com", "yiyaojd.com", "suning.com"
+  "jd.hk", "tmall.hk", "vipglobal.hk", "jkcsjd.com", "yiyaojd.com", "suning.com","jingdonghealth.cn"
 ];
 const website: Website = {
   config: {
@@ -172,7 +172,7 @@ const website: Website = {
     			platform = "taobao";
     		}else if(host.indexOf(".tmall.")!=-1){
     			platform = "tmall";
-    		}else if(host.indexOf(".jd.")!=-1 || host.indexOf(".yiyaojd.")!=-1 || host.indexOf(".jkcsjd.")!=-1){
+    		}else if(host.indexOf(".jd.")!=-1 || host.indexOf(".yiyaojd.")!=-1 || host.indexOf(".jkcsjd.")!=-1 || host.indexOf(".jingdonghealth.")!=-1){
     			platform = "jd";
     		}else if(host.indexOf(".vip.")!=-1 || host.indexOf(".vipglobal.")!=-1){
     			platform = "vpinhui";
@@ -196,7 +196,8 @@ const website: Website = {
     	generateIsResult:true,
     	isRun:function(){
     		const currentHost = window.location.host;
-    		return ["detail.tmall.com", "item.taobao.com", "item.jd.com", "item.yiyaojd.com", "npcitem.jd.hk","detail.tmall.hk", "detail.vip.com", "item.jkcsjd.com", "product.suning.com"]
+    		return ["detail.tmall.com", "item.taobao.com", "item.jd.com", "item.yiyaojd.com",
+          "npcitem.jd.hk","detail.tmall.hk", "detail.vip.com", "item.jingdonghealth.cn", "item.jkcsjd.com", "product.suning.com"]
     			.map((host)=>currentHost.indexOf(host)!=-1).some((result)=>result);
     	},
     	encodeTitle:function(title){
@@ -406,7 +407,7 @@ const website: Website = {
     			if(!canvasElement){
     				return;
     			}
-    			const qrcodeResultData = await Tools.request("GET", goodsPrivateUrl+couponId, null, true);
+    			const qrcodeResultData = await Tools.request("GET", goodsPrivateUrl+couponId, null, false);
     			if(!!qrcodeResultData && qrcodeResultData.code==="ok" && !!qrcodeResultData.result){
     				let img = JSON.parse(qrcodeResultData.result).img;
     				if(!!img){
