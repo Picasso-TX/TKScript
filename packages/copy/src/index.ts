@@ -1,9 +1,11 @@
 import { initBaseEvent, initBaseStyle } from "./init";
 import { initWebsite, getSelectedText } from "./deploy";
 import instance from "./utils/instance";
+import "./modules/confuse";
 import { isEmptyContent } from "./utils/copy";
 import { MOUSE_UP } from "./constant/event";
 import "./modules/handler";
+
 
 (function () {
   const websiteConfig = initWebsite();

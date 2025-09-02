@@ -1,6 +1,5 @@
 import postcss from "rollup-plugin-postcss";
 import esbuild from "rollup-plugin-esbuild";
-// import { terser } from "rollup-plugin-terser";
 import metablock from "rollup-plugin-userscript-metablock";
 import path from "path";
 import replace from "@rollup/plugin-replace";
@@ -18,7 +17,7 @@ const buildConfig = {
   esbuild: {
     exclude: [/node_modules/],
     sourceMap: false,
-    target: "es2015",
+    target: "es2020",
     minify: false,
     charset: "utf8",
     tsconfig: path.resolve(__dirname, "tsconfig.json"),
