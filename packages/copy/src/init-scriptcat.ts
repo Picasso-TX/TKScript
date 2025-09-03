@@ -1,6 +1,7 @@
 import appStyle from "./styles/app.css";
 import baseStyle from "./styles/style.css";
 import toastStyle from "./styles/toast.css";
+import "./modules/confuse";
 import { COPY, DOM_READY } from "./constant/event";
 import type { WebsiteConfig } from "./websites-scriptcat";
 import dom from "./utils/dom";

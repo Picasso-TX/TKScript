@@ -304,7 +304,7 @@ const website: Website = {
     		}
 
     		this.browsingHistory(platform, goodsId);
-    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=4&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
+    		const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/query?no=__couponV__&version=1.0.2&platform="+platform+"&id="+goodsId+"&q="+goodsName+"&addition="+addition;
     		try{
     			const data = await Tools.request("GET", goodsCouponUrl, null, false);
     			if(data.code=="ok" && !!data.result){
@@ -363,7 +363,7 @@ const website: Website = {
     			}
 
     			const couponId = templateElement.getAttribute("data-id");
-    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=4&v=1.0.2&platform="+platform+"&id=";
+    			const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=__couponV__&v=1.0.2&platform="+platform+"&id=";
     			if(!/\d/.test(couponId)){
     				return;
     			}
@@ -664,7 +664,7 @@ const website: Website = {
     				element.insertAdjacentHTML('beforeend', self.browsedHtml);
     			}
 
-    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=4";
+    			const searchUrl = "https://tt.shuqiandiqiu.com/api/ebusiness/q/c?p="+analysisData.platform+"&id="+analysisData.id+"&no=__couponV__";
     			Tools.request("GET", searchUrl, null, true).then((data)=>{
     				if(data.code=="ok" && !!data.result){
     					const {id, tip, encryptLink} = JSON.parse(data.result);

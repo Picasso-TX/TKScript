@@ -5,11 +5,6 @@ import path from "path";
 import replace from "@rollup/plugin-replace";
 
 const buildConfig = {
-  replace: {
-    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-    "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
-    "preventAssignment": true,
-  },
   postcss: {
     minimize: true,
     extensions: [".css"],
@@ -26,29 +21,59 @@ const buildConfig = {
 
 const scriptConfig = [
   {
-    name: "Copy",
-    meta: {
-      input: "./meta/blank.ts",
-      output: "./dist/meta/copy.meta.js",
-      metaFile: "./packages/copy/meta.json",
-    },
+    name: "CopyNew",
     script: {
+      meta: "./packages/copy/meta.json",
       input: "./packages/copy/src/index.ts",
+      output: "./dist/copy-new.user.js",
+      injectCss: false,
+      override:{
+
+      }
+    },
+    replace: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
+      "preventAssignment": true,
+      "__couponV__":"11"
+    }
+  },
+  {
+    name: "Copy",
+    script: {
+      meta: "./packages/copy/meta.scriptcat.json",
+      input: "./packages/copy/src/index-scriptcat.ts",
       output: "./dist/copy.user.js",
       injectCss: false,
+      override:{
+        "updateURL":"https://api.staticj.top/script/update/copy.user.js",
+        "downloadURL":"https://api.staticj.top/script/update/copy.user.js"
+      }
     },
+    replace: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
+      "preventAssignment": true,
+      "__couponV__":"10"
+    }
   },
   {
     name: "CopyScriptCat",
-    meta: {
-      input: "./meta/blank.ts",
-      output: "./dist/meta/copy.scriptcat.meta.js",
-      metaFile: "./packages/copy/meta.scriptcat.json",
-    },
     script: {
+      meta: "./packages/copy/meta.scriptcat.json",
       input: "./packages/copy/src/index-scriptcat.ts",
       output: "./dist/copy-scriptcat.user.js",
       injectCss: false,
+      override:{
+        "updateURL":"https://api.staticj.top/script/update/copy-scriptcat.user.js",
+        "downloadURL":"https://api.staticj.top/script/update/copy-scriptcat.user.js"
+      }
+    },
+    replace: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
+      "preventAssignment": true,
+      "__couponV__":"4"
     },
   }
 ];
@@ -62,14 +87,12 @@ export default [
       name: item.name + "Module",
     },
     plugins: [
-      replace({ ...buildConfig.replace }),
+      replace({ ...item.replace }),
       postcss({ ...buildConfig.postcss, inject: item.script.injectCss }),
       esbuild(buildConfig.esbuild),
       metablock({
-        file: item.meta.metaFile,
-        override: {
-
-        }
+        file: item.script.meta,
+        override: item.script.override
       }),
     ],
   })),

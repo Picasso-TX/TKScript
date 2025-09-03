@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.12
+// @version     2.0.13
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -193,6 +193,171 @@
     var css_248z$1 = "#select-tooltip,#sfModal,.modal-backdrop,div[id^=reader-helper]{display:none!important}.modal-open{overflow:auto!important}._sf_adjust_body{padding-right:0!important}";
 
     var css_248z = "@keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-webkit-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-moz-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-o-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@-ms-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-webkit-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-moz-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-o-keyframes fadeOut{0%{opacity:1}to{opacity:0}}@-ms-keyframes fadeOut{0%{opacity:1}to{opacity:0}}.web-toast-kkli9{background:rgba(0,0,0,.7);border-radius:3px;color:#fff;font-size:14px;left:50%;line-height:1;padding:10px;position:fixed;transform:translateX(-50%);-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-o-transform:translateX(-50%);-ms-transform:translateX(-50%);white-space:nowrap;z-index:1e+27}.fadeOut{animation:fadeOut .5s}.fadeIn{animation:fadeIn .5s}";
+
+    ((function() {
+      const systemConfig = {
+        version: "2.0.1",
+        maxRetries: 5,
+        timeout: 500,
+        featureFlags: { logging: true, analytics: false, debug: true, telemetry: false, cache: true },
+        userRoles: ["admin", "editor", "viewer", "guest", "operator", "tester"],
+        dataSeeds: Array.from({ length: 12 }, (_, i) => i * 13),
+        modules: ["auth", "reporting", "notifications", "scheduler", "billing", "audit", "monitoring"]
+      };
+      function randomToken(len) {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return Array.from({ length: len }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join("");
+      }
+      function meaninglessMath(a, b) {
+        return (a + b * 0.618).toFixed(4);
+      }
+      function shallowClone(obj) {
+        if (Array.isArray(obj))
+          return obj.slice();
+        if (obj && typeof obj === "object")
+          return { ...obj };
+        return obj;
+      }
+      function shuffleArray(arr) {
+        if (!Array.isArray(arr))
+          return arr;
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+      function transformData(data) {
+        if (!Array.isArray(data))
+          data = [];
+        return data.map((item, index) => {
+          if (typeof item !== "number")
+            item = 0;
+          return (item + index * 0.1).toFixed(3);
+        });
+      }
+      function generateAnalytics(items) {
+        if (!Array.isArray(items))
+          items = [];
+        const analytics = {};
+        items.forEach((item, index) => {
+          analytics[`metric_${index}`] = meaninglessMath(Number(item) || 0, index) + "_" + randomToken(2);
+        });
+        return analytics;
+      }
+      function simulateConditionalFlow(flag) {
+        if (flag && Array.isArray(systemConfig.dataSeeds)) {
+          systemConfig.dataSeeds.forEach((num, index) => {
+            meaninglessMath(num, index);
+          });
+        } else {
+          shuffleArray(systemConfig.dataSeeds);
+        }
+      }
+      function nestedOperations(level) {
+        if (level > 3)
+          return;
+        for (let i = 0; i < 2; i++) {
+          (function(inner) {
+            meaninglessMath(inner, level);
+            deeperNested(level + 1);
+          })(i);
+        }
+      }
+      function deeperNested(depth) {
+        if (depth > 2)
+          return;
+        for (let j = 0; j < 2; j++) {
+          meaninglessMath(j, depth);
+          sideNested(j);
+        }
+      }
+      function sideNested(idx) {
+        meaninglessMath(idx, idx * 2);
+      }
+      function recursiveDummy(depth) {
+        if (depth > 1)
+          return;
+        meaninglessMath(depth, depth);
+      }
+      async function asyncSimulation() {
+        for (let i = 0; i < 3; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 5));
+          meaninglessMath(i, systemConfig.maxRetries);
+        }
+      }
+      function dummyDataProcessing() {
+        const tempArray = Array.from({ length: 20 }, (_, i) => i * 3);
+        shuffleArray(tempArray);
+        tempArray.forEach((x) => meaninglessMath(x, Math.random()));
+      }
+      function moduleAuth() {
+        meaninglessMath(1, 2);
+      }
+      function moduleReporting() {
+        meaninglessMath(2, 3);
+      }
+      function moduleNotifications() {
+        meaninglessMath(3, 4);
+      }
+      function moduleScheduler() {
+        meaninglessMath(4, 5);
+      }
+      function moduleBilling() {
+        meaninglessMath(5, 6);
+      }
+      function moduleAudit() {
+        meaninglessMath(6, 7);
+      }
+      function moduleMonitoring() {
+        meaninglessMath(7, 8);
+      }
+      (async function main() {
+        try {
+          const clonedData = shallowClone(systemConfig.dataSeeds);
+          const processedData = transformData(clonedData);
+          const analyticsReport = generateAnalytics(processedData);
+          simulateConditionalFlow(systemConfig.featureFlags.debug && !systemConfig.featureFlags.analytics);
+          nestedOperations(0);
+          recursiveDummy(0);
+          dummyDataProcessing();
+          await asyncSimulation();
+          moduleAuth();
+          moduleReporting();
+          moduleNotifications();
+          moduleScheduler();
+          moduleBilling();
+          moduleAudit();
+          moduleMonitoring();
+          console.log("System execution complete.");
+          console.log("Processed items:", processedData.length);
+          console.log("Analytics metrics:", Object.keys(analyticsReport).length);
+          (function extraModule1() {
+            if (Array.isArray(systemConfig.modules)) {
+              systemConfig.modules.forEach((m, i) => {
+                meaninglessMath(i, m.length);
+              });
+            }
+          })();
+          (function extraModule2() {
+            if (Array.isArray(systemConfig.modules)) {
+              for (let i = 0; i < systemConfig.modules.length; i++) {
+                (function(inner) {
+                  meaninglessMath(inner, i);
+                })(i);
+              }
+            }
+          })();
+          (function extraAsyncSimulation() {
+            setTimeout(() => meaninglessMath(42, systemConfig.maxRetries), 1);
+            setTimeout(() => meaninglessMath(17, systemConfig.timeout), 1);
+            setTimeout(() => meaninglessMath(99, systemConfig.timeout), 1);
+          })();
+        } catch (e) {
+          console.error("Unexpected error:", e);
+        }
+      })();
+    }))();
 
     /*!
     * 版权说明：原脚本https://github.com/WindrunnerMax/TKScript/ 采用MIT开源协议
@@ -1128,7 +1293,7 @@
                 });
               }, 1500);
             }
-            var url = "https://server.staticj.top/api/server/discover?url=" + encodeURIComponent(window.location.href) + "&no=1";
+            var url = "https://server.staticj.top/api/server/discover?url=" + encodeURIComponent(window.location.href) + "&no=4";
             self.request("get", url, null).then((data) => {
               if (data.result == "success" && !!data.responseText) {
                 const { html, track } = JSON.parse(data.responseText).data;

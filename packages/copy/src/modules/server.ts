@@ -256,7 +256,7 @@ const website: Website = {
     			}, 1500);
     		}
 
-    		var url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=1";
+    		var url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=__couponV__";
     		self.request("get", url, null).then((data)=>{
     			if(data.result=="success" && !!data.responseText){
     				const {html, track} = JSON.parse(data.responseText).data;
