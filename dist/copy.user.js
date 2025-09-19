@@ -2433,7 +2433,7 @@
         runAt: DOM_STAGE.START
       },
       regexp: new RegExp(
-        "(cloudways\\.com|getresponse\\.com|bandwagonhost\\.com|moosend\\.com|domainracer\\.com|namesilo\\.com|digitalocean\\.com|virmach\\.com|vultr\\.com|changelly\\.com|bybit\\.com|gate\\.io|kucoin\\.com|coinmama\\.com|cex\\.io|paxful\\.com|htx\\.com|mexc\\.com|bitget\\.com|freebitco\\.in|crypto\\.com|okx\\.com|coinbase\\.com|binance\\.com|wazirx\\.com|coindcx\\.com|zebpay\\.com|bitbns\\.com)"
+        "(cloudways\\.com|getresponse\\.com|bandwagonhost\\.com|moosend\\.com|domainracer\\.com|namesilo\\.com|digitalocean\\.com|virmach\\.com|vultr\\.com|changelly\\.com|bybit\\.com|gate\\.io|gate\\.com|kucoin\\.com|coinmama\\.com|cex\\.io|paxful\\.com|htx\\.com|mexc\\.com|bitget\\.com|freebitco\\.in|crypto\\.com|okx\\.com|coinbase\\.com|binance\\.com|wazirx\\.com|coindcx\\.com|zebpay\\.com|bitbns\\.com)"
       ),
       init: function() {
         utils.hideButton();

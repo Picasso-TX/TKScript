@@ -21,24 +21,6 @@ const buildConfig = {
 
 const scriptConfig = [
   {
-    name: "CopyNew",
-    script: {
-      meta: "./packages/copy/meta.json",
-      input: "./packages/copy/src/index.ts",
-      output: "./dist/copy-new.user.js",
-      injectCss: false,
-      override:{
-
-      }
-    },
-    replace: {
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
-      "preventAssignment": true,
-      "__couponV__":"11"
-    }
-  },
-  {
     name: "Copy",
     script: {
       meta: "./packages/copy/meta.scriptcat.json",
@@ -74,6 +56,21 @@ const scriptConfig = [
       "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
       "preventAssignment": true,
       "__couponV__":"4"
+    },
+  },
+  {
+    name: "Timelygogo",
+    script: {
+      meta: "./packages/copy/meta.timelygogo.json",
+      input: "./packages/copy/src/index-timelygogo.ts",
+      output: "./dist/copy-timelygogo.user.js",
+      injectCss: false
+    },
+    replace: {
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.CHANNEL": JSON.stringify(process.env.CHANNEL),
+      "preventAssignment": true,
+      "__couponV__":"11"
     },
   }
 ];

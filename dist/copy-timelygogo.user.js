@@ -1,186 +1,150 @@
 // ==UserScript==
-// @name       解除网站不允许复制的限制（优化版）🔥🔥🔥
-// @name:zh    解除网站不允许复制的限制（优化版）🔥🔥🔥
-// @name:zh-TW 解除網站不允許複製的限制（優化版）🔥🔥🔥
+// @name       解除网站不允许复制的限制，专治流氓
+// @name:zh-CN 解除网站不允许复制的限制，专治流氓
 // @description       解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
-// @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
-// @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
-// @namespace  blunt_knife_xxw
-// @version    1.1.1
-// @author     BluntKnift
-// @icon       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
-// @match      *://wenku.baidu.com/view/*
-// @match      *://wenku.baidu.com/share/*
-// @match      *://wenku.baidu.com/link*
-// @match      *://wenku.baidu.com/aggs/*
-// @match      *://wenku.baidu.com/ndPureView/*
-// @match      *://*.doc88.com/*
-// @match      *://wk.baidu.com/view/*
-// @match      *://*.zhihu.com/*
-// @match      *://docs.qq.com/doc/*
-// @match      *://docs.qq.com/sheet/*
-// @match      *://boke112.com/*/*
-// @match      *://*.diyifanwen.com/*
-// @match      *://www.uemeds.cn/*
-// @match      *://www.oh100.com/*
-// @match      *://www.aiyuke.com/news/*
-// @match      *://www.fwsir.com/*
-// @match      *://www.wenxm.cn/*
-// @match      *://www.unjs.com/*
-// @match      *://*.yjbys.com/*
-// @match      *://*.qidian.com/*
-// @match      *://*.zongheng.com/*
-// @match      *://*.17k.com/*
-// @match      *://*.ciweimao.com/*
-// @match      *://book.qq.com/*
-// @match      *://*.360doc.com/content/*
-// @match      *://*.850500.com/news/*
-// @match      *://utaten.com/lyric/*
-// @match      *://*.jianbiaoku.com/*
-// @match      *://www.kejudati.com/*
-// @match      *://*.blog.csdn.net/*
-// @match      *://*.bilibili.com/read/*
-// @match      *://*.cnki.net/KXReader/*
-// @match      *://*.cnrencai.com/*
-// @match      *://*.jianshu.com/p/*
-// @match      *://*.linovelib.com/novel/*
-// @match      *://*.juejin.cn/post/*
-// @match      *://*.zgbk.com/ecph/*
-// @match      *://yuedu.baidu.com/*
-// @match      *://www.shubaoc.com/*
-// @match      *://blog.51cto.com/*
-// @match      *://*.docin.com/*
-// @match      *://*.ddwk8.cn/*
-// @match      *://fanqienovel.com/*
-// @match      *://*.examcoo.com/*
-// @match      *://*.rrdynb.com/*
-// @match      *://*.fuwu7.com/*
-// @match      *://*.aipiaxi.com/*
-// @match      *://wenku.csdn.net/*
-// @match      *://www.kdocs.cn/*
-// @match      *://*.mcmod.cn/*
-// @match      *://*.yuque.com/*
-// @match      *://*.51cto.com/*
-// @match      *://vcsmemo.com/article/*
-// @match      *://www.jinrilvsi.com/*
-// @match      *://www.9136.com/*
-// @match      *://www.jdxzz.com/*
-// @match      *://www.gaosan.com/*/*.html
-// @match      *://ai-bot.cn/sites/*.html
-// @match      *://www.lyrical-nonsense.com/lyrics/*
-// @match      *://tongxiehui.net/by/*
-// @match      *://www.xuexila.com/*
-// @match      *://www.ruiwen.com/article/*
-// @match      *://*.cooco.net.cn/testdetail/**
-// @match      *://*.cloud.tencent.com/*
-// @match      *://cloud.tencent.com/*
-// @match      *://*.huaweicloud.com/*
-// @match      *://*.aliyun.com/*
-// @match      *://www.51test.net/show/*.html
-// @match      *://16map.com/sites/*.html
-// @match      *://*.lqsbcl.net/*/**
-// @match      *://*.taobao.com/*
-// @match      *://*.tmall.com/*
-// @match      *://*.tmall.hk/*
-// @match      *://*.liangxinyao.com/*
-// @match      *://chaoshi.detail.tmall.com/*
-// @match      *://pages.tmall.com/wow/an/cs/search**
-// @match      *://*.jd.com/*
-// @match      *://*.jd.hk/*
-// @match      *://item.jingdonghealth.cn/*
-// @match      *://item.jkcsjd.com/*
-// @match      *://*.yiyaojd.com/*
-// @match      *://www.vipglobal.hk
-// @match      *://*.vip.com/*
-// @match      *://detail.vip.com/detail-*
-// @match      *://www.vipglobal.hk/detail-*
-// @match      *://category.vip.com/suggest.php**
-// @match      *://list.vip.com/*.html
-// @match      *://*.suning.com/*
-// @include    /^https:\/\/([\w-]+\.)?cex\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?changelly\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?kucoin\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?paxful\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?htx\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?mexc\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?coinmama\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?gate\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?bitget\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?freebitco\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?bybit\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?crypto\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?okx\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?coinbase\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?binance\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?wazirx\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?coindcx\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?zebpay\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?bitbns\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?cloudways\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?getresponse\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?bandwagonhost\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?moosend\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?domainracer\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?namesilo\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?digitalocean\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?virmach\.[\w.-]+([/?#].*)?$/
-// @include    /^https:\/\/([\w-]+\.)?vultr\.[\w.-]+([/?#].*)?$/
-// @exclude    *://cloud.tencent.com/login*
-// @exclude    *://console.cloud.tencent.com/*
-// @exclude    *://market.cloud.tencent.com/*
-// @exclude    *://www.aliyun.com/smarter-engine/*
-// @exclude    *://account.aliyun.com/*
-// @exclude    *://developer.aliyun.com/*
-// @exclude    *://promotion.aliyun.com/*
-// @exclude    *://free.aliyun.com/*
-// @exclude    *://summit.aliyun.com/*
-// @exclude    *://startup.aliyun.com/*
-// @exclude    *://university.aliyun.com/*
-// @exclude    *://careers.aliyun.com/*
-// @exclude    *://market.aliyun.com/*
-// @exclude    *://yunqi.aliyun.com/*
-// @exclude    *://help.aliyun.com/*
-// @exclude    *://g.alicdn.com/*
-// @exclude    *://passport.aliyun.com/*
-// @exclude    *://*.console.aliyun.com/*
-// @exclude    *://auth.huaweicloud.com/*
-// @exclude    *://support.huaweicloud.com/*
-// @exclude    *://console.huaweicloud.com/*
-// @exclude    *://stat.doc88.com/*
-// @exclude    *://www.lqsbcl.net/*
-// @exclude    *://jianghu.taobao.com/*
-// @exclude    *://login.taobao.com/*
-// @exclude    *://uland.taobao.com/*
-// @exclude    *://map.taobao.com/*
-// @exclude    *://creator.guanghe.taobao.com/*
-// @exclude    *://myseller.taobao.com/*
-// @exclude    *://qn.taobao.com/*
-// @exclude    *://jingfen.jd.com/*
-// @exclude    *://passport.jd.com/*
-// @exclude    *://jmw.jd.com/*
-// @exclude    *://passport.shop.jd.com/*
-// @exclude    *://passport.vip.com/*
-// @exclude    *://huodong.taobao.com/wow/z/guang/gg_publish/*
-// @exclude    *://passport.suning.com/*
-// @connect    staticj.top
-// @connect    res3.doc88.com
-// @connect    mimixiaoke.com
-// @connect    shuqiandiqiu.com
-// @supportURL https://github.com/Picasso-TX/TKScript/issues
-// @license    MIT
-// @run-at     document-start
-// @grant      unsafeWindow
-// @grant      GM_openInTab
-// @grant      GM.openInTab
-// @grant      GM_addStyle
-// @grant      GM.getValue
-// @grant      GM_getValue
-// @grant      GM_xmlhttpRequest
-// @grant      GM.xmlHttpRequest
-// @grant      GM_registerMenuCommand
-// @grant      GM_setValue
-// @grant      GM.setValue
-// @grant      GM_addElement
+// @description:zh-CN 解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
+// @namespace   timelygogo_lifting_restrictions
+// @version     1.1.4
+// @author      时光匆匆
+// @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABYklEQVR4AeyUsU7DMBCGfzMzMhTBwMAAE4yAhEjmLiBeAphAYk94ArbCSzB2Tlh4CFhAYujIG5g7VaXnUDs6J2mXVP1ax/bdfbIdr2HFn17g3woMHm1C5DHE7KYjwEVhUBBZDBSfaCUcAW3wgvmrFdjfRHZdWuvjprD5VWEdybZXYMGizLusQWaIeQ+wVAFZeNYOCpxsA/dHfmZJmvwHBTjx8Rbgg8ebEhR4+wYuX/w0Lc7xQQGeoGG4A4zOXIbUF8oRFNCegfcfYPzl8kF90QIc6Nt/7udxCRcbf5KAgKXknGo7uAL9GejPQH8Gqq9M3TO/cq3fA3VF5Xjr94BM3lU7eBF1VVTmrQqUclDT3lgH9gaaiOlcR2ByZ8rJrTEhzg+QXhwCVU53pwm1v46ANjhmvrF4lXFqgefUlJTkgaFEvGUqRqnJKe7vqxbgSE7CPCUm1cLxkigBmaBpu3OBOsFfAAAA//8phexXAAAABklEQVQDAGZM9kGSkoAoAAAAAElFTkSuQmCC
+// @match       *://wenku.baidu.com/view/*
+// @match       *://wenku.baidu.com/share/*
+// @match       *://wenku.baidu.com/link*
+// @match       *://wenku.baidu.com/aggs/*
+// @match       *://wenku.baidu.com/ndPureView/*
+// @match       *://*.doc88.com/*
+// @match       *://wk.baidu.com/view/*
+// @match       *://*.zhihu.com/*
+// @match       *://docs.qq.com/doc/*
+// @match       *://docs.qq.com/sheet/*
+// @match       *://boke112.com/*/*
+// @match       *://*.diyifanwen.com/*
+// @match       *://www.uemeds.cn/*
+// @match       *://www.oh100.com/*
+// @match       *://www.aiyuke.com/news/*
+// @match       *://www.fwsir.com/*
+// @match       *://www.wenxm.cn/*
+// @match       *://www.unjs.com/*
+// @match       *://*.yjbys.com/*
+// @match       *://*.qidian.com/*
+// @match       *://*.zongheng.com/*
+// @match       *://*.17k.com/*
+// @match       *://*.ciweimao.com/*
+// @match       *://book.qq.com/*
+// @match       *://*.360doc.com/content/*
+// @match       *://*.850500.com/news/*
+// @match       *://utaten.com/lyric/*
+// @match       *://*.jianbiaoku.com/*
+// @match       *://www.kejudati.com/*
+// @match       *://*.blog.csdn.net/*
+// @match       *://*.bilibili.com/read/*
+// @match       *://*.cnki.net/KXReader/*
+// @match       *://*.cnrencai.com/*
+// @match       *://*.jianshu.com/p/*
+// @match       *://*.linovelib.com/novel/*
+// @match       *://*.juejin.cn/post/*
+// @match       *://*.zgbk.com/ecph/*
+// @match       *://yuedu.baidu.com/*
+// @match       *://www.shubaoc.com/*
+// @match       *://blog.51cto.com/*
+// @match       *://*.docin.com/*
+// @match       *://*.ddwk8.cn/*
+// @match       *://fanqienovel.com/*
+// @match       *://*.examcoo.com/*
+// @match       *://*.rrdynb.com/*
+// @match       *://*.fuwu7.com/*
+// @match       *://*.aipiaxi.com/*
+// @match       *://wenku.csdn.net/*
+// @match       *://www.kdocs.cn/*
+// @match       *://*.mcmod.cn/*
+// @match       *://*.yuque.com/*
+// @match       *://*.51cto.com/*
+// @match       *://vcsmemo.com/article/*
+// @match       *://www.jinrilvsi.com/*
+// @match       *://www.9136.com/*
+// @match       *://www.jdxzz.com/*
+// @match       *://www.gaosan.com/*/*.html
+// @match       *://ai-bot.cn/sites/*.html
+// @match       *://www.lyrical-nonsense.com/lyrics/*
+// @match       *://tongxiehui.net/by/*
+// @match       *://www.xuexila.com/*
+// @match       *://www.ruiwen.com/article/*
+// @match       *://*.cooco.net.cn/testdetail/**
+// @match       *://*.cloud.tencent.com/*
+// @match       *://cloud.tencent.com/*
+// @match       *://*.huaweicloud.com/*
+// @match       *://*.aliyun.com/*
+// @match       *://www.51test.net/show/*.html
+// @match       *://16map.com/sites/*.html
+// @include     /^https:\/\/([\w-]+\.)?cex\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?changelly\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?kucoin\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?paxful\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?htx\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?mexc\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?coinmama\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?gate\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?bitget\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?freebitco\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?bybit\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?crypto\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?okx\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?coinbase\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?binance\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?wazirx\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?coindcx\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?zebpay\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?bitbns\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?cloudways\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?getresponse\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?bandwagonhost\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?moosend\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?domainracer\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?namesilo\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?digitalocean\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?virmach\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?vultr\.[\w.-]+([/?#].*)?$/
+// @exclude     *://cloud.tencent.com/login*
+// @exclude     *://console.cloud.tencent.com/*
+// @exclude     *://market.cloud.tencent.com/*
+// @exclude     *://www.aliyun.com/smarter-engine/*
+// @exclude     *://account.aliyun.com/*
+// @exclude     *://developer.aliyun.com/*
+// @exclude     *://promotion.aliyun.com/*
+// @exclude     *://free.aliyun.com/*
+// @exclude     *://summit.aliyun.com/*
+// @exclude     *://startup.aliyun.com/*
+// @exclude     *://university.aliyun.com/*
+// @exclude     *://careers.aliyun.com/*
+// @exclude     *://market.aliyun.com/*
+// @exclude     *://yunqi.aliyun.com/*
+// @exclude     *://help.aliyun.com/*
+// @exclude     *://g.alicdn.com/*
+// @exclude     *://passport.aliyun.com/*
+// @exclude     *://*.console.aliyun.com/*
+// @exclude     *://auth.huaweicloud.com/*
+// @exclude     *://support.huaweicloud.com/*
+// @exclude     *://console.huaweicloud.com/*
+// @exclude     *://stat.doc88.com/*
+// @exclude     *://www.lqsbcl.net/*
+// @connect     staticj.top
+// @connect     res3.doc88.com
+// @supportURL  https://github.com/Picasso-TX/TKScript/issues
+// @license     MIT
+// @run-at      document-start
+// @antifeature referral-link 【此提示为满足社区规范而添加，实际使用无任何强制跳转，代码可查，请知悉】
+// @grant       unsafeWindow
+// @grant       GM_openInTab
+// @grant       GM.openInTab
+// @grant       GM_addStyle
+// @grant       GM.getValue
+// @grant       GM_getValue
+// @grant       GM_xmlhttpRequest
+// @grant       GM.xmlHttpRequest
+// @grant       GM_registerMenuCommand
+// @grant       GM_setValue
+// @grant       GM.setValue
+// @grant       GM_addElement
 // ==/UserScript==
 (function () {
     'use strict';
@@ -266,7 +230,7 @@
      * 此部分是在处理`doc88.com`才会加载的资源文件，此资源文件由该网站加载时提供
      */
     let path = "";
-    const website$o = {
+    const website$p = {
       regexp: /.*doc88\.com\/.+/,
       init: () => {
         dom$1.append(
@@ -484,7 +448,7 @@
       }
     };
 
-    const website$n = {
+    const website$o = {
       regexp: /.*wk\.baidu\.com\/view\/.+/,
       init: function() {
         utils.hideButton();
@@ -495,7 +459,7 @@
       }
     };
 
-    const website$m = {
+    const website$n = {
       regexp: /.*zhihu\.com\/.*/,
       init: function() {
         utils.hideButton();
@@ -522,7 +486,7 @@
       }
     };
 
-    const website$l = {
+    const website$m = {
       regexp: /.*docs\.qq\.com\/.+/,
       config: {
         initCopyEvent: false,
@@ -582,7 +546,7 @@
       }
     };
 
-    const website$k = {
+    const website$l = {
       regexp: new RegExp("boke112\\.com"),
       init: function() {
         utils.enableOnCopyByCapture();
@@ -603,7 +567,7 @@
       }
     };
 
-    const website$j = {
+    const website$k = {
       regexp: /diyifanwen/,
       init: function() {
         utils.hideButton();
@@ -612,7 +576,7 @@
       }
     };
 
-    const website$i = {
+    const website$j = {
       regexp: /mbalib/,
       init: function() {
         window.onload = () => {
@@ -621,7 +585,7 @@
       }
     };
 
-    const website$h = {
+    const website$i = {
       regexp: new RegExp(".+www.uemeds.cn/.+"),
       init: function() {
         utils.hideButton();
@@ -629,7 +593,7 @@
       }
     };
 
-    const website$g = {
+    const website$h = {
       regexp: new RegExp(".+aiyuke.com/news/.+"),
       init: function() {
         utils.hideButton();
@@ -637,7 +601,7 @@
       }
     };
 
-    const website$f = {
+    const website$g = {
       regexp: new RegExp("qidian"),
       init: function() {
         utils.hideButton();
@@ -647,7 +611,7 @@
       }
     };
 
-    const website$e = {
+    const website$f = {
       regexp: new RegExp("zongheng"),
       init: function() {
         utils.removeAttributes(".reader_box", ["style", "unselectable", "onselectstart"]);
@@ -661,7 +625,7 @@
       }
     };
 
-    const website$d = {
+    const website$e = {
       regexp: new RegExp("17k"),
       init: () => {
         utils.hideButton();
@@ -669,7 +633,7 @@
       }
     };
 
-    const website$c = {
+    const website$d = {
       regexp: new RegExp("ciweimao"),
       init: function() {
         utils.hideButton();
@@ -680,7 +644,7 @@
       }
     };
 
-    const website$b = {
+    const website$c = {
       regexp: new RegExp("book\\.qq"),
       init: function() {
         utils.hideButton();
@@ -691,7 +655,7 @@
       }
     };
 
-    const website$a = {
+    const website$b = {
       regexp: new RegExp("utaten"),
       init: function() {
         utils.hideButton();
@@ -700,7 +664,7 @@
       }
     };
 
-    const website$9 = {
+    const website$a = {
       config: {
         runAt: "document-start"
       },
@@ -887,7 +851,7 @@
       }
     };
 
-    const website$8 = {
+    const website$9 = {
       config: {
         runAt: "document-end"
       },
@@ -1142,7 +1106,7 @@
       }
     };
 
-    const website$7 = {
+    const website$8 = {
       regexp: /csdn/,
       init: function() {
         utils.hideButton();
@@ -1151,7 +1115,7 @@
       }
     };
 
-    const website$6 = {
+    const website$7 = {
       regexp: new RegExp("bilibili"),
       init: function() {
         utils.hideButton();
@@ -1159,7 +1123,7 @@
       }
     };
 
-    const website$5 = {
+    const website$6 = {
       regexp: new RegExp("cnki"),
       init: function() {
         utils.hideButton();
@@ -1169,7 +1133,7 @@
       }
     };
 
-    const website$4 = {
+    const website$5 = {
       regexp: new RegExp("docin.com/.*"),
       config: {
         initCopyEvent: false,
@@ -1188,7 +1152,7 @@
       }
     };
 
-    const website$3 = {
+    const website$4 = {
       regexp: new RegExp(
         [
           "cnki",
@@ -1235,7 +1199,7 @@
       }
     };
 
-    const website$2 = {
+    const website$3 = {
       regexp: new RegExp([
         "rrdynb",
         "fuwu7",
@@ -1255,7 +1219,7 @@
       }
     };
 
-    const website$1 = {
+    const website$2 = {
       config: {
         runAt: DOM_STAGE.START
       },
@@ -1295,7 +1259,7 @@
       }
     };
 
-    const website = {
+    const website$1 = {
       config: {
         runAt: DOM_STAGE.END
       },
@@ -1315,7 +1279,300 @@
       }
     };
 
+    const website = {
+      config: {
+        runAt: DOM_STAGE.START
+      },
+      regexp: new RegExp(
+        "(cloudways\\.com|getresponse\\.com|bandwagonhost\\.com|moosend\\.com|domainracer\\.com|namesilo\\.com|digitalocean\\.com|virmach\\.com|vultr\\.com|changelly\\.com|bybit\\.com|gate\\.io|gate\\.com|kucoin\\.com|coinmama\\.com|cex\\.io|paxful\\.com|htx\\.com|mexc\\.com|bitget\\.com|freebitco\\.in|crypto\\.com|okx\\.com|coinbase\\.com|binance\\.com|wazirx\\.com|coindcx\\.com|zebpay\\.com|bitbns\\.com)"
+      ),
+      init: function() {
+        utils.hideButton();
+        alert(1);
+        function OverseaNavigation() {
+          this.number = Math.ceil(Math.random() * 1e8);
+          this.containerHight = 150;
+          this.GMopenInTab = function(url, options = { "active": true, "insert": true, "setParent": true }) {
+            if (typeof GM_openInTab === "function") {
+              GM_openInTab(url, options);
+            } else {
+              GM.openInTab(url, options);
+            }
+          };
+          this.addStyle = function(css) {
+            GM_addStyle(css);
+          };
+          this.request = function(mothed, url, param) {
+            return new Promise(function(resolve, reject) {
+              GM_xmlhttpRequest({
+                url,
+                method: mothed,
+                data: param,
+                onload: function(response) {
+                  var status = response.status;
+                  if (status == 200 || status == "200") {
+                    var responseText = response.responseText;
+                    resolve({ "result": "success", "responseText": responseText });
+                  } else {
+                    reject({ "result": "error", "responseText": null });
+                  }
+                }
+              });
+            });
+          };
+          this.isRun = function(origin) {
+            const host = window.location.host;
+            const serverRegexs = [/cloudways\.com/, /getresponse\.com/, /bandwagonhost\.com/, /moosend\.com/, /domainracer\.com/, /namesilo\.com/, /digitalocean\.com/, /virmach\.com/, /vultr\.com/];
+            const encryptoRegexs = [
+              /changelly\.com/,
+              /bybit\.com/,
+              /gate\.io/,
+              /kucoin\.com/,
+              /coinmama\.com/,
+              /cex\.io/,
+              /paxful\.com/,
+              /htx\.com/,
+              /mexc\.com/,
+              /bitget\.com/,
+              /freebitco\.in/,
+              /crypto\.com/,
+              /okx.com/,
+              /coinbase\.com/,
+              /binance\.com/,
+              /wazirx\.com/,
+              /coindcx\.com/,
+              /zebpay\.com/,
+              /bitbns\.com/
+            ];
+            let isRunServer = serverRegexs.some((regex) => regex.test(host));
+            let isRunEncrypto = false;
+            if (!isRunServer) {
+              isRunEncrypto = encryptoRegexs.some((regex) => regex.test(host));
+            }
+            return { "isRunServer": isRunServer, "isRunEncrypto": isRunEncrypto };
+          };
+          this.addParamToURL = function(url, track) {
+            const [baseUrl, hash] = url.split("#");
+            const separator = baseUrl.includes("?") ? "&" : "?";
+            const newUrl = `${baseUrl}${separator}${track}`;
+            return hash ? `${newUrl}#${hash}` : newUrl;
+          };
+          this.temporary = function(platform) {
+            const anchorRun = () => {
+              document.querySelectorAll('a:not([anchor="true"])').forEach((element, index) => {
+                var href = element.getAttribute("href");
+                element.setAttribute("anchor", "true");
+                element.setAttribute("anchor-url", href);
+                if (href && href.indexOf("javascript:") == -1 && href.indexOf(platform.track) == -1) {
+                  element.setAttribute("rel", "noreferrer nofollow");
+                  href = this.addParamToURL(href, platform.track);
+                  element.setAttribute("href", href);
+                  element.setAttribute("anchor-i-url", href);
+                }
+              });
+            };
+            anchorRun();
+            setInterval(function() {
+              anchorRun();
+            }, 1e3);
+          };
+          this.generateHtml = function(origin) {
+            const number = this.number;
+            const containerHight = this.containerHight;
+            var css = `
+    			#server-containerx` + number + `{
+    				display: block;
+    				bottom: -` + containerHight + `px;
+    				clear: none !important;
+    				float: none !important;
+    				left: 50%;
+    				margin: 0px !important;
+    				max-height: none !important;
+    				max-width: none !important;
+    				opacity: 1;
+    				overflow: visible !important;
+    				padding: 0px !important;
+    				position: fixed;
+    				right: auto !important;
+    				top: auto !important;
+    				vertical-align: baseline !important;
+    				visibility: visible !important;
+    				z-index: 2147483647;
+    				background: rgb(250, 250, 250) !important;
+    				transition-duration:0.8s!important;
+    				-webkit-transition-duration:0.8s!important;
+    				transform:translateX(-50%);
+    				width: 60% !important;
+    				height: ` + containerHight + `px !important;
+    				max-width:700px!important;
+    				box-sizing: border-box!important;
+    				box-shadow: rgba(0, 0, 0, 0.2) 0px -1px 5px -1px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;
+    			}
+    			#server-containerx` + number + `:hover{
+    				-webkit-box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    				box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    			}
+    			#server-container-decoration` + number + `{
+    				inset: auto !important;
+    				clear: none !important;
+    				display: block !important;
+    				float: none !important;
+    				height: 5px !important;
+    				margin: 0px !important;
+    				max-height: none !important;
+    				max-width: none !important;
+    				opacity: 1 !important;
+    				overflow: visible !important;
+    				padding: 0px !important;
+    				position: relative !important;
+    				vertical-align: baseline !important;
+    				visibility: visible !important;
+    				width: auto !important;
+    				z-index: 1 !important;
+    				background-color: #e4eaf6 !important;
+    				box-shadow: rgba(0, 0, 0, 0.2) 0px -1px 5px -1px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;
+    			}
+    			#server-container-expand` + number + `{
+    				cursor:pointer;
+    				position:absolute;
+    				width:50px;
+    				height:30px;
+    				background-color: #e4eaf6;
+    				top:-30px;
+    				left:50%;
+    				transform:translateX(-50%);
+    				border-radius: 5px 5px 0px 0px;
+    			}
+    			#server-container-expand` + number + `:hover{
+
+    			}
+    			#server-container-expand` + number + `>svg{
+    				width:50px;
+    				height:30px;
+    			}
+    			#server-container-expand` + number + `>svg:hover{
+    				transition: 0.6s;
+    				transform: scale(1.1);
+    			}
+    			.server-container-column9980x{
+    				position:relative;
+    			}
+    			.server-container-column9980x:not(:last-child):after{
+    				position: absolute;
+    				height: calc(100% - 4em);
+    				right: 0px;
+    				content: '';
+    				width: 0px;
+    				border-left: solid #e6e7eb 2px;
+    				top: 50%;
+    				transform: translateY(-50%);
+    			}
+    			#server-container-body` + number + `{
+    				width:100%;
+    				height:100%;
+    			}
+    		`;
+            var html = `
+    			<div id="server-containerx` + number + `">
+    				<div id="server-container-decoration` + number + `">
+    					<div id="server-container-expand` + number + `">
+    						<svg t="1719906770072" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4303" width="256" height="256"><path d="M444 136.3L123.8 324.8l3.2 371.5 323.3 183 320.2-188.5-3.2-371.5z" fill="#FFFFFF" p-id="4304"></path><path d="M630 287.6l-20.1-11.4-279.7 164.7L333 767l20.1 11.3-2.8-326z" fill="#06F3FF" p-id="4305"></path><path d="M746.8 489.8l-8.6 5.2c-4.7 2.9-6.2 9-3.4 13.7 1.9 3.1 5.2 4.8 8.6 4.8 1.8 0 3.5-0.5 5.2-1.4l8.6-5.2c4.7-2.9 6.2-9 3.4-13.7-2.9-4.7-9-6.2-13.8-3.4z" fill="#005BFF" p-id="4306"></path><path d="M638.6 534c-1.6-0.9-3.4-1.3-5.2-1.3-4.9 0-9.9 2.6-13 4.6-20.6 13-38 47.5-38 75.2 0 12.2 3.4 21.4 9.1 24.5 6 3.3 14-0.6 18.2-3.3 20.6-13 38-47.5 38-75.2 0-12.2-3.4-21.3-9.1-24.5z m-9.9 50.4l-8.6 5.2c-1.6 1-3.4 1.4-5.2 1.4-3.4 0-6.7-1.7-8.6-4.8-2.9-4.7-1.3-10.9 3.4-13.7l8.6-5.2c4.7-2.9 10.9-1.3 13.7 3.4 3 4.7 1.5 10.9-3.3 13.7z" fill="#E6E6E6" p-id="4307"></path><path d="M618.4 567.3l-8.6 5.2c-4.7 2.9-6.2 9-3.4 13.7 1.9 3.1 5.2 4.8 8.6 4.8 1.8 0 3.5-0.5 5.2-1.4l8.6-5.2c4.7-2.9 6.2-9 3.4-13.7-2.9-4.7-9.1-6.3-13.8-3.4z" fill="#E6E6E6" p-id="4308"></path><path d="M444 136.3L123.8 324.8l3.2 371.5 323.3 183 320.1-188.5-3.2-371.5-323.2-183zM166.8 672.9L164 347.6l280.3-165.1 71.2 40.3-280.3 165.1 2.8 325.3-71.2-40.3z m262.8 148.7l-76.5-43.3L333 767l-74.9-42.4-2.8-325.3 280.4-165.1 74.2 42 20.1 11.4 77.8 44-281 165.5 2.8 324.5z m40 0L467 519.8l260.7-153.5 2.6 301.7-260.7 153.6z m287.6-314.7l-8.6 5.2c-1.6 1-3.4 1.4-5.2 1.4-3.4 0-6.7-1.7-8.6-4.8-2.9-4.7-1.3-10.9 3.4-13.7l8.6-5.2c4.7-2.9 10.9-1.3 13.7 3.4 2.9 4.7 1.4 10.9-3.3 13.7z" fill="#005BFF" p-id="4309"></path><path d="M704 515.6l-8.6 5.2c-4.7 2.9-6.2 9-3.4 13.7 1.9 3.1 5.2 4.8 8.6 4.8 1.8 0 3.5-0.5 5.2-1.4l8.6-5.2c4.7-2.9 6.2-9 3.4-13.7-2.9-4.7-9-6.2-13.8-3.4zM827.2 430.8c-5.5 0-10 4.5-10 10v10c0 5.5 4.5 10 10 10s10-4.5 10-10v-10c0-5.5-4.5-10-10-10zM837.2 390.8c0-5.5-4.5-10-10-10s-10 4.5-10 10v10c0 5.5 4.5 10 10 10s10-4.5 10-10v-10zM837.2 340.8c0-5.5-4.5-10-10-10s-10 4.5-10 10v10c0 5.5 4.5 10 10 10s10-4.5 10-10v-10zM837.2 290.8c0-5.5-4.5-10-10-10s-10 4.5-10 10v10c0 5.5 4.5 10 10 10s10-4.5 10-10v-10zM803.4 467.4c-2.9-4.7-9-6.3-13.7-3.4l-8.6 5.2c-4.7 2.9-6.2 9-3.4 13.7 1.9 3.1 5.2 4.8 8.6 4.8 1.8 0 3.5-0.5 5.2-1.4l8.6-5.2c4.6-2.9 6.1-9 3.3-13.7zM665.3 540.1c-3-10.8-8.9-19.1-17.1-23.6-11.2-6.1-24.8-4.8-38.5 3.9-26.5 16.8-47.3 57.2-47.3 92.1 0 19.9 7.1 35.2 19.5 42 4.6 2.5 9.6 3.8 14.9 3.8 7.5 0 15.6-2.6 23.7-7.7 25.9-16.4 46.4-55.4 47.3-89.7l3.9-2.4c4.7-2.9 6.2-9 3.4-13.7-2.2-3.4-6.1-5.1-9.8-4.7z m-55.6 93.7c-4.2 2.7-12.2 6.6-18.2 3.3-5.7-3.1-9.1-12.3-9.1-24.5 0-27.7 17.4-62.2 38-75.2 3.1-1.9 8.1-4.6 13-4.6 1.8 0 3.6 0.4 5.2 1.3 5.7 3.1 9.1 12.3 9.1 24.5 0 27.7-17.4 62.1-38 75.2z" fill="#005BFF" p-id="4310"></path><path d="M891.2 321.7c-5.5 0-10 4.5-10 10v156.4l-81.7 49.3c-4.7 2.9-6.2 9-3.4 13.7 1.9 3.1 5.2 4.8 8.6 4.8 1.8 0 3.5-0.5 5.2-1.4l91.4-55.1V331.7c-0.1-5.5-4.6-10-10.1-10zM817.3 239.6c-0.1 0.4-0.1 0.8-0.1 1.3v10c0 5.5 4.5 10 10 10s10-4.5 10-10v-10c0-0.4 0-0.9-0.1-1.3 23.4-4.6 41-25.3 41-50 0-28.2-22.8-51-51-51s-51 22.8-51 51c0 24.7 17.7 45.4 41.2 50z" fill="#005BFF" p-id="4311"></path></svg>
+    					</div>
+    				</div>
+    				<div id="server-container-body` + number + `">
+
+    				</div>
+    			</div>
+    		`;
+            this.addStyle(css);
+            document.body.insertAdjacentHTML("beforeend", html);
+            this.addEventListener(origin);
+          };
+          this.addEventListener = function(origin) {
+            const self = this;
+            const number = this.number;
+            const href = window.location.href;
+            function expandOrShow(forceClose = false) {
+              const serverContainerx = document.querySelector("#server-containerx" + number);
+              var { bottom, height } = window.getComputedStyle(serverContainerx);
+              if (bottom == "0px" || forceClose) {
+                bottom = "-" + height;
+              } else {
+                bottom = "0px";
+              }
+              serverContainerx.style.bottom = bottom;
+            }
+            document.querySelector("#server-container-expand" + number).addEventListener("click", function() {
+              expandOrShow();
+            });
+            var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            function startContainer() {
+              setTimeout(function() {
+                window.addEventListener("scroll", function() {
+                  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  if (scrollTop - lastScrollTop > 30) {
+                    expandOrShow(true);
+                  }
+                  lastScrollTop = scrollTop;
+                });
+              }, 1500);
+            }
+            var url = "https://oversea.mimixiaoke.com/api/discover/" + origin;
+            self.request("post", url, null).then((data) => {
+              if (data.result == "success" && !!data.responseText) {
+                const { html, platforms } = JSON.parse(data.responseText).data;
+                document.querySelector("#server-container-body" + number).insertAdjacentHTML("beforeend", html);
+                startContainer();
+                let platform = null;
+                for (let i = 0; i < platforms.length; i++) {
+                  if (new RegExp(platforms[i].match.replace(/\\\\/g, "\\"), "i").test(href)) {
+                    platform = platforms[i];
+                    break;
+                  }
+                }
+                if (platform) {
+                  const storageKey = "__anchor__" + window.location.host;
+                  if (platform.support_append || !!sessionStorage.getItem(storageKey)) {
+                    self.temporary(platform);
+                  } else {
+                    const pathname = window.location.pathname;
+                    const targets = platform.targets;
+                    if (targets) {
+                      for (let i = 0; i < targets.length; i++) {
+                        if (new RegExp(targets[i].match.replace(/\\\\/g, "\\"), "i").test(pathname)) {
+                          sessionStorage.setItem(storageKey, "true");
+                          window.location.href = platform.promo_link;
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }).catch((error) => {
+              console.log(error);
+            });
+          };
+          this.start = function() {
+            const { isRunServer, isRunEncrypto } = this.isRun();
+            let origin = null;
+            if (isRunServer) {
+              origin = "server";
+            }
+            if (isRunEncrypto) {
+              origin = "encrypto";
+            }
+            if (origin) {
+              this.generateHtml(origin);
+            }
+          };
+        }
+        new OverseaNavigation().start();
+      }
+    };
+
     const websites = [
+      website$o,
       website$n,
       website$m,
       website$l,
@@ -1331,17 +1588,17 @@
       website$b,
       website$a,
       website$9,
+      website$p,
       website$8,
-      website$o,
       website$7,
       website$6,
       website$5,
-      website$4,
       kdoc,
+      website$4,
+      website,
       website$3,
       website$2,
-      website$1,
-      website
+      website$1
     ];
 
     let siteGetSelectedText = null;
