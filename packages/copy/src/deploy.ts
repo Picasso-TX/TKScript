@@ -13,7 +13,11 @@ const initWebsite = (): WebsiteConfig => {
     delay: 0,
   };
   const mather = (regex: RegExp, website: Website) => {
+    console.log("regex",regex);
+    console.log("website",website);
     if (regex.test(window.location.href)) {
+      console.log("---regex",regex);
+      console.log("---website",website);
       if (website.config) websiteConfig = Object.assign(websiteConfig, website.config);
       if (websiteConfig.runAt === DOM_STAGE.END) {
         window.addEventListener(DOM_READY, () => website.init());
