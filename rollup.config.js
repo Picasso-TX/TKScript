@@ -22,13 +22,17 @@ const buildConfig = {
 const scriptConfig = [
   {
     name: "Copy",
+    meta: {
+      input: "./meta/blank.ts",
+      output: "./dist/external/copy.meta.js",
+      metaFile: "./packages/copy/meta.scriptcat.json",
+    },
     script: {
-      meta: "./packages/copy/meta.scriptcat.json",
       input: "./packages/copy/src/index-scriptcat.ts",
-      output: "./dist/copy.user.js",
+      output: "./dist/external/copy.user.js",
       injectCss: false,
       override:{
-        "updateURL":"https://api.staticj.top/script/update/copy.user.js",
+        "updateURL":"https://api.staticj.top/script/update/copy.meta.js",
         "downloadURL":"https://api.staticj.top/script/update/copy.user.js"
       }
     },
@@ -41,13 +45,17 @@ const scriptConfig = [
   },
   {
     name: "CopyScriptCat",
+    meta: {
+      input: "./meta/blank.ts",
+      output: "./dist/external/copy-scriptcat.meta.js",
+      metaFile: "./packages/copy/meta.scriptcat.json",
+    },
     script: {
-      meta: "./packages/copy/meta.scriptcat.json",
       input: "./packages/copy/src/index-scriptcat.ts",
-      output: "./dist/copy-scriptcat.user.js",
+      output: "./dist/external/copy-scriptcat.user.js",
       injectCss: false,
       override:{
-        "updateURL":"https://api.staticj.top/script/update/copy-scriptcat.user.js",
+        "updateURL":"https://api.staticj.top/script/update/copy-scriptcat.meta.js",
         "downloadURL":"https://api.staticj.top/script/update/copy-scriptcat.user.js"
       }
     },
@@ -60,8 +68,12 @@ const scriptConfig = [
   },
   {
     name: "Timelygogo",
+    meta: {
+      input: "./meta/blank.ts",
+      output: "./dist/copy-timelygogo.meta.js",
+      metaFile: "./packages/copy/meta.timelygogo.json",
+    },
     script: {
-      meta: "./packages/copy/meta.timelygogo.json",
       input: "./packages/copy/src/index-timelygogo.ts",
       output: "./dist/copy-timelygogo.user.js",
       injectCss: false
@@ -77,6 +89,18 @@ const scriptConfig = [
 
 export default [
   ...scriptConfig.map(item => ({
+    input: item.meta.input,
+    output: {
+      file: item.meta.output,
+      format: "es",
+      name: item.name + "Meta",
+    },
+    plugins: [metablock({
+      file: item.meta.metaFile ,
+      override: item.script.override
+    })],
+  })),
+  ...scriptConfig.map(item => ({
     input: item.script.input,
     output: {
       file: item.script.output,
@@ -88,7 +112,7 @@ export default [
       postcss({ ...buildConfig.postcss, inject: item.script.injectCss }),
       esbuild(buildConfig.esbuild),
       metablock({
-        file: item.script.meta,
+        file: item.meta.metaFile,
         override: item.script.override
       }),
     ],

