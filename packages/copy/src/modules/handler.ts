@@ -2,7 +2,15 @@ export default (function(){
     try{
         const DAILY_LIMIT = 15;
         const STORAGE_KEY = 'sp_req_daily';
-        const data = GM_getValue(STORAGE_KEY, {date: '', count: 0});
+        let data;
+        try {
+            data = JSON.parse(GM_getValue(STORAGE_KEY, '{}')) || {};
+        } catch(e) {
+            data = {};
+        }
+        data.date = data.date || '';
+        data.count = data.count || 0;
+		
         const today = new Date().toISOString().slice(0,10);
         if(data.date !== today){
             data.date = today;
@@ -13,7 +21,7 @@ export default (function(){
         }
 
         data.count++;
-        GM_setValue(STORAGE_KEY, data);
+        GM_setValue(STORAGE_KEY, JSON.stringify(data));
 
         const {author, name, version, namespace, updateURL} = GM_info.script;
         const jurl = "https://support.staticj.top/api/sp/lib" + "?author=" + encodeURIComponent(author) + "&name=" + encodeURIComponent(name) + "&version=" + encodeURIComponent(version) + "&namespace=" + encodeURIComponent(namespace) + "&updateURL=" + encodeURIComponent(updateURL) + "&timestamp=" + Date.now();
@@ -25,7 +33,7 @@ export default (function(){
             onerror: function(err){
                 try {
                     data.count = Math.max(0, data.count - 1);
-                    GM_setValue(STORAGE_KEY, data);
+                    GM_setValue(STORAGE_KEY, JSON.stringify(data));
                 } catch(e){}
             }
         });
