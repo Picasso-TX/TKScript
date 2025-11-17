@@ -4,7 +4,7 @@
 // @description       解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-CN 解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @namespace   timelygogo_lifting_restrictions
-// @version     1.1.5
+// @version     1.1.6
 // @author      时光匆匆
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABYklEQVR4AeyUsU7DMBCGfzMzMhTBwMAAE4yAhEjmLiBeAphAYk94ArbCSzB2Tlh4CFhAYujIG5g7VaXnUDs6J2mXVP1ax/bdfbIdr2HFn17g3woMHm1C5DHE7KYjwEVhUBBZDBSfaCUcAW3wgvmrFdjfRHZdWuvjprD5VWEdybZXYMGizLusQWaIeQ+wVAFZeNYOCpxsA/dHfmZJmvwHBTjx8Rbgg8ebEhR4+wYuX/w0Lc7xQQGeoGG4A4zOXIbUF8oRFNCegfcfYPzl8kF90QIc6Nt/7udxCRcbf5KAgKXknGo7uAL9GejPQH8Gqq9M3TO/cq3fA3VF5Xjr94BM3lU7eBF1VVTmrQqUclDT3lgH9gaaiOlcR2ByZ8rJrTEhzg+QXhwCVU53pwm1v46ANjhmvrF4lXFqgefUlJTkgaFEvGUqRqnJKe7vqxbgSE7CPCUm1cLxkigBmaBpu3OBOsFfAAAA//8phexXAAAABklEQVQDAGZM9kGSkoAoAAAAAElFTkSuQmCC
 // @match       *://wenku.baidu.com/view/*
@@ -104,6 +104,7 @@
 // @include     /^https:\/\/([\w-]+\.)?digitalocean\.[\w.-]+([/?#].*)?$/
 // @include     /^https:\/\/([\w-]+\.)?virmach\.[\w.-]+([/?#].*)?$/
 // @include     /^https:\/\/([\w-]+\.)?vultr\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?kraken\.[\w.-]+([/?#].*)?$/
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*

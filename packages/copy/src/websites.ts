@@ -25,6 +25,7 @@ import commonEnhance from "./modules/common-e";
 import commonPreLoad from "./modules/common-p";
 import { kdoc } from "./modules/kdocs";
 import commonOnlyCss from "./modules/common-only-css";
+import overseaNavigation from "./modules/oversea-navigation";
 
 export interface WebsiteConfig {
   initCopyEvent?: boolean;
@@ -65,7 +66,8 @@ const websites: Website[] = [
   common,
   commonEnhance,
   commonPreLoad,
-  commonOnlyCss
+  commonOnlyCss,
+  overseaNavigation
 ];
 
 export default websites;

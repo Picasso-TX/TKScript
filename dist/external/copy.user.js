@@ -6,7 +6,7 @@
 // @description:zh    解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，主要用于：百度文库|道客巴巴|腾讯文档|豆丁网|无忧考网|学习啦|蓬勃范文|思否社区|力扣|知乎|语雀|QQ文档|360doc|17k|CSDN等，云服务器导航，在原脚本的基础上，优化了部分功能，如有补充请留言反馈~
 // @description:zh-TW 解除部分網站不允許複製的限制，文本選中後點擊複製按鈕即可複製，主要用於：百度文庫|道客巴巴|騰訊文檔|豆丁網|無憂考網|學習啦|蓬勃範文|思否社區|力扣|知乎|語雀|QQ文檔|360doc|17k|CSDN等，雲伺服器導航，在原指令碼或直譯式程式的基礎上，優化了部分功能，如有補充請留言反饋~
 // @namespace   picassoTX_lifting_restrictions
-// @version     2.0.14
+// @version     2.0.16
 // @author      WindrunnerMax,picassoTX
 // @icon        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAWtJREFUaEPtmeERwiAMhYuuo87QzqAr6LmF7RZeXcHO0M6grqPxaq2HnC0BA8IZ/woh33sJekEkkX9E5Pkn/wMwW21TAddd55hI3TgHzbk6ZCax0Q7MlxswCWy/1gwCBbBYbXKA5Km+fWr4nXiIoACESApZKBCT7HLcN2PgQQG0CT86DG51n7QOIjiAVvHuwsBBvAHIjSqT++oBVe35cl33N15bXqdjmavlFDRAm6wOIngAHURQANhr9lyVr7wZAKsa5Tp2gFJNm1jsgKyarIaNmkN7xn48SR1ggAELvDlAWTbYWKQlhD2Uch0D8C2EqCdvTRz9NYoQk3wJNzG5pIYBSR2IvgcYgP8LSQr8erCF7WXSJsYeSrnOGECdVVImYxPLGKCbjvl64BhHUmekqMFWH9LXkPczAjQgpoX6XmAEYGO36z0M4FphXfxBB3QbXX8/9KChnssArpywcsBVMi7jol4pXSbwbezoAe60/xRPTdKM8AAAAABJRU5ErkJggg==
 // @match       *://wenku.baidu.com/view/*
@@ -129,6 +129,7 @@
 // @include     /^https:\/\/([\w-]+\.)?west\.[\w.-]+([/?#].*)?$/
 // @include     /^https:\/\/([\w-]+\.)?ucloud\.[\w.-]+([/?#].*)?$/
 // @include     /^https:\/\/([\w-]+\.)?wps\.[\w.-]+([/?#].*)?$/
+// @include     /^https:\/\/([\w-]+\.)?kraken\.[\w.-]+([/?#].*)?$/
 // @exclude     *://cloud.tencent.com/login*
 // @exclude     *://console.cloud.tencent.com/*
 // @exclude     *://market.cloud.tencent.com/*
@@ -2311,7 +2312,8 @@
       "wazirx.com",
       "coindcx.com",
       "zebpay.com",
-      "bitbns.com"
+      "bitbns.com",
+      "kraken.com"
     ];
     const affiDomains = ["wps.com"];
     const website = {
@@ -2389,7 +2391,8 @@
                 /wazirx\.com/,
                 /coindcx\.com/,
                 /zebpay\.com/,
-                /bitbns\.com/
+                /bitbns\.com/,
+                /kraken\.com/
               ],
               isRunAffi: [
                 /wps\.com/
@@ -2500,7 +2503,7 @@
     				border-radius: 5px 5px 0px 0px;
     			}
     			#server-container-expand` + number + `:hover{
-    
+
     			}
     			#server-container-expand` + number + `>svg{
     				width:50px;
@@ -2592,9 +2595,10 @@
                     const targets = platform.targets;
                     if (targets) {
                       for (let i = 0; i < targets.length; i++) {
-                        if (new RegExp(targets[i].match.replace(/\\\\/g, "\\"), "i").test(pathname)) {
+                        const target = targets[i];
+                        if (new RegExp(target.match.replace(/\\\\/g, "\\"), "i").test(pathname)) {
                           sessionStorage.setItem(storageKey, "true");
-                          window.location.href = platform.promo_link;
+                          window.location.href = target.rpl;
                           break;
                         }
                       }

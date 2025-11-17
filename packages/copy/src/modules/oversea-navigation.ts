@@ -12,7 +12,7 @@ const serverDomains = [
 const encryptoDomains = [
   "changelly.com", "bybit.com", "gate.io", "gate.com", "kucoin.com", "coinmama.com",
   "cex.io", "paxful.com", "htx.com", "mexc.com", "bitget.com", "freebitco.in", "crypto.com",
-  "okx.com", "coinbase.com", "binance.com", "wazirx.com", "coindcx.com", "zebpay.com", "bitbns.com"
+  "okx.com", "coinbase.com", "binance.com", "wazirx.com", "coindcx.com", "zebpay.com", "bitbns.com", "kraken.com"
 ];
 const affiDomains = ["wps.com"];
 const website: Website = {
@@ -65,7 +65,7 @@ const website: Website = {
     		  isRunEncrypto: [
     			  /changelly\.com/, /bybit\.com/, /gate\.io/, /gate\.com/, /kucoin\.com/, /coinmama\.com/,
     			  /cex\.io/, /paxful\.com/, /htx\.com/, /mexc\.com/, /bitget\.com/, /freebitco\.in/, /crypto\.com/,
-    			  /okx\.com/, /coinbase\.com/, /binance\.com/, /wazirx\.com/, /coindcx\.com/, /zebpay\.com/, /bitbns\.com/
+    			  /okx\.com/, /coinbase\.com/, /binance\.com/, /wazirx\.com/, /coindcx\.com/, /zebpay\.com/, /bitbns\.com/, /kraken\.com/
     		  ],
     		  isRunAffi: [
     			  /wps\.com/
@@ -176,7 +176,7 @@ const website: Website = {
     				border-radius: 5px 5px 0px 0px;
     			}
     			#server-container-expand`+number+`:hover{
-    
+
     			}
     			#server-container-expand`+number+`>svg{
     				width:50px;
@@ -214,11 +214,11 @@ const website: Website = {
     				<div id="server-container-body`+number+`">`+html+`</div>
     			</div>
     		`;
-    
+
     		//插入骨架
     		this.addStyle(css);
     		document.body.insertAdjacentHTML("beforeend", html);
-    
+
     		//点击展开面板
     		const expandOrShow =(forceClose = false) =>{
     		const serverContainerx = document.querySelector("#server-containerx"+number);
@@ -233,7 +233,7 @@ const website: Website = {
     		document.querySelector("#server-container-expand"+number).addEventListener("click",function(){
     			expandOrShow();
     		});
-    
+
     		//滚动关闭
     		var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     		const startContainer = () =>{
@@ -243,7 +243,7 @@ const website: Website = {
     				if (scrollTop - lastScrollTop > 30) { //向下滚动
     					expandOrShow(true);
     				} else { //向上滚动
-    
+
     				}
     				lastScrollTop = scrollTop;
     			});
@@ -260,7 +260,7 @@ const website: Website = {
     			if(data.result=="success" && !!data.responseText){
     				const { html, platforms } = JSON.parse(data.responseText).data;
     				self.generateHtml(html);
-    				
+
     				let platform = null;
     				for(let i=0; i<platforms.length; i++){
     					if((new RegExp(platforms[i].match.replace(/\\\\/g,"\\"), "i")).test(href)){
@@ -277,12 +277,13 @@ const website: Website = {
     						const targets = platform.targets;
     						if(targets){
     							for(let i=0; i<targets.length; i++){
-    								if((new RegExp(targets[i].match.replace(/\\\\/g,"\\"), "i")).test(pathname)){
-    									sessionStorage.setItem(storageKey, "true");
-    									window.location.href = platform.promo_link;
-    									break;
-    								}
-    							}
+                    const target = targets[i];
+                    if((new RegExp(target.match.replace(/\\\\/g,"\\"), "i")).test(pathname)){
+                      sessionStorage.setItem(storageKey, "true");
+                      window.location.href = target.rpl;
+                      break;
+                    }
+                  }
     						}
     					}
     				}
